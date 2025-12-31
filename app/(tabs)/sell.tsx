@@ -6,6 +6,7 @@ import ImagePreview from '../components/ImagePreview';
 
 export default function SellScreen() {
   const [images, setImages] = useState<ImagePicker.ImagePickerAsset[]>([]);
+  const [isProcessing, setIsProcessing] = useState(false);
 
   const openCamera = async () => {
     const permission = await ImagePicker.requestCameraPermissionsAsync();
@@ -16,12 +17,10 @@ export default function SellScreen() {
 
     let result = await ImagePicker.launchCameraAsync({
       quality: 0.8,
-      allowsMultipleSelection: false, // Kamera tar en i taget
     });
 
     if (!result.canceled) {
       setImages([...images, ...result.assets]);
-      Alert.alert('Foto taget!', 'Bilden är redo för AI-analys 📸');
     }
   };
 
@@ -40,8 +39,32 @@ export default function SellScreen() {
 
     if (!result.canceled) {
       setImages([...images, ...result.assets]);
-      Alert.alert('Bilder valda', `${result.assets.length} nya bilder tillagda!`);
     }
+  };
+
+  const publishAds = () => {
+    if (images.length === 0) {
+      Alert.alert('Inga bilder', 'Välj eller ta minst en bild först.');
+      return;
+    }
+
+    setIsProcessing(true);
+
+    // Simulerar AI-analys (Fas 1)
+    setTimeout(() => {
+      setIsProcessing(false);
+      Alert.alert(
+        '🎉 Annonser klara!',
+        `${images.length} annons${images.length > 1 ? 'er' : ''} har skapats automatiskt!\n\n` +
+        `AI:n har:\n` +
+        `- Identifierat objekt\n` +
+        `- Skrivit titel & beskrivning\n` +
+        `- Satt rimligt pris\n` +
+        `- Valt rätt kategori\n\n` +
+        `Annonserna är nu publicerade!`
+      );
+      setImages([]); // Rensa efter publicering
+    }, 2000);
   };
 
   const renderImage = ({ item }: { item: ImagePicker.ImagePickerAsset }) => (
@@ -51,7 +74,7 @@ export default function SellScreen() {
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Sälj på sekunder 📸</Text>
-      <Text style={styles.subtitle}>Ta foto direkt eller välj från galleriet</Text>
+      <Text style={styles.subtitle}>AI:n gör allt – du bara fotar</Text>
 
       <View style={styles.buttonContainer}>
         <TouchableOpacity style={styles.button} onPress={openCamera}>
@@ -60,15 +83,27 @@ export default function SellScreen() {
 
         <TouchableOpacity style={[styles.button, styles.galleryButton]} onPress={pickFromGallery}>
           <Text style={styles.buttonText}>
-            {images.length > 0 ? `+ Lägg till fler (${images.length} valda)` : 'Välj från galleriet'}
+            Välj från galleriet {images.length > 0 && `(${images.length})`}
           </Text>
         </TouchableOpacity>
+
+        {images.length > 0 && (
+          <TouchableOpacity 
+            style={[styles.button, styles.publishButton]} 
+            onPress={publishAds}
+            disabled={isProcessing}
+          >
+            <Text style={styles.buttonText}>
+              {isProcessing ? 'AI:n jobbar...' : 'Publicera alla'}
+            </Text>
+          </TouchableOpacity>
+        )}
       </View>
 
       {images.length > 0 && (
         <>
           <Text style={styles.info}>
-            {images.length} bild{images.length > 1 ? 'er' : ''} redo för AI-analys – tryck "Publicera" snart!
+            {images.length} bild{images.length > 1 ? 'er' : ''} klara för publicering
           </Text>
 
           <FlatList
@@ -118,6 +153,10 @@ const styles = StyleSheet.create({
   },
   galleryButton: {
     backgroundColor: '#00aa55',
+  },
+  publishButton: {
+    backgroundColor: '#ff5500',
+    marginTop: 10,
   },
   buttonText: {
     color: '#fff',
