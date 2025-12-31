@@ -1,15 +1,11 @@
-// app/(tabs)/profile.tsx
+// app/(tabs)/search.tsx
 import { View, Text, StyleSheet } from 'react-native';
 
-export default function ProfileScreen() {
+export default function SearchScreen() {
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Min profil 👤</Text>
-      <Text style={styles.subtitle}>Här visas BankID-verifiering och trust-score senare (Fas 5–6)</Text>
-      <Text style={styles.info}>
-        Antal affärer: 0{'\n'}
-        Trust-nivå: Ny användare
-      </Text>
+      <Text style={styles.title}>Sök annonser 🔍</Text>
+      <Text style={styles.subtitle}>Sök och filter kommer i Fas 3</Text>
     </View>
   );
 }
@@ -30,13 +26,6 @@ const styles = StyleSheet.create({
   subtitle: {
     fontSize: 18,
     color: '#555',
-    marginBottom: 30,
     textAlign: 'center',
-  },
-  info: {
-    fontSize: 16,
-    color: '#888',
-    textAlign: 'center',
-    lineHeight: 24,
   },
 });
