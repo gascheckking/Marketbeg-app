@@ -7,10 +7,28 @@ import ImagePreview from '../components/ImagePreview';
 export default function SellScreen() {
   const [images, setImages] = useState<ImagePicker.ImagePickerAsset[]>([]);
 
-  const pickImages = async () => {
+  const openCamera = async () => {
+    const permission = await ImagePicker.requestCameraPermissionsAsync();
+    if (!permission.granted) {
+      Alert.alert('Behörighet behövs', 'Tillåt kamera för att ta foto direkt.');
+      return;
+    }
+
+    let result = await ImagePicker.launchCameraAsync({
+      quality: 0.8,
+      allowsMultipleSelection: false, // Kamera tar en i taget
+    });
+
+    if (!result.canceled) {
+      setImages([...images, ...result.assets]);
+      Alert.alert('Foto taget!', 'Bilden är redo för AI-analys 📸');
+    }
+  };
+
+  const pickFromGallery = async () => {
     const permission = await ImagePicker.requestMediaLibraryPermissionsAsync();
     if (!permission.granted) {
-      Alert.alert('Behörighet behövs', 'Tillåt åtkomst till bilder för att sälja.');
+      Alert.alert('Behörighet behövs', 'Tillåt åtkomst till galleriet.');
       return;
     }
 
@@ -22,7 +40,7 @@ export default function SellScreen() {
 
     if (!result.canceled) {
       setImages([...images, ...result.assets]);
-      Alert.alert('Bilder tillagda', `${result.assets.length} nya bilder valda!`);
+      Alert.alert('Bilder valda', `${result.assets.length} nya bilder tillagda!`);
     }
   };
 
@@ -33,18 +51,24 @@ export default function SellScreen() {
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Sälj på sekunder 📸</Text>
-      <Text style={styles.subtitle}>Välj bilder från galleriet</Text>
+      <Text style={styles.subtitle}>Ta foto direkt eller välj från galleriet</Text>
 
-      <TouchableOpacity style={styles.button} onPress={pickImages}>
-        <Text style={styles.buttonText}>
-          {images.length > 0 ? `+ Lägg till fler (${images.length} valda)` : 'Välj bilder'}
-        </Text>
-      </TouchableOpacity>
+      <View style={styles.buttonContainer}>
+        <TouchableOpacity style={styles.button} onPress={openCamera}>
+          <Text style={styles.buttonText}>Ta foto med kamera</Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity style={[styles.button, styles.galleryButton]} onPress={pickFromGallery}>
+          <Text style={styles.buttonText}>
+            {images.length > 0 ? `+ Lägg till fler (${images.length} valda)` : 'Välj från galleriet'}
+          </Text>
+        </TouchableOpacity>
+      </View>
 
       {images.length > 0 && (
         <>
           <Text style={styles.info}>
-            {images.length} bild{images.length > 1 ? 'er' : ''} redo för AI-analys
+            {images.length} bild{images.length > 1 ? 'er' : ''} redo för AI-analys – tryck "Publicera" snart!
           </Text>
 
           <FlatList
@@ -53,6 +77,7 @@ export default function SellScreen() {
             keyExtractor={(item) => item.uri}
             numColumns: 3
             contentContainerStyle={styles.grid}
+            showsVerticalScrollIndicator={false}
           />
         </>
       )}
@@ -78,11 +103,21 @@ const styles = StyleSheet.create({
     color: '#555',
     marginBottom: 30,
   },
+  buttonContainer: {
+    width: '100%',
+    alignItems: 'center',
+  },
   button: {
     backgroundColor: '#0066ff',
     paddingVertical: 16,
+    paddingHorizontal: 32,
     borderRadius: 12,
     alignItems: 'center',
+    marginBottom: 16,
+    width: '100%',
+  },
+  galleryButton: {
+    backgroundColor: '#00aa55',
   },
   buttonText: {
     color: '#fff',
@@ -98,5 +133,6 @@ const styles = StyleSheet.create({
   },
   grid: {
     alignItems: 'center',
+    marginTop: 10,
   },
 });
