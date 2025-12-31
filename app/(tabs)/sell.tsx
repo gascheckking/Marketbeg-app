@@ -2,6 +2,7 @@
 import { View, Text, StyleSheet, TouchableOpacity, Alert, FlatList } from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
 import { useState } from 'react';
+import { router } from 'expo-router';
 import ImagePreview from '../components/ImagePreview';
 
 export default function SellScreen() {
@@ -11,7 +12,7 @@ export default function SellScreen() {
   const openCamera = async () => {
     const permission = await ImagePicker.requestCameraPermissionsAsync();
     if (!permission.granted) {
-      Alert.alert('Behörighet behövs', 'Tillåt kamera för att ta foto direkt.');
+      Alert.alert('Behörighet behövs', 'Tillåt kamera för att ta foto.');
       return;
     }
 
@@ -42,7 +43,7 @@ export default function SellScreen() {
     }
   };
 
-  const publishAds = () => {
+  const goToPreview = () => {
     if (images.length === 0) {
       Alert.alert('Inga bilder', 'Välj eller ta minst en bild först.');
       return;
@@ -50,21 +51,14 @@ export default function SellScreen() {
 
     setIsProcessing(true);
 
-    // Simulerar AI-analys (Fas 1)
     setTimeout(() => {
       setIsProcessing(false);
-      Alert.alert(
-        '🎉 Annonser klara!',
-        `${images.length} annons${images.length > 1 ? 'er' : ''} har skapats automatiskt!\n\n` +
-        `AI:n har:\n` +
-        `- Identifierat objekt\n` +
-        `- Skrivit titel & beskrivning\n` +
-        `- Satt rimligt pris\n` +
-        `- Valt rätt kategori\n\n` +
-        `Annonserna är nu publicerade!`
-      );
-      setImages([]); // Rensa efter publicering
-    }, 2000);
+      const imageUris = images.map(img => img.uri);
+      router.push({
+        pathname: '/upload/preview',
+        params: { images: JSON.stringify(imageUris) }
+      });
+    }, 1500);
   };
 
   const renderImage = ({ item }: { item: ImagePicker.ImagePickerAsset }) => (
@@ -90,11 +84,11 @@ export default function SellScreen() {
         {images.length > 0 && (
           <TouchableOpacity 
             style={[styles.button, styles.publishButton]} 
-            onPress={publishAds}
+            onPress={goToPreview}
             disabled={isProcessing}
           >
             <Text style={styles.buttonText}>
-              {isProcessing ? 'AI:n jobbar...' : 'Publicera alla'}
+              {isProcessing ? 'AI:n jobbar...' : 'Fortsätt till granskning'}
             </Text>
           </TouchableOpacity>
         )}
@@ -103,7 +97,7 @@ export default function SellScreen() {
       {images.length > 0 && (
         <>
           <Text style={styles.info}>
-            {images.length} bild{images.length > 1 ? 'er' : ''} klara för publicering
+            {images.length} bild{images.length > 1 ? 'er' : ''} klara
           </Text>
 
           <FlatList
@@ -145,7 +139,6 @@ const styles = StyleSheet.create({
   button: {
     backgroundColor: '#0066ff',
     paddingVertical: 16,
-    paddingHorizontal: 32,
     borderRadius: 12,
     alignItems: 'center',
     marginBottom: 16,
