@@ -104,7 +104,7 @@ export default function SellScreen() {
             data={images}
             renderItem={renderImage}
             keyExtractor={(item) => item.uri}
-            numColumns: 3
+            numColumns={3}
             contentContainerStyle={styles.grid}
             showsVerticalScrollIndicator={false}
           />
