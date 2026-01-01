@@ -39,7 +39,7 @@ export default function PreviewScreen() {
         data={imageUris}
         renderItem={renderImage}
         keyExtractor={(item) => item}
-        numColumns: 3
+        numColumns={3}
         contentContainerStyle={styles.grid}
         scrollEnabled={false}
       />
