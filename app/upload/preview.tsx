@@ -45,7 +45,7 @@ export default function PreviewScreen() {
       />
 
       {mockAds.map((ad) => (
-        <View key={ad.id} style={styles	adCard}>
+        <View key={ad.id} style={styles.adCard}>
           <Text style={styles.adTitle}>{ad.title}</Text>
           <Text style={styles.adCategory}>{ad.category}</Text>
           <Text style={styles.adDescription}>{ad.description}</Text>
