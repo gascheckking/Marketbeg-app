@@ -1,12 +1,11 @@
 import { Tabs } from 'expo-router';
-import { Platform, Text } from 'react-native';
-import { theme } from './theme';
+import { Platform, View, Text, StyleSheet } from 'react-native';
 
 let Icon: any;
 
 if (Platform.OS === 'web') {
-  Icon = ({ label, color }: { label: string; color: string }) => (
-    <Text style={{ fontSize: 16, color }}>{label}</Text>
+  Icon = ({ label }: { label: string }) => (
+    <Text style={{ fontSize: 18 }}>{label}</Text>
   );
 } else {
   const { Ionicons } = require('@expo/vector-icons');
@@ -15,64 +14,100 @@ if (Platform.OS === 'web') {
   );
 }
 
-export default function TabLayout() {
+function KarmaHeader() {
   return (
-    <Tabs
-      screenOptions={{
-        headerShown: false,
-        tabBarActiveTintColor: theme.colors.primary,
-        tabBarInactiveTintColor: theme.colors.muted,
-        tabBarStyle: {
-          backgroundColor: theme.colors.surface,
-          borderTopColor: theme.colors.border,
-          height: Platform.OS === 'ios' ? 78 : 60,
-        },
-        tabBarLabelStyle: {
-          fontSize: 11,
-          marginTop: -2,
-        },
-      }}
-    >
-      <Tabs.Screen
-        name="index"
-        options={{
-          title: 'Hem',
-          tabBarIcon: ({ color }) =>
-            Platform.OS === 'web'
-              ? <Icon label="🏠" color={color} />
-              : <Icon name="home-outline" size={22} color={color} />,
-        }}
-      />
-      <Tabs.Screen
-        name="(tabs)/sell"
-        options={{
-          title: 'Sälj',
-          tabBarIcon: ({ color }) =>
-            Platform.OS === 'web'
-              ? <Icon label="＋" color={color} />
-              : <Icon name="add-circle-outline" size={26} color={color} />,
-        }}
-      />
-      <Tabs.Screen
-        name="(tabs)/search"
-        options={{
-          title: 'Köp',
-          tabBarIcon: ({ color }) =>
-            Platform.OS === 'web'
-              ? <Icon label="🔍" color={color} />
-              : <Icon name="search-outline" size={22} color={color} />,
-        }}
-      />
-      <Tabs.Screen
-        name="(tabs)/profile"
-        options={{
-          title: 'Profil',
-          tabBarIcon: ({ color }) =>
-            Platform.OS === 'web'
-              ? <Icon label="👤" color={color} />
-              : <Icon name="person-outline" size={22} color={color} />,
-        }}
-      />
-    </Tabs>
+    <View style={styles.header}>
+      <Text style={styles.logo}>KARMA∞</Text>
+      <Text style={styles.tagline}>Prylar ut · Pengar in</Text>
+    </View>
   );
 }
+
+export default function RootLayout() {
+  return (
+    <View style={styles.root}>
+      <KarmaHeader />
+
+      <Tabs
+        screenOptions={{
+          headerShown: false,
+          tabBarShowLabel: true,
+          tabBarActiveTintColor: '#0bbf8a',
+          tabBarInactiveTintColor: '#777',
+          tabBarStyle: styles.tabBar,
+        }}
+      >
+        <Tabs.Screen
+          name="index"
+          options={{
+            title: 'Hem',
+            tabBarIcon: ({ color }) =>
+              Platform.OS === 'web'
+                ? <Icon label="🏠" />
+                : <Icon name="home-outline" size={24} color={color} />,
+          }}
+        />
+        <Tabs.Screen
+          name="(tabs)/sell"
+          options={{
+            title: 'Sälj',
+            tabBarIcon: ({ color }) =>
+              Platform.OS === 'web'
+                ? <Icon label="＋" />
+                : <Icon name="add-circle-outline" size={26} color={color} />,
+          }}
+        />
+        <Tabs.Screen
+          name="(tabs)/search"
+          options={{
+            title: 'Köp',
+            tabBarIcon: ({ color }) =>
+              Platform.OS === 'web'
+                ? <Icon label="🔍" />
+                : <Icon name="search-outline" size={24} color={color} />,
+          }}
+        />
+        <Tabs.Screen
+          name="(tabs)/profile"
+          options={{
+            title: 'Profil',
+            tabBarIcon: ({ color }) =>
+              Platform.OS === 'web'
+                ? <Icon label="👤" />
+                : <Icon name="person-outline" size={24} color={color} />,
+          }}
+        />
+      </Tabs>
+    </View>
+  );
+}
+
+const styles = StyleSheet.create({
+  root: {
+    flex: 1,
+    backgroundColor: '#0b0b0f',
+  },
+  header: {
+    paddingTop: Platform.OS === 'ios' ? 50 : 30,
+    paddingBottom: 16,
+    alignItems: 'center',
+    backgroundColor: '#0b0b0f',
+  },
+  logo: {
+    fontSize: 22,
+    fontWeight: '800',
+    color: '#ffffff',
+    letterSpacing: 1,
+  },
+  tagline: {
+    fontSize: 12,
+    color: '#0bbf8a',
+    marginTop: 4,
+  },
+  tabBar: {
+    backgroundColor: '#0b0b0f',
+    borderTopColor: '#1c1c22',
+    height: Platform.OS === 'ios' ? 90 : 64,
+    paddingBottom: Platform.OS === 'ios' ? 26 : 10,
+  },
+});
