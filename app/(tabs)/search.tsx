@@ -1,114 +1,117 @@
-import { View, Text, StyleSheet, FlatList, TouchableOpacity } from 'react-native';
+import { View, Text, StyleSheet, FlatList, TouchableOpacity, TextInput } from 'react-native';
 import { useState } from 'react';
 import { theme } from '../theme';
-import CategorySheet from '../components/CategorySheet';
 
-const DATA = Array.from({ length: 14 }).map((_, i) => ({
+const DATA = Array.from({ length: 20 }).map((_, i) => ({
   id: i.toString(),
   title: `Objekt ${i + 1}`,
-  price: `${(i + 1) * 350} kr`,
+  price: `${(i + 1) * 250} kr`,
+  match: Math.floor(Math.random() * 40) + 60, // match-score %
 }));
 
 export default function BuyScreen() {
-  const [category, setCategory] = useState('Alla');
-  const [open, setOpen] = useState(false);
+  const [query, setQuery] = useState('');
 
   return (
     <View style={styles.page}>
-      {/* FILTER BAR */}
-      <View style={styles.filterBar}>
-        <TouchableOpacity style={styles.filterChip} onPress={() => setOpen(true)}>
-          <Text style={styles.filterText}>Kategori: {category}</Text>
-        </TouchableOpacity>
+      {/* AI SEARCH BAR */}
+      <View style={styles.searchBar}>
+        <TextInput
+          placeholder="Sök med AI · text, röst eller bild"
+          placeholderTextColor={theme.colors.muted}
+          style={styles.input}
+          value={query}
+          onChangeText={setQuery}
+        />
+        <Text style={styles.ai}>AI</Text>
+      </View>
 
-        <TouchableOpacity style={styles.filterChip}>
-          <Text style={styles.filterText}>Pris</Text>
-        </TouchableOpacity>
-
-        <TouchableOpacity style={styles.filterChip}>
-          <Text style={styles.filterText}>Skick</Text>
-        </TouchableOpacity>
+      {/* FILTER CHIPS */}
+      <View style={styles.filters}>
+        {['Kategori', 'Pris', 'Skick'].map((f) => (
+          <TouchableOpacity key={f} style={styles.chip}>
+            <Text style={styles.chipText}>{f}</Text>
+          </TouchableOpacity>
+        ))}
       </View>
 
       {/* GRID */}
       <FlatList
         data={DATA}
         numColumns={2}
-        keyExtractor={(item) => item.id}
-        columnWrapperStyle={styles.row}
-        contentContainerStyle={styles.grid}
+        columnWrapperStyle={{ gap: 12 }}
+        contentContainerStyle={{ padding: 16 }}
         renderItem={({ item }) => (
           <View style={styles.card}>
             <View style={styles.image} />
-            <Text style={styles.title} numberOfLines={2}>
-              {item.title}
-            </Text>
+            <Text style={styles.title} numberOfLines={2}>{item.title}</Text>
             <Text style={styles.price}>{item.price}</Text>
+            <Text style={styles.match}>Match {item.match}%</Text>
           </View>
         )}
-      />
-
-      <CategorySheet
-        visible={open}
-        selected={category}
-        onSelect={setCategory}
-        onClose={() => setOpen(false)}
       />
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-  page: {
-    flex: 1,
-    backgroundColor: theme.colors.bg,
+  page: { flex: 1, backgroundColor: theme.colors.bg },
+  searchBar: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    margin: 16,
+    borderRadius: 14,
+    backgroundColor: theme.colors.card,
+    paddingHorizontal: 14,
   },
-  filterBar: {
+  input: {
+    flex: 1,
+    color: theme.colors.text,
+    paddingVertical: 12,
+  },
+  ai: {
+    color: theme.colors.primary,
+    fontWeight: '800',
+  },
+  filters: {
     flexDirection: 'row',
     gap: 10,
     paddingHorizontal: 16,
-    paddingVertical: 12,
-    borderBottomWidth: 1,
-    borderBottomColor: theme.colors.border,
+    marginBottom: 8,
   },
-  filterChip: {
-    backgroundColor: theme.colors.card,
-    borderRadius: 20,
-    paddingVertical: 8,
+  chip: {
+    backgroundColor: theme.colors.surface,
     paddingHorizontal: 14,
+    paddingVertical: 8,
+    borderRadius: 20,
   },
-  filterText: {
+  chipText: {
     color: theme.colors.text,
-    fontSize: 14,
     fontWeight: '600',
-  },
-  grid: {
-    padding: 16,
-  },
-  row: {
-    gap: 12,
   },
   card: {
     flex: 1,
     backgroundColor: theme.colors.card,
-    borderRadius: theme.radius.md,
+    borderRadius: 16,
     padding: 12,
     marginBottom: 12,
   },
   image: {
     height: 120,
-    borderRadius: 12,
     backgroundColor: '#222',
+    borderRadius: 12,
     marginBottom: 10,
   },
-  title: {
-    color: theme.colors.text,
-    fontSize: 14,
-    marginBottom: 6,
-  },
+  title: { color: theme.colors.text, fontSize: 14 },
   price: {
     color: theme.colors.primary,
     fontSize: 16,
     fontWeight: '800',
+    marginTop: 4,
+  },
+  match: {
+    color: theme.colors.muted,
+    fontSize: 12,
+    marginTop: 2,
   },
 });
