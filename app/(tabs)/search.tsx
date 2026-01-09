@@ -1,25 +1,41 @@
-import { View, Text, StyleSheet, FlatList } from 'react-native';
+import { View, Text, StyleSheet, FlatList, TouchableOpacity } from 'react-native';
 import { theme } from '../theme';
 
-const DATA = Array.from({ length: 12 }).map((_, i) => ({
+const DATA = Array.from({ length: 14 }).map((_, i) => ({
   id: i.toString(),
   title: `Objekt ${i + 1}`,
-  price: `${(i + 1) * 250} kr`,
+  price: `${(i + 1) * 350} kr`,
 }));
 
 export default function BuyScreen() {
   return (
     <View style={styles.page}>
+      {/* TOP FILTER BAR (öppnar rullgardiner nästa steg) */}
+      <View style={styles.filterBar}>
+        <TouchableOpacity style={styles.filterChip}>
+          <Text style={styles.filterText}>Kategori</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.filterChip}>
+          <Text style={styles.filterText}>Pris</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.filterChip}>
+          <Text style={styles.filterText}>Skick</Text>
+        </TouchableOpacity>
+      </View>
+
+      {/* GRID */}
       <FlatList
         data={DATA}
         numColumns={2}
-        keyExtractor={(i) => i.id}
-        columnWrapperStyle={{ gap: 12 }}
-        contentContainerStyle={{ padding: 16 }}
+        keyExtractor={(item) => item.id}
+        columnWrapperStyle={styles.row}
+        contentContainerStyle={styles.grid}
         renderItem={({ item }) => (
           <View style={styles.card}>
-            <View style={styles.imagePlaceholder} />
-            <Text style={styles.title}>{item.title}</Text>
+            <View style={styles.image} />
+            <Text style={styles.title} numberOfLines={2}>
+              {item.title}
+            </Text>
             <Text style={styles.price}>{item.price}</Text>
           </View>
         )}
@@ -33,6 +49,35 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: theme.colors.bg,
   },
+
+  /* FILTER BAR */
+  filterBar: {
+    flexDirection: 'row',
+    gap: 10,
+    paddingHorizontal: 16,
+    paddingVertical: 12,
+    borderBottomWidth: 1,
+    borderBottomColor: theme.colors.border,
+  },
+  filterChip: {
+    backgroundColor: theme.colors.card,
+    borderRadius: 20,
+    paddingVertical: 8,
+    paddingHorizontal: 14,
+  },
+  filterText: {
+    color: theme.colors.text,
+    fontSize: 14,
+    fontWeight: '600',
+  },
+
+  /* GRID */
+  grid: {
+    padding: 16,
+  },
+  row: {
+    gap: 12,
+  },
   card: {
     flex: 1,
     backgroundColor: theme.colors.card,
@@ -40,7 +85,7 @@ const styles = StyleSheet.create({
     padding: 12,
     marginBottom: 12,
   },
-  imagePlaceholder: {
+  image: {
     height: 120,
     borderRadius: 12,
     backgroundColor: '#222',
@@ -49,11 +94,11 @@ const styles = StyleSheet.create({
   title: {
     color: theme.colors.text,
     fontSize: 14,
-    marginBottom: 4,
+    marginBottom: 6,
   },
   price: {
     color: theme.colors.primary,
     fontSize: 16,
-    fontWeight: '700',
+    fontWeight: '800',
   },
 });
