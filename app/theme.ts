@@ -1,22 +1,23 @@
 export const theme = {
   colors: {
     bg: '#0b0b0f',
-    card: '#14141a',
-    border: '#1f1f26',
+    surface: '#121218',
+    card: '#16161d',
+    border: '#1f1f29',
     text: '#ffffff',
-    muted: '#9a9aa3',
+    muted: '#9aa0aa',
     primary: '#0bbf8a',
-    danger: '#ff5a3c',
-  },
-  radius: {
-    sm: 10,
-    md: 16,
-    lg: 22,
+    danger: '#ff4d4f',
   },
   spacing: {
     xs: 6,
-    sm: 12,
-    md: 20,
-    lg: 28,
+    sm: 10,
+    md: 16,
+    lg: 24,
+  },
+  radius: {
+    sm: 10,
+    md: 14,
+    lg: 20,
   },
 };
