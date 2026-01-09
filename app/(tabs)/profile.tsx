@@ -1,22 +1,23 @@
-// app/(tabs)/profile.tsx
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet, ScrollView } from 'react-native';
 
 export default function ProfileScreen() {
   return (
-    <View style={styles.container}>
+    <ScrollView contentContainerStyle={styles.container}>
       <Text style={styles.title}>Min profil 👤</Text>
-      <Text style={styles.subtitle}>BankID och trust-score kommer i Fas 5–6</Text>
+      <Text style={styles.subtitle}>
+        BankID och trust-score kommer i Fas 5–6
+      </Text>
       <Text style={styles.info}>
         Antal affärer: 0{'\n'}
         Trust-nivå: Ny användare
       </Text>
-    </View>
+    </ScrollView>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    flexGrow: 1,
     justifyContent: 'center',
     alignItems: 'center',
     padding: 20,
