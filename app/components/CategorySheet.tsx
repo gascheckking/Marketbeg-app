@@ -1,40 +1,48 @@
-import { View, Text, StyleSheet, TouchableOpacity, Modal, ScrollView } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, Modal } from 'react-native';
 import { theme } from '../theme';
 
 const CATEGORIES = [
-  'Elektronik',
-  'Möbler',
-  'Kläder',
-  'Antikt & Design',
-  'Hem & Hushåll',
-  'Sport & Fritid',
-  'Övrigt',
+  { id: 'electronics', label: 'Elektronik', icon: '📱' },
+  { id: 'fashion', label: 'Kläder', icon: '👕' },
+  { id: 'furniture', label: 'Möbler', icon: '🪑' },
+  { id: 'sports', label: 'Sport', icon: '🏃‍♂️' },
+  { id: 'kids', label: 'Barn', icon: '🧸' },
+  { id: 'other', label: 'Övrigt', icon: '✨' },
 ];
 
-export default function CategorySheet({ visible, onClose, onSelect }: any) {
+export function CategorySheet({
+  visible,
+  onClose,
+  onSelect,
+}: {
+  visible: boolean;
+  onClose: () => void;
+  onSelect: (id: string) => void;
+}) {
   return (
-    <Modal transparent animationType="slide" visible={visible}>
+    <Modal animationType="slide" transparent visible={visible}>
       <View style={styles.overlay}>
         <View style={styles.sheet}>
           <Text style={styles.title}>Välj kategori</Text>
 
-          <ScrollView>
+          <View style={styles.grid}>
             {CATEGORIES.map((cat) => (
               <TouchableOpacity
-                key={cat}
-                style={styles.row}
+                key={cat.id}
+                style={styles.card}
                 onPress={() => {
-                  onSelect(cat);
+                  onSelect(cat.id);
                   onClose();
                 }}
               >
-                <Text style={styles.text}>{cat}</Text>
+                <Text style={styles.icon}>{cat.icon}</Text>
+                <Text style={styles.label}>{cat.label}</Text>
               </TouchableOpacity>
             ))}
-          </ScrollView>
+          </View>
 
           <TouchableOpacity onPress={onClose}>
-            <Text style={styles.close}>Avbryt</Text>
+            <Text style={styles.cancel}>Avbryt</Text>
           </TouchableOpacity>
         </View>
       </View>
@@ -45,34 +53,46 @@ export default function CategorySheet({ visible, onClose, onSelect }: any) {
 const styles = StyleSheet.create({
   overlay: {
     flex: 1,
+    backgroundColor: 'rgba(0,0,0,0.35)',
     justifyContent: 'flex-end',
-    backgroundColor: 'rgba(0,0,0,0.6)',
   },
   sheet: {
-    backgroundColor: theme.colors.card,
-    borderTopLeftRadius: theme.radius.lg,
-    borderTopRightRadius: theme.radius.lg,
-    padding: theme.spacing.md,
-    maxHeight: '70%',
+    backgroundColor: theme.colors.bg,
+    borderTopLeftRadius: 28,
+    borderTopRightRadius: 28,
+    padding: theme.spacing.lg,
   },
   title: {
-    fontSize: 18,
+    fontSize: 22,
+    fontWeight: '800',
+    color: theme.colors.text,
+    marginBottom: 20,
+  },
+  grid: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    gap: 12,
+  },
+  card: {
+    width: '48%',
+    backgroundColor: theme.colors.surface,
+    borderRadius: 20,
+    paddingVertical: 22,
+    alignItems: 'center',
+  },
+  icon: {
+    fontSize: 28,
+    marginBottom: 8,
+  },
+  label: {
+    fontSize: 16,
     fontWeight: '700',
     color: theme.colors.text,
-    marginBottom: theme.spacing.sm,
   },
-  row: {
-    paddingVertical: theme.spacing.sm,
-    borderBottomWidth: 1,
-    borderBottomColor: theme.colors.border,
-  },
-  text: {
-    color: theme.colors.text,
-    fontSize: 16,
-  },
-  close: {
+  cancel: {
     textAlign: 'center',
+    marginTop: 20,
     color: theme.colors.muted,
-    marginTop: theme.spacing.md,
+    fontSize: 16,
   },
 });
