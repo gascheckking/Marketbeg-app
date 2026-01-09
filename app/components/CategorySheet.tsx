@@ -1,48 +1,65 @@
-import { View, Text, StyleSheet, TouchableOpacity, Modal } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, Modal, ScrollView } from 'react-native';
 import { theme } from '../theme';
 
 const CATEGORIES = [
-  { id: 'electronics', label: 'Elektronik', icon: '📱' },
-  { id: 'fashion', label: 'Kläder', icon: '👕' },
-  { id: 'furniture', label: 'Möbler', icon: '🪑' },
-  { id: 'sports', label: 'Sport', icon: '🏃‍♂️' },
-  { id: 'kids', label: 'Barn', icon: '🧸' },
-  { id: 'other', label: 'Övrigt', icon: '✨' },
+  'Alla',
+  'Elektronik',
+  'Möbler',
+  'Kläder',
+  'Skor',
+  'Sport & Fritid',
+  'Barn',
+  'Hem & Hushåll',
+  'Samlarobjekt',
+  'Övrigt',
 ];
 
-export function CategorySheet({
+export default function CategorySheet({
   visible,
   onClose,
   onSelect,
+  selected,
 }: {
   visible: boolean;
   onClose: () => void;
-  onSelect: (id: string) => void;
+  onSelect: (cat: string) => void;
+  selected: string;
 }) {
   return (
-    <Modal animationType="slide" transparent visible={visible}>
+    <Modal visible={visible} animationType="slide" transparent>
       <View style={styles.overlay}>
         <View style={styles.sheet}>
-          <Text style={styles.title}>Välj kategori</Text>
+          <View style={styles.handle} />
 
-          <View style={styles.grid}>
+          <Text style={styles.title}>Kategori</Text>
+
+          <ScrollView>
             {CATEGORIES.map((cat) => (
               <TouchableOpacity
-                key={cat.id}
-                style={styles.card}
+                key={cat}
+                style={[
+                  styles.item,
+                  selected === cat && styles.activeItem,
+                ]}
                 onPress={() => {
-                  onSelect(cat.id);
+                  onSelect(cat);
                   onClose();
                 }}
               >
-                <Text style={styles.icon}>{cat.icon}</Text>
-                <Text style={styles.label}>{cat.label}</Text>
+                <Text
+                  style={[
+                    styles.itemText,
+                    selected === cat && styles.activeText,
+                  ]}
+                >
+                  {cat}
+                </Text>
               </TouchableOpacity>
             ))}
-          </View>
+          </ScrollView>
 
-          <TouchableOpacity onPress={onClose}>
-            <Text style={styles.cancel}>Avbryt</Text>
+          <TouchableOpacity style={styles.closeBtn} onPress={onClose}>
+            <Text style={styles.closeText}>Stäng</Text>
           </TouchableOpacity>
         </View>
       </View>
@@ -53,45 +70,54 @@ export function CategorySheet({
 const styles = StyleSheet.create({
   overlay: {
     flex: 1,
-    backgroundColor: 'rgba(0,0,0,0.35)',
+    backgroundColor: 'rgba(0,0,0,0.6)',
     justifyContent: 'flex-end',
   },
   sheet: {
     backgroundColor: theme.colors.bg,
-    borderTopLeftRadius: 28,
-    borderTopRightRadius: 28,
-    padding: theme.spacing.lg,
+    borderTopLeftRadius: 20,
+    borderTopRightRadius: 20,
+    padding: 16,
+    maxHeight: '80%',
+  },
+  handle: {
+    width: 40,
+    height: 4,
+    backgroundColor: '#333',
+    borderRadius: 4,
+    alignSelf: 'center',
+    marginBottom: 12,
   },
   title: {
-    fontSize: 22,
-    fontWeight: '800',
     color: theme.colors.text,
-    marginBottom: 20,
+    fontSize: 20,
+    fontWeight: '800',
+    marginBottom: 12,
   },
-  grid: {
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    gap: 12,
+  item: {
+    paddingVertical: 14,
+    borderBottomWidth: 1,
+    borderBottomColor: theme.colors.border,
   },
-  card: {
-    width: '48%',
-    backgroundColor: theme.colors.surface,
-    borderRadius: 20,
-    paddingVertical: 22,
+  activeItem: {
+    backgroundColor: '#111',
+    borderRadius: 10,
+    paddingHorizontal: 10,
+  },
+  itemText: {
+    color: theme.colors.text,
+    fontSize: 16,
+  },
+  activeText: {
+    color: theme.colors.primary,
+    fontWeight: '800',
+  },
+  closeBtn: {
+    marginTop: 12,
+    padding: 14,
     alignItems: 'center',
   },
-  icon: {
-    fontSize: 28,
-    marginBottom: 8,
-  },
-  label: {
-    fontSize: 16,
-    fontWeight: '700',
-    color: theme.colors.text,
-  },
-  cancel: {
-    textAlign: 'center',
-    marginTop: 20,
+  closeText: {
     color: theme.colors.muted,
     fontSize: 16,
   },
