@@ -1,4 +1,3 @@
-// app/(tabs)/sell.tsx
 import { View, Text, StyleSheet, TouchableOpacity, Alert, FlatList } from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
 import { useState } from 'react';
