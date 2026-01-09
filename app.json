@@ -5,12 +5,8 @@
     "version": "1.0.0",
     "orientation": "portrait",
     "userInterfaceStyle": "light",
-    "splash": {
-      "backgroundColor": "#ffffff"
-    },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
+    "assetBundlePatterns": ["**/*"],
+    "scheme": "marketbeg",
     "ios": {
       "supportsTablet": true
     },
@@ -19,9 +15,6 @@
       "bundler": "metro",
       "output": "static"
     },
-    "scheme": "marketbeg",
-    "plugins": [
-      "expo-router"
-    ]
+    "plugins": ["expo-router"]
   }
 }
