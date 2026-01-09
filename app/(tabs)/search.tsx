@@ -1,5 +1,7 @@
 import { View, Text, StyleSheet, FlatList, TouchableOpacity } from 'react-native';
+import { useState } from 'react';
 import { theme } from '../theme';
+import CategorySheet from '../components/CategorySheet';
 
 const DATA = Array.from({ length: 14 }).map((_, i) => ({
   id: i.toString(),
@@ -8,15 +10,24 @@ const DATA = Array.from({ length: 14 }).map((_, i) => ({
 }));
 
 export default function BuyScreen() {
+  const [category, setCategory] = useState('Alla');
+  const [open, setOpen] = useState(false);
+
   return (
     <View style={styles.page}>
       {/* FILTER BAR */}
       <View style={styles.filterBar}>
-        {['Kategori', 'Pris', 'Skick'].map((label) => (
-          <TouchableOpacity key={label} style={styles.filterChip}>
-            <Text style={styles.filterText}>{label}</Text>
-          </TouchableOpacity>
-        ))}
+        <TouchableOpacity style={styles.filterChip} onPress={() => setOpen(true)}>
+          <Text style={styles.filterText}>Kategori: {category}</Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity style={styles.filterChip}>
+          <Text style={styles.filterText}>Pris</Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity style={styles.filterChip}>
+          <Text style={styles.filterText}>Skick</Text>
+        </TouchableOpacity>
       </View>
 
       {/* GRID */}
@@ -36,6 +47,13 @@ export default function BuyScreen() {
           </View>
         )}
       />
+
+      <CategorySheet
+        visible={open}
+        selected={category}
+        onSelect={setCategory}
+        onClose={() => setOpen(false)}
+      />
     </View>
   );
 }
@@ -45,7 +63,6 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: theme.colors.bg,
   },
-
   filterBar: {
     flexDirection: 'row',
     gap: 10,
@@ -65,7 +82,6 @@ const styles = StyleSheet.create({
     fontSize: 14,
     fontWeight: '600',
   },
-
   grid: {
     padding: 16,
   },
