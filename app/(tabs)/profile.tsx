@@ -1,43 +1,57 @@
-import { View, Text, StyleSheet, ScrollView } from 'react-native';
+import { View, Text, StyleSheet } from 'react-native';
+import { theme } from '../theme';
 
 export default function ProfileScreen() {
   return (
-    <ScrollView contentContainerStyle={styles.container}>
-      <Text style={styles.title}>Min profil 👤</Text>
+    <View style={styles.container}>
+      <Text style={styles.title}>Min profil</Text>
       <Text style={styles.subtitle}>
-        BankID och trust-score kommer i Fas 5–6
+        BankID & trust-score i kommande faser
       </Text>
-      <Text style={styles.info}>
-        Antal affärer: 0{'\n'}
-        Trust-nivå: Ny användare
-      </Text>
-    </ScrollView>
+
+      <View style={styles.card}>
+        <Text style={styles.label}>Affärer</Text>
+        <Text style={styles.value}>0</Text>
+      </View>
+
+      <View style={styles.card}>
+        <Text style={styles.label}>Trust-nivå</Text>
+        <Text style={styles.value}>Ny användare</Text>
+      </View>
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
-    flexGrow: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    padding: 20,
-    backgroundColor: '#fff',
+    flex: 1,
+    backgroundColor: theme.colors.bg,
+    padding: theme.spacing.lg,
   },
   title: {
-    fontSize: 26,
-    fontWeight: 'bold',
-    marginBottom: 12,
+    fontSize: 28,
+    fontWeight: '800',
+    color: theme.colors.text,
+    marginBottom: 8,
   },
   subtitle: {
-    fontSize: 18,
-    color: '#555',
-    marginBottom: 30,
-    textAlign: 'center',
+    color: theme.colors.muted,
+    marginBottom: 24,
   },
-  info: {
-    fontSize: 16,
-    color: '#888',
-    textAlign: 'center',
-    lineHeight: 24,
+  card: {
+    backgroundColor: theme.colors.surface,
+    borderRadius: theme.radius.md,
+    padding: theme.spacing.md,
+    marginBottom: 12,
+  },
+  label: {
+    color: theme.colors.muted,
+    fontSize: 13,
+  },
+  value: {
+    color: theme.colors.text,
+    fontSize: 18,
+    fontWeight: '700',
+    marginTop: 4,
   },
 });
