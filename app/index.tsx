@@ -1,13 +1,19 @@
 import { View, Text, StyleSheet } from 'react-native';
+import { theme } from './theme';
 
 export default function HomeScreen() {
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Välkommen till Marketbeg 📸</Text>
-      <Text style={styles.subtitle}>Ett foto in – färdig annons ut</Text>
-      <Text style={styles.description}>
-        Sälj eller köp på sekunder. AI:n gör allt jobb åt dig.
+      <Text style={styles.eyebrow}>KARMA</Text>
+      <Text style={styles.title}>Sälj snabbt.</Text>
+      <Text style={styles.subtitle}>
+        AI matchar dig direkt mot redo köpare.
       </Text>
+
+      <View style={styles.card}>
+        <Text style={styles.cardTitle}>Starta snabbförsäljning</Text>
+        <Text style={styles.cardMeta}>Foto → annons → match</Text>
+      </View>
     </View>
   );
 }
@@ -15,28 +21,38 @@ export default function HomeScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    padding: 20,
-    backgroundColor: '#fff',
+    backgroundColor: theme.colors.bg,
+    padding: theme.spacing.lg,
+  },
+  eyebrow: {
+    color: theme.colors.primary,
+    fontWeight: '700',
+    letterSpacing: 1,
+    marginBottom: 12,
   },
   title: {
-    fontSize: 28,
-    fontWeight: 'bold',
-    textAlign: 'center',
-    marginBottom: 16,
+    fontSize: 36,
+    fontWeight: '800',
+    color: theme.colors.text,
+    marginBottom: 8,
   },
   subtitle: {
-    fontSize: 20,
-    fontWeight: '600',
-    textAlign: 'center',
-    marginBottom: 24,
-    color: '#0066ff',
-  },
-  description: {
     fontSize: 16,
-    textAlign: 'center',
-    color: '#555',
-    lineHeight: 24,
+    color: theme.colors.muted,
+    marginBottom: 32,
+  },
+  card: {
+    backgroundColor: theme.colors.surface,
+    borderRadius: theme.radius.lg,
+    padding: theme.spacing.lg,
+  },
+  cardTitle: {
+    color: theme.colors.text,
+    fontSize: 18,
+    fontWeight: '700',
+  },
+  cardMeta: {
+    color: theme.colors.muted,
+    marginTop: 6,
   },
 });
