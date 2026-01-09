@@ -1,4 +1,3 @@
-// app/components/ImagePreview.tsx
 import { View, Image, StyleSheet, Dimensions } from 'react-native';
 
 const { width } = Dimensions.get('window');
