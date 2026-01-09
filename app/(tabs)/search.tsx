@@ -10,17 +10,13 @@ const DATA = Array.from({ length: 14 }).map((_, i) => ({
 export default function BuyScreen() {
   return (
     <View style={styles.page}>
-      {/* TOP FILTER BAR (öppnar rullgardiner nästa steg) */}
+      {/* FILTER BAR */}
       <View style={styles.filterBar}>
-        <TouchableOpacity style={styles.filterChip}>
-          <Text style={styles.filterText}>Kategori</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.filterChip}>
-          <Text style={styles.filterText}>Pris</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.filterChip}>
-          <Text style={styles.filterText}>Skick</Text>
-        </TouchableOpacity>
+        {['Kategori', 'Pris', 'Skick'].map((label) => (
+          <TouchableOpacity key={label} style={styles.filterChip}>
+            <Text style={styles.filterText}>{label}</Text>
+          </TouchableOpacity>
+        ))}
       </View>
 
       {/* GRID */}
@@ -50,7 +46,6 @@ const styles = StyleSheet.create({
     backgroundColor: theme.colors.bg,
   },
 
-  /* FILTER BAR */
   filterBar: {
     flexDirection: 'row',
     gap: 10,
@@ -71,7 +66,6 @@ const styles = StyleSheet.create({
     fontWeight: '600',
   },
 
-  /* GRID */
   grid: {
     padding: 16,
   },
