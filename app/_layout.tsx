@@ -1,5 +1,5 @@
 import { Tabs } from 'expo-router';
-import { Platform, View, Text, StyleSheet } from 'react-native';
+import { Platform, Text, View, StyleSheet } from 'react-native';
 
 let Icon: any;
 
@@ -25,78 +25,75 @@ function KarmaHeader() {
 
 export default function RootLayout() {
   return (
-    <View style={styles.root}>
-      <KarmaHeader />
-
-      <Tabs
-        screenOptions={{
-          headerShown: false,
-          tabBarShowLabel: true,
-          tabBarActiveTintColor: '#0bbf8a',
-          tabBarInactiveTintColor: '#777',
-          tabBarStyle: styles.tabBar,
+    <Tabs
+      screenOptions={{
+        header: () => <KarmaHeader />,
+        tabBarActiveTintColor: '#0bbf8a',
+        tabBarInactiveTintColor: '#777',
+        tabBarStyle: styles.tabBar,
+        tabBarLabelStyle: { fontSize: 12 },
+      }}
+    >
+      <Tabs.Screen
+        name="index"
+        options={{
+          title: 'Hem',
+          tabBarIcon: ({ color }) =>
+            Platform.OS === 'web'
+              ? <Icon label="🏠" />
+              : <Icon name="home-outline" size={24} color={color} />,
         }}
-      >
-        <Tabs.Screen
-          name="index"
-          options={{
-            title: 'Hem',
-            tabBarIcon: ({ color }) =>
-              Platform.OS === 'web'
-                ? <Icon label="🏠" />
-                : <Icon name="home-outline" size={24} color={color} />,
-          }}
-        />
-        <Tabs.Screen
-          name="(tabs)/sell"
-          options={{
-            title: 'Sälj',
-            tabBarIcon: ({ color }) =>
-              Platform.OS === 'web'
-                ? <Icon label="＋" />
-                : <Icon name="add-circle-outline" size={26} color={color} />,
-          }}
-        />
-        <Tabs.Screen
-          name="(tabs)/search"
-          options={{
-            title: 'Köp',
-            tabBarIcon: ({ color }) =>
-              Platform.OS === 'web'
-                ? <Icon label="🔍" />
-                : <Icon name="search-outline" size={24} color={color} />,
-          }}
-        />
-        <Tabs.Screen
-          name="(tabs)/profile"
-          options={{
-            title: 'Profil',
-            tabBarIcon: ({ color }) =>
-              Platform.OS === 'web'
-                ? <Icon label="👤" />
-                : <Icon name="person-outline" size={24} color={color} />,
-          }}
-        />
-      </Tabs>
-    </View>
+      />
+
+      <Tabs.Screen
+        name="(tabs)/sell"
+        options={{
+          title: 'Sälj',
+          tabBarIcon: ({ color }) =>
+            Platform.OS === 'web'
+              ? <Icon label="＋" />
+              : <Icon name="add-circle-outline" size={28} color={color} />,
+        }}
+      />
+
+      <Tabs.Screen
+        name="(tabs)/search"
+        options={{
+          title: 'Köp',
+          tabBarIcon: ({ color }) =>
+            Platform.OS === 'web'
+              ? <Icon label="🔍" />
+              : <Icon name="search-outline" size={24} color={color} />,
+        }}
+      />
+
+      <Tabs.Screen
+        name="(tabs)/profile"
+        options={{
+          title: 'Profil',
+          tabBarIcon: ({ color }) =>
+            Platform.OS === 'web'
+              ? <Icon label="👤" />
+              : <Icon name="person-outline" size={24} color={color} />,
+        }}
+      />
+    </Tabs>
   );
 }
 
 const styles = StyleSheet.create({
-  root: {
-    flex: 1,
-    backgroundColor: '#0b0b0f',
-  },
   header: {
-    paddingTop: Platform.OS === 'ios' ? 50 : 30,
-    paddingBottom: 16,
+    paddingTop: Platform.OS === 'ios' ? 54 : 32,
+    paddingBottom: 14,
     alignItems: 'center',
     backgroundColor: '#0b0b0f',
+    borderBottomWidth: 1,
+    borderBottomColor: '#1c1c22',
   },
   logo: {
     fontSize: 22,
     fontWeight: '800',
-    color: '#ffffff',
+    color: '#fff',
     letterSpacing: 1,
   },
   tagline: {
@@ -107,7 +104,7 @@ const styles = StyleSheet.create({
   tabBar: {
     backgroundColor: '#0b0b0f',
     borderTopColor: '#1c1c22',
-    height: Platform.OS === 'ios' ? 90 : 64,
-    paddingBottom: Platform.OS === 'ios' ? 26 : 10,
+    height: Platform.OS === 'ios' ? 88 : 64,
+    paddingBottom: Platform.OS === 'ios' ? 24 : 10,
   },
 });
