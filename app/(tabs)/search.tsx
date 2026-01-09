@@ -1,51 +1,59 @@
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet, FlatList } from 'react-native';
 import { theme } from '../theme';
 
-export default function SearchScreen() {
-  return (
-    <View style={styles.container}>
-      <Text style={styles.title}>Köp</Text>
-      <Text style={styles.subtitle}>
-        Filtrera via rullgardiner (kommer härnäst)
-      </Text>
+const DATA = Array.from({ length: 12 }).map((_, i) => ({
+  id: i.toString(),
+  title: `Objekt ${i + 1}`,
+  price: `${(i + 1) * 250} kr`,
+}));
 
-      <View style={styles.fakeCard}>
-        <Text style={styles.fakeText}>Kategori</Text>
-      </View>
-      <View style={styles.fakeCard}>
-        <Text style={styles.fakeText}>Pris</Text>
-      </View>
-      <View style={styles.fakeCard}>
-        <Text style={styles.fakeText}>Skick</Text>
-      </View>
+export default function BuyScreen() {
+  return (
+    <View style={styles.page}>
+      <FlatList
+        data={DATA}
+        numColumns={2}
+        keyExtractor={(i) => i.id}
+        columnWrapperStyle={{ gap: 12 }}
+        contentContainerStyle={{ padding: 16 }}
+        renderItem={({ item }) => (
+          <View style={styles.card}>
+            <View style={styles.imagePlaceholder} />
+            <Text style={styles.title}>{item.title}</Text>
+            <Text style={styles.price}>{item.price}</Text>
+          </View>
+        )}
+      />
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
+  page: {
     flex: 1,
     backgroundColor: theme.colors.bg,
-    padding: theme.spacing.md,
   },
-  title: {
-    fontSize: 28,
-    fontWeight: '800',
-    color: theme.colors.text,
-    marginBottom: 8,
-  },
-  subtitle: {
-    color: theme.colors.muted,
-    marginBottom: 24,
-  },
-  fakeCard: {
-    backgroundColor: theme.colors.surface,
+  card: {
+    flex: 1,
+    backgroundColor: theme.colors.card,
     borderRadius: theme.radius.md,
-    padding: theme.spacing.md,
+    padding: 12,
     marginBottom: 12,
   },
-  fakeText: {
+  imagePlaceholder: {
+    height: 120,
+    borderRadius: 12,
+    backgroundColor: '#222',
+    marginBottom: 10,
+  },
+  title: {
     color: theme.colors.text,
-    fontWeight: '600',
+    fontSize: 14,
+    marginBottom: 4,
+  },
+  price: {
+    color: theme.colors.primary,
+    fontSize: 16,
+    fontWeight: '700',
   },
 });
