@@ -1,4 +1,3 @@
-// app/upload/preview.tsx
 import { View, Text, StyleSheet, ScrollView, TouchableOpacity, Alert, FlatList } from 'react-native';
 import { useLocalSearchParams, useRouter } from 'expo-router';
 import ImagePreview from '../components/ImagePreview';
