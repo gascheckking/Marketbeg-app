@@ -1,6 +1,6 @@
 // ─────────────────────────────────────────────
 // app/_layout.tsx
-// Root Layout – KARMA shell
+// Root Layout – KARMA shell (single source)
 // ─────────────────────────────────────────────
 
 import { Tabs } from 'expo-router';
@@ -25,7 +25,7 @@ export default function RootLayout() {
         screenOptions={{
           headerShown: false,
           tabBarActiveTintColor: '#0bbf8a',
-          tabBarInactiveTintColor: '#777',
+          tabBarInactiveTintColor: '#666',
           tabBarStyle: styles.tabBar,
           tabBarLabelStyle: styles.tabLabel,
         }}
@@ -54,8 +54,8 @@ export default function RootLayout() {
           name="(tabs)/sell"
           options={{
             title: 'Sälj',
-            tabBarIcon: ({ color, size }) => (
-              <Ionicons name="add-circle" size={size ?? 28} color={color} />
+            tabBarIcon: ({ color }) => (
+              <Ionicons name="add-circle" size={30} color={color} />
             ),
           }}
         />
@@ -80,32 +80,32 @@ const styles = StyleSheet.create({
     backgroundColor: '#0b0b0f',
   },
   header: {
-    paddingTop: Platform.OS === 'ios' ? 54 : 28,
-    paddingBottom: 14,
+    paddingTop: Platform.OS === 'ios' ? 50 : 26,
+    paddingBottom: 10,
     alignItems: 'center',
     backgroundColor: '#0b0b0f',
     borderBottomWidth: 1,
     borderBottomColor: '#1c1c22',
   },
   logo: {
-    fontSize: 22,
+    fontSize: 20,
     fontWeight: '900',
-    color: '#ffffff',
+    color: '#fff',
     letterSpacing: 1,
   },
   tagline: {
-    fontSize: 12,
+    fontSize: 11,
     color: '#0bbf8a',
     marginTop: 2,
   },
   tabBar: {
     backgroundColor: '#0b0b0f',
     borderTopColor: '#1c1c22',
-    height: Platform.OS === 'ios' ? 86 : 64,
-    paddingBottom: Platform.OS === 'ios' ? 22 : 10,
+    height: Platform.OS === 'ios' ? 82 : 60,
+    paddingBottom: Platform.OS === 'ios' ? 18 : 8,
   },
   tabLabel: {
-    fontSize: 11,
+    fontSize: 10,
     fontWeight: '600',
   },
 });
