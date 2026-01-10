@@ -1,6 +1,6 @@
 // ─────────────────────────────────────────────
 // app/(tabs)/search.tsx
-// Buy / Discover – Spotify-style AI search + categories
+// Buy / Discover – Minimal AI feed
 // ─────────────────────────────────────────────
 
 import { View, Text, StyleSheet, FlatList } from 'react-native';
@@ -26,8 +26,8 @@ export default function SearchScreen() {
         data={MOCK_ITEMS}
         numColumns={2}
         keyExtractor={(i) => i.id}
-        columnWrapperStyle={{ gap: 14 }}
-        contentContainerStyle={{ gap: 14, paddingBottom: 40 }}
+        columnWrapperStyle={styles.row}
+        contentContainerStyle={styles.list}
         renderItem={({ item }) => (
           <BuyCard
             title={item.title}
@@ -35,6 +35,7 @@ export default function SearchScreen() {
             category={item.category}
           />
         )}
+        showsVerticalScrollIndicator={false}
       />
     </View>
   );
@@ -44,13 +45,20 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: theme.colors.bg,
-    padding: theme.spacing.md,
+    paddingHorizontal: theme.spacing.md,
   },
   section: {
-    marginTop: theme.spacing.lg,
-    marginBottom: theme.spacing.md,
+    marginTop: theme.spacing.md,
+    marginBottom: theme.spacing.sm,
     color: theme.colors.text,
-    fontSize: 18,
+    fontSize: 17,
     fontWeight: '800',
+  },
+  row: {
+    gap: 12,
+  },
+  list: {
+    paddingBottom: 120,
+    gap: 12,
   },
 });
