@@ -1,36 +1,31 @@
 import { View, Text, StyleSheet } from 'react-native';
 import { theme } from '../theme';
 
-export default function MatchScore({ score = 82 }: { score?: number }) {
+export default function MatchScore({ score = 92 }: { score?: number }) {
   return (
-    <View style={styles.card}>
-      <Text style={styles.label}>Match-score</Text>
+    <View style={styles.badge}>
+      <Text style={styles.label}>AI MATCH</Text>
       <Text style={styles.score}>{score}%</Text>
-      <Text style={styles.sub}>Baserat på efterfrågan & historik</Text>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-  card: {
-    backgroundColor: theme.colors.card,
-    borderRadius: theme.radius.md,
-    padding: theme.spacing.md,
-    marginBottom: theme.spacing.md,
+  badge: {
+    backgroundColor: '#10221c',
+    paddingHorizontal: 10,
+    paddingVertical: 6,
+    borderRadius: 12,
+    alignSelf: 'flex-start',
   },
   label: {
-    color: theme.colors.muted,
-    fontSize: 13,
-    marginBottom: 6,
+    fontSize: 10,
+    color: theme.colors.primary,
+    fontWeight: '700',
   },
   score: {
-    fontSize: 32,
-    fontWeight: '800',
+    fontSize: 14,
     color: theme.colors.primary,
-  },
-  sub: {
-    color: theme.colors.muted,
-    fontSize: 13,
-    marginTop: 4,
+    fontWeight: '900',
   },
 });
