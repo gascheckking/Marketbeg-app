@@ -1,16 +1,14 @@
 {
   "expo": {
-    "name": "Marketbeg",
-    "slug": "marketbeg",
+    "name": "KARMA",
+    "slug": "karma",
     "version": "1.0.0",
     "orientation": "portrait",
-    "userInterfaceStyle": "light",
+    "userInterfaceStyle": "dark",
     "splash": {
-      "backgroundColor": "#ffffff"
+      "backgroundColor": "#0b0b0f"
     },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
+    "assetBundlePatterns": ["**/*"],
     "ios": {
       "supportsTablet": true
     },
@@ -19,9 +17,7 @@
       "bundler": "metro",
       "output": "static"
     },
-    "scheme": "marketbeg",
-    "plugins": [
-      "expo-router"
-    ]
+    "scheme": "karma",
+    "plugins": ["expo-router"]
   }
 }
