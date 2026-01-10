@@ -1,3 +1,8 @@
+// ─────────────────────────────────────────────
+// components/CategorySheet.tsx
+// BOTTOM SHEET – Vinted/Blocket-style
+// ─────────────────────────────────────────────
+
 import { View, Text, StyleSheet, TouchableOpacity, Modal, ScrollView } from 'react-native';
 import { theme } from '../theme';
 
@@ -70,28 +75,30 @@ export default function CategorySheet({
 const styles = StyleSheet.create({
   overlay: {
     flex: 1,
-    backgroundColor: 'rgba(0,0,0,0.6)',
+    backgroundColor: 'rgba(0,0,0,0.65)',
     justifyContent: 'flex-end',
   },
   sheet: {
     backgroundColor: theme.colors.bg,
-    borderTopLeftRadius: 20,
-    borderTopRightRadius: 20,
+    borderTopLeftRadius: 22,
+    borderTopRightRadius: 22,
     padding: 16,
-    maxHeight: '80%',
+    maxHeight: '82%',
+    borderTopWidth: 1,
+    borderColor: theme.colors.border,
   },
   handle: {
-    width: 40,
+    width: 42,
     height: 4,
-    backgroundColor: '#333',
+    backgroundColor: '#2a2a2f',
     borderRadius: 4,
     alignSelf: 'center',
-    marginBottom: 12,
+    marginBottom: 14,
   },
   title: {
     color: theme.colors.text,
     fontSize: 20,
-    fontWeight: '800',
+    fontWeight: '900',
     marginBottom: 12,
   },
   item: {
@@ -100,8 +107,8 @@ const styles = StyleSheet.create({
     borderBottomColor: theme.colors.border,
   },
   activeItem: {
-    backgroundColor: '#111',
-    borderRadius: 10,
+    backgroundColor: theme.colors.surface,
+    borderRadius: 12,
     paddingHorizontal: 10,
   },
   itemText: {
@@ -110,7 +117,7 @@ const styles = StyleSheet.create({
   },
   activeText: {
     color: theme.colors.primary,
-    fontWeight: '800',
+    fontWeight: '900',
   },
   closeBtn: {
     marginTop: 12,
@@ -119,6 +126,6 @@ const styles = StyleSheet.create({
   },
   closeText: {
     color: theme.colors.muted,
-    fontSize: 16,
+    fontSize: 15,
   },
 });
