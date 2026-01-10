@@ -19,26 +19,23 @@ export default function PreviewScreen() {
     <ScrollView style={styles.container}>
       <Text style={styles.title}>AI-förslag</Text>
       <Text style={styles.subtitle}>
-        Priser baserat på aktuell efterfrågan
+        Optimerat efter live-efterfrågan
       </Text>
 
       {imageUris.map((_, i) => (
         <View key={i} style={styles.card}>
-          <View style={styles.cardHeader}>
+          <View style={styles.header}>
             <MatchScore score={92 - i * 3} />
             <LiquidBadge />
           </View>
 
-          <Text style={styles.itemTitle}>Identifierat objekt #{i + 1}</Text>
+          <Text style={styles.item}>Identifierat objekt #{i + 1}</Text>
           <Text style={styles.price}>1 500 kr</Text>
-          <Text style={styles.meta}>Redo köpare hittad</Text>
+          <Text style={styles.meta}>Köpare redo</Text>
         </View>
       ))}
 
-      <TouchableOpacity
-        style={styles.cta}
-        onPress={() => router.replace('/')}
-      >
+      <TouchableOpacity style={styles.cta} onPress={() => router.replace('/')}>
         <Text style={styles.ctaText}>Acceptera & få betalt</Text>
       </TouchableOpacity>
     </ScrollView>
@@ -52,52 +49,47 @@ const styles = StyleSheet.create({
     padding: theme.spacing.md,
   },
   title: {
-    fontSize: 28,
+    fontSize: 26,
     fontWeight: '900',
     color: theme.colors.text,
-    marginBottom: 6,
   },
   subtitle: {
     color: theme.colors.muted,
-    marginBottom: 24,
+    marginBottom: 20,
   },
-
   card: {
     backgroundColor: theme.colors.surface,
     borderRadius: theme.radius.md,
     padding: theme.spacing.md,
-    marginBottom: 14,
+    marginBottom: 12,
     borderWidth: 1,
     borderColor: theme.colors.border,
   },
-  cardHeader: {
+  header: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    marginBottom: 12,
+    marginBottom: 10,
   },
-  itemTitle: {
+  item: {
     color: theme.colors.text,
-    fontSize: 16,
     fontWeight: '700',
-    marginBottom: 6,
   },
   price: {
     color: theme.colors.primary,
-    fontSize: 24,
+    fontSize: 22,
     fontWeight: '900',
-    marginBottom: 4,
+    marginVertical: 4,
   },
   meta: {
     color: theme.colors.muted,
-    fontSize: 13,
+    fontSize: 12,
   },
-
   cta: {
     backgroundColor: theme.colors.primary,
     borderRadius: theme.radius.lg,
     padding: theme.spacing.lg,
     alignItems: 'center',
-    marginTop: 28,
+    marginTop: 24,
   },
   ctaText: {
     color: '#000',
