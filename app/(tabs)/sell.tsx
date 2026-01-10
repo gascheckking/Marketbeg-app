@@ -1,6 +1,6 @@
 // ─────────────────────────────────────────────
 // app/(tabs)/sell.tsx
-// Instant Liquid – Snabbsälj (förfinad)
+// Instant Liquid – Clean Sell Flow
 // ─────────────────────────────────────────────
 
 import {
@@ -14,8 +14,7 @@ import {
 import * as ImagePicker from 'expo-image-picker';
 import { useState } from 'react';
 import { router } from 'expo-router';
-import ImagePreview from '../components/ImagePreview';
-import LiquidBadge from '../components/LiquidBadge';
+import ImagePreview from '../../components/ImagePreview';
 import { theme } from '../theme';
 
 export default function SellScreen() {
@@ -28,8 +27,7 @@ export default function SellScreen() {
       Alert.alert('Behörighet behövs', 'Tillåt kamera för att ta foto.');
       return;
     }
-
-    const result = await ImagePicker.launchCameraAsync({ quality: 0.8 });
+    const result = await ImagePicker.launchCameraAsync({ quality: 0.85 });
     if (!result.canceled) setImages([...images, ...result.assets]);
   };
 
@@ -39,22 +37,16 @@ export default function SellScreen() {
       Alert.alert('Behörighet behövs', 'Tillåt åtkomst till galleriet.');
       return;
     }
-
     const result = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.Images,
       allowsMultipleSelection: true,
-      quality: 0.8,
+      quality: 0.85,
     });
-
     if (!result.canceled) setImages([...images, ...result.assets]);
   };
 
   const goToPreview = () => {
-    if (!images.length) {
-      Alert.alert('Inga bilder', 'Välj eller ta minst en bild.');
-      return;
-    }
-
+    if (!images.length) return;
     setIsProcessing(true);
     setTimeout(() => {
       setIsProcessing(false);
@@ -62,23 +54,21 @@ export default function SellScreen() {
         pathname: '/upload/preview',
         params: { images: JSON.stringify(images.map((i) => i.uri)) },
       });
-    }, 1200);
+    }, 900);
   };
 
   return (
     <View style={styles.container}>
-      <LiquidBadge />
-
       <Text style={styles.title}>Snabbsälj</Text>
       <Text style={styles.subtitle}>
-        Fota – få ett pris direkt från marknaden
+        Ett foto. Ett pris. Klart.
       </Text>
 
-      <TouchableOpacity style={styles.primaryBtn} onPress={openCamera}>
+      <TouchableOpacity style={styles.primary} onPress={openCamera}>
         <Text style={styles.primaryText}>Ta foto</Text>
       </TouchableOpacity>
 
-      <TouchableOpacity style={styles.secondaryBtn} onPress={pickFromGallery}>
+      <TouchableOpacity style={styles.secondary} onPress={pickFromGallery}>
         <Text style={styles.secondaryText}>
           Välj från galleri {images.length > 0 && `(${images.length})`}
         </Text>
@@ -87,12 +77,12 @@ export default function SellScreen() {
       {images.length > 0 && (
         <>
           <TouchableOpacity
-            style={styles.ctaBtn}
+            style={styles.cta}
             onPress={goToPreview}
             disabled={isProcessing}
           >
             <Text style={styles.ctaText}>
-              {isProcessing ? 'AI analyserar…' : 'Få pris nu'}
+              {isProcessing ? 'AI analyserar…' : 'Få pris direkt'}
             </Text>
           </TouchableOpacity>
 
@@ -101,7 +91,7 @@ export default function SellScreen() {
             keyExtractor={(i) => i.uri}
             renderItem={({ item }) => <ImagePreview uri={item.uri} />}
             numColumns={3}
-            contentContainerStyle={{ marginTop: 18 }}
+            contentContainerStyle={{ marginTop: 16 }}
           />
         </>
       )}
@@ -116,24 +106,23 @@ const styles = StyleSheet.create({
     padding: theme.spacing.md,
   },
   title: {
-    fontSize: 30,
+    fontSize: 28,
     fontWeight: '900',
     color: theme.colors.text,
-    marginTop: 12,
-    marginBottom: 6,
+    marginBottom: 4,
   },
   subtitle: {
     color: theme.colors.muted,
-    marginBottom: 28,
-    fontSize: 16,
+    marginBottom: 24,
+    fontSize: 15,
   },
 
-  primaryBtn: {
+  primary: {
     backgroundColor: theme.colors.primary,
-    padding: 18,
+    paddingVertical: 18,
     borderRadius: theme.radius.lg,
     alignItems: 'center',
-    marginBottom: 14,
+    marginBottom: 12,
   },
   primaryText: {
     color: '#000',
@@ -141,31 +130,30 @@ const styles = StyleSheet.create({
     fontWeight: '900',
   },
 
-  secondaryBtn: {
+  secondary: {
     backgroundColor: theme.colors.card,
+    padding: 14,
     borderRadius: theme.radius.md,
-    padding: 16,
     alignItems: 'center',
     borderWidth: 1,
     borderColor: theme.colors.border,
-    marginBottom: 18,
   },
   secondaryText: {
     color: theme.colors.text,
-    fontSize: 15,
+    fontSize: 14,
     fontWeight: '700',
   },
 
-  ctaBtn: {
+  cta: {
     backgroundColor: '#10221c',
-    padding: 16,
+    padding: 14,
     borderRadius: theme.radius.md,
     alignItems: 'center',
-    marginBottom: 12,
+    marginTop: 18,
   },
   ctaText: {
     color: theme.colors.primary,
-    fontSize: 16,
+    fontSize: 15,
     fontWeight: '800',
   },
 });
