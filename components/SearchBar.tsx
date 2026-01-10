@@ -1,6 +1,6 @@
 // ─────────────────────────────────────────────
 // components/SearchBar.tsx
-// AI-first SearchBar – text · röst · bild (KARMA)
+// Ultra-minimal AI Search
 // ─────────────────────────────────────────────
 
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
@@ -15,38 +15,26 @@ type Props = {
 };
 
 export default function SearchBar({
-  placeholder = 'Sök med text, röst eller bild',
+  placeholder = 'Sök text, röst eller bild',
   onPressText,
   onPressMic,
   onPressCamera,
 }: Props) {
   return (
-    <TouchableOpacity
-      activeOpacity={0.9}
-      style={styles.container}
-      onPress={onPressText}
-    >
-      <Ionicons
-        name="search-outline"
-        size={20}
-        color={theme.colors.muted}
-      />
+    <TouchableOpacity style={styles.container} onPress={onPressText}>
+      <Ionicons name="search-outline" size={18} color={theme.colors.muted} />
 
       <Text style={styles.text}>{placeholder}</Text>
 
       <View style={styles.actions}>
         <TouchableOpacity onPress={onPressMic}>
-          <Ionicons
-            name="mic-outline"
-            size={20}
-            color={theme.colors.primary}
-          />
+          <Ionicons name="mic-outline" size={18} color={theme.colors.primary} />
         </TouchableOpacity>
 
         <TouchableOpacity onPress={onPressCamera}>
           <Ionicons
             name="camera-outline"
-            size={20}
+            size={18}
             color={theme.colors.primary}
           />
         </TouchableOpacity>
@@ -60,20 +48,20 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     backgroundColor: theme.colors.card,
-    borderRadius: theme.radius.md,
+    borderRadius: 14,
     paddingHorizontal: 14,
-    paddingVertical: 14,
+    paddingVertical: 10,
     borderWidth: 1,
     borderColor: theme.colors.border,
   },
   text: {
     flex: 1,
     marginLeft: 10,
-    fontSize: 15,
+    fontSize: 14,
     color: theme.colors.muted,
   },
   actions: {
     flexDirection: 'row',
-    gap: 14,
+    gap: 12,
   },
 });
