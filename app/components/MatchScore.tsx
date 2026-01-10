@@ -1,3 +1,8 @@
+// ─────────────────────────────────────────────
+// app/components/MatchScore.tsx
+// AI Match badge
+// ─────────────────────────────────────────────
+
 import { View, Text, StyleSheet } from 'react-native';
 import { theme } from '../theme';
 
@@ -22,6 +27,7 @@ const styles = StyleSheet.create({
     fontSize: 10,
     color: theme.colors.primary,
     fontWeight: '700',
+    letterSpacing: 0.5,
   },
   score: {
     fontSize: 14,
