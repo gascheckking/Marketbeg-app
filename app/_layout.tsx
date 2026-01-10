@@ -1,3 +1,8 @@
+// ─────────────────────────────────────────────
+// app/_layout.tsx
+// Root Layout – KARMA shell
+// ─────────────────────────────────────────────
+
 import { Tabs } from 'expo-router';
 import { Platform, View, Text, StyleSheet } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
@@ -6,7 +11,7 @@ function KarmaHeader() {
   return (
     <View style={styles.header}>
       <Text style={styles.logo}>KARMA∞</Text>
-      <Text style={styles.tagline}>Prylar ut · Pengar in</Text>
+      <Text style={styles.tagline}>Instant Liquid Economy</Text>
     </View>
   );
 }
@@ -19,7 +24,6 @@ export default function RootLayout() {
       <Tabs
         screenOptions={{
           headerShown: false,
-          tabBarShowLabel: true,
           tabBarActiveTintColor: '#0bbf8a',
           tabBarInactiveTintColor: '#777',
           tabBarStyle: styles.tabBar,
@@ -41,7 +45,11 @@ export default function RootLayout() {
           options={{
             title: 'Köp',
             tabBarIcon: ({ color, size }) => (
-              <Ionicons name="search-outline" size={size ?? 22} color={color} />
+              <Ionicons
+                name="search-outline"
+                size={size ?? 22}
+                color={color}
+              />
             ),
           }}
         />
@@ -51,7 +59,11 @@ export default function RootLayout() {
           options={{
             title: 'Sälj',
             tabBarIcon: ({ color, size }) => (
-              <Ionicons name="add-circle" size={size ?? 26} color={color} />
+              <Ionicons
+                name="add-circle"
+                size={size ?? 28}
+                color={color}
+              />
             ),
           }}
         />
@@ -61,7 +73,11 @@ export default function RootLayout() {
           options={{
             title: 'Profil',
             tabBarIcon: ({ color, size }) => (
-              <Ionicons name="person-outline" size={size ?? 22} color={color} />
+              <Ionicons
+                name="person-outline"
+                size={size ?? 22}
+                color={color}
+              />
             ),
           }}
         />
@@ -76,7 +92,6 @@ const styles = StyleSheet.create({
     backgroundColor: '#0b0b0f',
   },
 
-  /* ===== HEADER (Spotify-stil) ===== */
   header: {
     paddingTop: Platform.OS === 'ios' ? 54 : 28,
     paddingBottom: 14,
@@ -87,7 +102,7 @@ const styles = StyleSheet.create({
   },
   logo: {
     fontSize: 22,
-    fontWeight: '800',
+    fontWeight: '900',
     color: '#ffffff',
     letterSpacing: 1,
   },
@@ -97,7 +112,6 @@ const styles = StyleSheet.create({
     marginTop: 2,
   },
 
-  /* ===== TAB BAR ===== */
   tabBar: {
     backgroundColor: '#0b0b0f',
     borderTopColor: '#1c1c22',
