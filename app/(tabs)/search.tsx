@@ -1,49 +1,41 @@
 import { View, Text, StyleSheet, FlatList, TouchableOpacity } from 'react-native';
-import { theme } from '../theme';
 
-const DATA = Array.from({ length: 20 }).map((_, i) => ({
+const DATA = Array.from({ length: 12 }).map((_, i) => ({
   id: i.toString(),
-  title: `iPhone ${13 + (i % 3)} Pro`,
-  instantPrice: 4200 + i * 120,
-  match: Math.floor(Math.random() * 15) + 85,
-  speed: ['Instant', 'Fast', 'Medium'][i % 3],
+  title: `Objekt ${i + 1}`,
+  price: `${(i + 1) * 400} kr`,
 }));
 
-export default function LiquidityFeed() {
+export default function BuyScreen() {
   return (
-    <View style={styles.page}>
-      {/* FEED HEADER */}
-      <View style={styles.feedHeader}>
-        <Text style={styles.feedTitle}>Likviditet</Text>
-        <Text style={styles.feedSubtitle}>Acceptera pris · Pengar direkt</Text>
+    <View style={styles.container}>
+      {/* SEARCH BAR */}
+      <TouchableOpacity style={styles.searchBar}>
+        <Text style={styles.searchText}>Sök med text, röst eller bild</Text>
+      </TouchableOpacity>
+
+      {/* CATEGORY CHIPS */}
+      <View style={styles.chips}>
+        {['Elektronik', 'Kläder', 'Möbler', 'Sport', 'Övrigt'].map((c) => (
+          <View key={c} style={styles.chip}>
+            <Text style={styles.chipText}>{c}</Text>
+          </View>
+        ))}
       </View>
 
+      {/* GRID */}
       <FlatList
         data={DATA}
-        keyExtractor={(item) => item.id}
         numColumns={2}
+        keyExtractor={(item) => item.id}
         columnWrapperStyle={{ gap: 12 }}
-        contentContainerStyle={{ padding: 16 }}
+        contentContainerStyle={{ paddingBottom: 40 }}
         renderItem={({ item }) => (
-          <TouchableOpacity style={styles.card}>
+          <View style={styles.card}>
             <View style={styles.image} />
-
-            <Text style={styles.title} numberOfLines={2}>
-              {item.title}
-            </Text>
-
-            <Text style={styles.instant}>
-              Instant price
-            </Text>
-            <Text style={styles.price}>
-              {item.instantPrice.toLocaleString()} kr
-            </Text>
-
-            <View style={styles.metaRow}>
-              <Text style={styles.match}>Match {item.match}%</Text>
-              <Text style={styles.speed}>{item.speed}</Text>
-            </View>
-          </TouchableOpacity>
+            <Text style={styles.title} numberOfLines={2}>{item.title}</Text>
+            <Text style={styles.price}>{item.price}</Text>
+          </View>
         )}
       />
     </View>
@@ -51,27 +43,45 @@ export default function LiquidityFeed() {
 }
 
 const styles = StyleSheet.create({
-  page: {
+  container: {
     flex: 1,
-    backgroundColor: theme.colors.bg,
+    backgroundColor: '#0b0b0f',
+    padding: 16,
   },
-  feedHeader: {
-    paddingHorizontal: 16,
-    paddingTop: 12,
+
+  searchBar: {
+    backgroundColor: '#1a1a1f',
+    borderRadius: 14,
+    padding: 14,
+    marginBottom: 16,
   },
-  feedTitle: {
-    color: theme.colors.text,
-    fontSize: 26,
-    fontWeight: '900',
+  searchText: {
+    color: '#888',
+    fontSize: 15,
   },
-  feedSubtitle: {
-    color: theme.colors.muted,
-    marginTop: 4,
+
+  chips: {
+    flexDirection: 'row',
+    gap: 10,
+    marginBottom: 18,
+    flexWrap: 'wrap',
   },
+  chip: {
+    backgroundColor: '#1a1a1f',
+    paddingHorizontal: 14,
+    paddingVertical: 8,
+    borderRadius: 20,
+  },
+  chipText: {
+    color: '#0bbf8a',
+    fontWeight: '600',
+    fontSize: 13,
+  },
+
   card: {
     flex: 1,
-    backgroundColor: theme.colors.card,
-    borderRadius: theme.radius.lg,
+    backgroundColor: '#141418',
+    borderRadius: 16,
     padding: 12,
     marginBottom: 12,
   },
@@ -82,33 +92,13 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   title: {
-    color: theme.colors.text,
+    color: '#fff',
     fontSize: 14,
-    marginBottom: 8,
-  },
-  instant: {
-    color: theme.colors.muted,
-    fontSize: 11,
-    textTransform: 'uppercase',
-    letterSpacing: 1,
-  },
-  price: {
-    color: theme.colors.primary,
-    fontSize: 20,
-    fontWeight: '900',
     marginBottom: 6,
   },
-  metaRow: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-  },
-  match: {
-    color: theme.colors.primary,
-    fontSize: 12,
-    fontWeight: '700',
-  },
-  speed: {
-    color: theme.colors.muted,
-    fontSize: 12,
+  price: {
+    color: '#0bbf8a',
+    fontSize: 16,
+    fontWeight: '800',
   },
 });
