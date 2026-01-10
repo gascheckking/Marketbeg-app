@@ -1,14 +1,20 @@
+// ─────────────────────────────────────────────
+// app/index.tsx
+// HOME – KARMA HERO + FLOW
+// ─────────────────────────────────────────────
+
 import { View, Text, StyleSheet, ScrollView, TouchableOpacity } from 'react-native';
 import { router } from 'expo-router';
+import { theme } from './theme';
 
 export default function HomeScreen() {
   return (
     <ScrollView style={styles.page} contentContainerStyle={styles.container}>
       {/* HERO */}
       <View style={styles.hero}>
-        <Text style={styles.heroTitle}>Sälj snabbt</Text>
+        <Text style={styles.heroTitle}>Instant Liquid</Text>
         <Text style={styles.heroSubtitle}>
-          AI matchar dig direkt mot redo köpare
+          Sälj på 30 sekunder. Marknaden väntar redan.
         </Text>
 
         <TouchableOpacity
@@ -19,38 +25,45 @@ export default function HomeScreen() {
         </TouchableOpacity>
       </View>
 
-      {/* QUICK ACTIONS */}
+      {/* VALUE PROPS */}
       <View style={styles.section}>
-        <Text style={styles.sectionTitle}>Snabbt & enkelt</Text>
+        <Text style={styles.sectionTitle}>Så funkar KARMA</Text>
 
         <View style={styles.card}>
-          <Text style={styles.cardTitle}>📸 Ett foto räcker</Text>
+          <Text style={styles.cardTitle}>📸 Ett foto</Text>
           <Text style={styles.cardText}>
-            Fota objektet – AI skapar titel, pris och kategori.
+            AI identifierar objekt, skick och marknadspris.
           </Text>
         </View>
 
         <View style={styles.card}>
-          <Text style={styles.cardTitle}>🧠 Smart matchning</Text>
+          <Text style={styles.cardTitle}>🧠 Direkt match</Text>
           <Text style={styles.cardText}>
-            Dina annonser matchas automatiskt mot relevanta köpare.
+            Matchas mot redo köpare med auto-bud.
           </Text>
         </View>
 
         <View style={styles.card}>
-          <Text style={styles.cardTitle}>🔒 Säker affär</Text>
+          <Text style={styles.cardTitle}>⚡ Likvid direkt</Text>
           <Text style={styles.cardText}>
-            Pengar hålls tills köparen godkänt varan.
+            Pengar till din KARMA-plånbok direkt vid affär.
           </Text>
         </View>
       </View>
 
-      {/* PLACEHOLDER – KOMMANDE GRID */}
+      {/* BUY TEASER */}
       <View style={styles.section}>
-        <Text style={styles.sectionTitle}>Populärt just nu</Text>
+        <Text style={styles.sectionTitle}>Utforska marknaden</Text>
         <Text style={styles.muted}>
-          Kort-grid för Köp kommer här (nästa steg)
+          Köp-flöde med kategorier & AI-sök
         </Text>
+
+        <TouchableOpacity
+          style={styles.secondaryButton}
+          onPress={() => router.push('/(tabs)/search')}
+        >
+          <Text style={styles.secondaryText}>Till Köp</Text>
+        </TouchableOpacity>
       </View>
     </ScrollView>
   );
@@ -59,73 +72,88 @@ export default function HomeScreen() {
 const styles = StyleSheet.create({
   page: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: theme.colors.bg,
   },
   container: {
     paddingBottom: 40,
   },
 
-  /* HERO */
   hero: {
-    paddingHorizontal: 20,
-    paddingTop: 40,
-    paddingBottom: 50,
-    backgroundColor: '#0b0b0f',
+    paddingHorizontal: theme.spacing.lg,
+    paddingTop: 36,
+    paddingBottom: 48,
+    backgroundColor: theme.colors.bg,
   },
   heroTitle: {
-    fontSize: 36,
-    fontWeight: '800',
-    color: '#fff',
-    marginBottom: 12,
+    fontSize: 38,
+    fontWeight: '900',
+    color: theme.colors.text,
+    marginBottom: 10,
   },
   heroSubtitle: {
     fontSize: 18,
-    color: '#b5b5b5',
-    marginBottom: 30,
+    color: theme.colors.muted,
+    marginBottom: 28,
     lineHeight: 26,
   },
   primaryButton: {
-    backgroundColor: '#ffffff',
-    borderRadius: 16,
+    backgroundColor: theme.colors.primary,
+    borderRadius: theme.radius.lg,
     paddingVertical: 18,
     alignItems: 'center',
   },
   primaryButtonText: {
-    fontSize: 18,
-    fontWeight: '700',
+    fontSize: 17,
+    fontWeight: '900',
     color: '#000',
   },
 
-  /* SECTIONS */
   section: {
-    paddingHorizontal: 20,
-    paddingTop: 30,
+    paddingHorizontal: theme.spacing.lg,
+    paddingTop: 28,
   },
   sectionTitle: {
     fontSize: 22,
-    fontWeight: '700',
+    fontWeight: '800',
+    color: theme.colors.text,
     marginBottom: 16,
   },
   muted: {
     fontSize: 14,
-    color: '#888',
-  },
-
-  /* CARDS */
-  card: {
-    backgroundColor: '#f5f5f7',
-    borderRadius: 16,
-    padding: 18,
+    color: theme.colors.muted,
     marginBottom: 14,
   },
+
+  card: {
+    backgroundColor: theme.colors.surface,
+    borderRadius: theme.radius.md,
+    padding: 18,
+    marginBottom: 14,
+    borderWidth: 1,
+    borderColor: theme.colors.border,
+  },
   cardTitle: {
-    fontSize: 18,
-    fontWeight: '600',
+    fontSize: 17,
+    fontWeight: '700',
+    color: theme.colors.text,
     marginBottom: 6,
   },
   cardText: {
     fontSize: 15,
-    color: '#555',
+    color: theme.colors.muted,
     lineHeight: 22,
+  },
+
+  secondaryButton: {
+    backgroundColor: theme.colors.card,
+    borderRadius: theme.radius.md,
+    paddingVertical: 14,
+    alignItems: 'center',
+    borderWidth: 1,
+    borderColor: theme.colors.border,
+  },
+  secondaryText: {
+    color: theme.colors.text,
+    fontWeight: '700',
   },
 });
