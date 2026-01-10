@@ -5,7 +5,7 @@
 
 import { Tabs } from 'expo-router';
 import { Platform, View, Text, StyleSheet } from 'react-native';
-import { Ionicons } from '@expo/vector-icons';
+import Ionicons from '@expo/vector-icons/Ionicons';
 
 function KarmaHeader() {
   return (
@@ -45,11 +45,7 @@ export default function RootLayout() {
           options={{
             title: 'Köp',
             tabBarIcon: ({ color, size }) => (
-              <Ionicons
-                name="search-outline"
-                size={size ?? 22}
-                color={color}
-              />
+              <Ionicons name="search-outline" size={size ?? 22} color={color} />
             ),
           }}
         />
@@ -59,11 +55,7 @@ export default function RootLayout() {
           options={{
             title: 'Sälj',
             tabBarIcon: ({ color, size }) => (
-              <Ionicons
-                name="add-circle"
-                size={size ?? 28}
-                color={color}
-              />
+              <Ionicons name="add-circle" size={size ?? 28} color={color} />
             ),
           }}
         />
@@ -73,11 +65,7 @@ export default function RootLayout() {
           options={{
             title: 'Profil',
             tabBarIcon: ({ color, size }) => (
-              <Ionicons
-                name="person-outline"
-                size={size ?? 22}
-                color={color}
-              />
+              <Ionicons name="person-outline" size={size ?? 22} color={color} />
             ),
           }}
         />
@@ -91,7 +79,6 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#0b0b0f',
   },
-
   header: {
     paddingTop: Platform.OS === 'ios' ? 54 : 28,
     paddingBottom: 14,
@@ -111,7 +98,6 @@ const styles = StyleSheet.create({
     color: '#0bbf8a',
     marginTop: 2,
   },
-
   tabBar: {
     backgroundColor: '#0b0b0f',
     borderTopColor: '#1c1c22',
