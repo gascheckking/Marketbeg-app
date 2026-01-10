@@ -1,16 +1,6 @@
 import { Tabs } from 'expo-router';
 import { Platform, View, Text, StyleSheet } from 'react-native';
-import { theme } from './theme';
-
-let Icon: any;
-if (Platform.OS === 'web') {
-  Icon = ({ label }: { label: string }) => <Text style={{ fontSize: 18 }}>{label}</Text>;
-} else {
-  const { Ionicons } = require('@expo/vector-icons');
-  Icon = ({ name, color, size }: any) => (
-    <Ionicons name={name} size={size} color={color} />
-  );
-}
+import { Ionicons } from '@expo/vector-icons';
 
 function KarmaHeader() {
   return (
@@ -29,49 +19,50 @@ export default function RootLayout() {
       <Tabs
         screenOptions={{
           headerShown: false,
+          tabBarShowLabel: true,
+          tabBarActiveTintColor: '#0bbf8a',
+          tabBarInactiveTintColor: '#777',
           tabBarStyle: styles.tabBar,
-          tabBarActiveTintColor: theme.colors.primary,
-          tabBarInactiveTintColor: theme.colors.muted,
+          tabBarLabelStyle: styles.tabLabel,
         }}
       >
         <Tabs.Screen
           name="index"
           options={{
             title: 'Hem',
-            tabBarIcon: ({ color }) =>
-              Platform.OS === 'web'
-                ? <Icon label="🏠" />
-                : <Icon name="home-outline" size={22} color={color} />,
+            tabBarIcon: ({ color, size }) => (
+              <Ionicons name="home-outline" size={size ?? 22} color={color} />
+            ),
           }}
         />
-        <Tabs.Screen
-          name="(tabs)/sell"
-          options={{
-            title: 'Sälj',
-            tabBarIcon: ({ color }) =>
-              Platform.OS === 'web'
-                ? <Icon label="＋" />
-                : <Icon name="add-circle-outline" size={26} color={color} />,
-          }}
-        />
+
         <Tabs.Screen
           name="(tabs)/search"
           options={{
             title: 'Köp',
-            tabBarIcon: ({ color }) =>
-              Platform.OS === 'web'
-                ? <Icon label="🔍" />
-                : <Icon name="search-outline" size={22} color={color} />,
+            tabBarIcon: ({ color, size }) => (
+              <Ionicons name="search-outline" size={size ?? 22} color={color} />
+            ),
           }}
         />
+
+        <Tabs.Screen
+          name="(tabs)/sell"
+          options={{
+            title: 'Sälj',
+            tabBarIcon: ({ color, size }) => (
+              <Ionicons name="add-circle" size={size ?? 26} color={color} />
+            ),
+          }}
+        />
+
         <Tabs.Screen
           name="(tabs)/profile"
           options={{
             title: 'Profil',
-            tabBarIcon: ({ color }) =>
-              Platform.OS === 'web'
-                ? <Icon label="👤" />
-                : <Icon name="person-outline" size={22} color={color} />,
+            tabBarIcon: ({ color, size }) => (
+              <Ionicons name="person-outline" size={size ?? 22} color={color} />
+            ),
           }}
         />
       </Tabs>
@@ -80,29 +71,41 @@ export default function RootLayout() {
 }
 
 const styles = StyleSheet.create({
-  root: { flex: 1, backgroundColor: theme.colors.bg },
+  root: {
+    flex: 1,
+    backgroundColor: '#0b0b0f',
+  },
+
+  /* ===== HEADER (Spotify-stil) ===== */
   header: {
     paddingTop: Platform.OS === 'ios' ? 54 : 28,
     paddingBottom: 14,
     alignItems: 'center',
+    backgroundColor: '#0b0b0f',
     borderBottomWidth: 1,
-    borderBottomColor: theme.colors.border,
+    borderBottomColor: '#1c1c22',
   },
   logo: {
-    color: theme.colors.text,
     fontSize: 22,
-    fontWeight: '900',
+    fontWeight: '800',
+    color: '#ffffff',
     letterSpacing: 1,
   },
   tagline: {
-    color: theme.colors.primary,
     fontSize: 12,
-    marginTop: 4,
+    color: '#0bbf8a',
+    marginTop: 2,
   },
+
+  /* ===== TAB BAR ===== */
   tabBar: {
-    backgroundColor: theme.colors.bg,
-    borderTopColor: theme.colors.border,
+    backgroundColor: '#0b0b0f',
+    borderTopColor: '#1c1c22',
     height: Platform.OS === 'ios' ? 86 : 64,
     paddingBottom: Platform.OS === 'ios' ? 22 : 10,
+  },
+  tabLabel: {
+    fontSize: 11,
+    fontWeight: '600',
   },
 });
