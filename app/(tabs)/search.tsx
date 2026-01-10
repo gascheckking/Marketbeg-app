@@ -1,41 +1,44 @@
-import { View, Text, StyleSheet, FlatList, TouchableOpacity } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, FlatList } from 'react-native';
+import { Ionicons } from '@expo/vector-icons';
+import { theme } from '../theme';
 
-const DATA = Array.from({ length: 12 }).map((_, i) => ({
-  id: i.toString(),
-  title: `Objekt ${i + 1}`,
-  price: `${(i + 1) * 400} kr`,
-}));
+const CATEGORIES = [
+  { id: '1', label: 'Elektronik', icon: 'phone-portrait-outline' },
+  { id: '2', label: 'Kläder', icon: 'shirt-outline' },
+  { id: '3', label: 'Möbler', icon: 'bed-outline' },
+  { id: '4', label: 'Sport', icon: 'football-outline' },
+  { id: '5', label: 'Övrigt', icon: 'apps-outline' },
+];
 
-export default function BuyScreen() {
+export default function SearchScreen() {
   return (
     <View style={styles.container}>
       {/* SEARCH BAR */}
-      <TouchableOpacity style={styles.searchBar}>
-        <Text style={styles.searchText}>Sök med text, röst eller bild</Text>
-      </TouchableOpacity>
+      <View style={styles.searchBar}>
+        <Ionicons name="search-outline" size={20} color={theme.colors.muted} />
+        <Text style={styles.searchText}>
+          Sök med text, röst eller bild
+        </Text>
 
-      {/* CATEGORY CHIPS */}
-      <View style={styles.chips}>
-        {['Elektronik', 'Kläder', 'Möbler', 'Sport', 'Övrigt'].map((c) => (
-          <View key={c} style={styles.chip}>
-            <Text style={styles.chipText}>{c}</Text>
-          </View>
-        ))}
+        <View style={styles.aiIcons}>
+          <Ionicons name="mic-outline" size={20} color={theme.colors.primary} />
+          <Ionicons name="camera-outline" size={20} color={theme.colors.primary} />
+        </View>
       </View>
 
-      {/* GRID */}
+      {/* CATEGORIES */}
+      <Text style={styles.sectionTitle}>Utforska kategorier</Text>
+
       <FlatList
-        data={DATA}
+        data={CATEGORIES}
         numColumns={2}
         keyExtractor={(item) => item.id}
-        columnWrapperStyle={{ gap: 12 }}
-        contentContainerStyle={{ paddingBottom: 40 }}
+        columnWrapperStyle={{ gap: 14 }}
         renderItem={({ item }) => (
-          <View style={styles.card}>
-            <View style={styles.image} />
-            <Text style={styles.title} numberOfLines={2}>{item.title}</Text>
-            <Text style={styles.price}>{item.price}</Text>
-          </View>
+          <TouchableOpacity style={styles.categoryCard}>
+            <Ionicons name={item.icon as any} size={26} color={theme.colors.primary} />
+            <Text style={styles.categoryText}>{item.label}</Text>
+          </TouchableOpacity>
         )}
       />
     </View>
@@ -45,60 +48,47 @@ export default function BuyScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#0b0b0f',
-    padding: 16,
+    backgroundColor: theme.colors.bg,
+    padding: theme.spacing.md,
   },
 
   searchBar: {
-    backgroundColor: '#1a1a1f',
-    borderRadius: 14,
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: theme.colors.card,
+    borderRadius: theme.radius.md,
     padding: 14,
-    marginBottom: 16,
+    marginBottom: 24,
   },
   searchText: {
-    color: '#888',
+    flex: 1,
+    marginLeft: 10,
+    color: theme.colors.muted,
     fontSize: 15,
   },
-
-  chips: {
+  aiIcons: {
     flexDirection: 'row',
-    gap: 10,
-    marginBottom: 18,
-    flexWrap: 'wrap',
-  },
-  chip: {
-    backgroundColor: '#1a1a1f',
-    paddingHorizontal: 14,
-    paddingVertical: 8,
-    borderRadius: 20,
-  },
-  chipText: {
-    color: '#0bbf8a',
-    fontWeight: '600',
-    fontSize: 13,
+    gap: 12,
   },
 
-  card: {
-    flex: 1,
-    backgroundColor: '#141418',
-    borderRadius: 16,
-    padding: 12,
-    marginBottom: 12,
-  },
-  image: {
-    height: 120,
-    borderRadius: 12,
-    backgroundColor: '#222',
-    marginBottom: 10,
-  },
-  title: {
-    color: '#fff',
-    fontSize: 14,
-    marginBottom: 6,
-  },
-  price: {
-    color: '#0bbf8a',
-    fontSize: 16,
+  sectionTitle: {
+    color: theme.colors.text,
+    fontSize: 18,
     fontWeight: '800',
+    marginBottom: 16,
+  },
+
+  categoryCard: {
+    flex: 1,
+    backgroundColor: theme.colors.surface,
+    borderRadius: theme.radius.lg,
+    padding: 20,
+    marginBottom: 14,
+    alignItems: 'center',
+    gap: 10,
+  },
+  categoryText: {
+    color: theme.colors.text,
+    fontWeight: '700',
   },
 });
