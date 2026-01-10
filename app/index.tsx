@@ -1,6 +1,6 @@
 // ─────────────────────────────────────────────
 // app/index.tsx
-// HOME – KARMA HERO + FLOW
+// HOME – KARMA HERO (minimal)
 // ─────────────────────────────────────────────
 
 import { View, Text, StyleSheet, ScrollView, TouchableOpacity } from 'react-native';
@@ -14,7 +14,7 @@ export default function HomeScreen() {
       <View style={styles.hero}>
         <Text style={styles.heroTitle}>Instant Liquid</Text>
         <Text style={styles.heroSubtitle}>
-          Sälj på 30 sekunder. Marknaden väntar redan.
+          Sälj direkt. Marknaden är redan redo.
         </Text>
 
         <TouchableOpacity
@@ -25,44 +25,39 @@ export default function HomeScreen() {
         </TouchableOpacity>
       </View>
 
-      {/* VALUE PROPS */}
+      {/* FLOW LIST */}
       <View style={styles.section}>
         <Text style={styles.sectionTitle}>Så funkar KARMA</Text>
 
-        <View style={styles.card}>
-          <Text style={styles.cardTitle}>📸 Ett foto</Text>
-          <Text style={styles.cardText}>
-            AI identifierar objekt, skick och marknadspris.
+        <View style={styles.row}>
+          <Text style={styles.rowTitle}>📸 Ett foto</Text>
+          <Text style={styles.rowText}>
+            AI identifierar objekt och pris.
           </Text>
         </View>
 
-        <View style={styles.card}>
-          <Text style={styles.cardTitle}>🧠 Direkt match</Text>
-          <Text style={styles.cardText}>
-            Matchas mot redo köpare med auto-bud.
+        <View style={styles.row}>
+          <Text style={styles.rowTitle}>🧠 Direkt match</Text>
+          <Text style={styles.rowText}>
+            Redo köpare med auto-bud.
           </Text>
         </View>
 
-        <View style={styles.card}>
-          <Text style={styles.cardTitle}>⚡ Likvid direkt</Text>
-          <Text style={styles.cardText}>
-            Pengar till din KARMA-plånbok direkt vid affär.
+        <View style={styles.row}>
+          <Text style={styles.rowTitle}>⚡ Likvid direkt</Text>
+          <Text style={styles.rowText}>
+            Pengar till din KARMA-plånbok.
           </Text>
         </View>
       </View>
 
-      {/* BUY TEASER */}
+      {/* CTA */}
       <View style={styles.section}>
-        <Text style={styles.sectionTitle}>Utforska marknaden</Text>
-        <Text style={styles.muted}>
-          Köp-flöde med kategorier & AI-sök
-        </Text>
-
         <TouchableOpacity
           style={styles.secondaryButton}
           onPress={() => router.push('/(tabs)/search')}
         >
-          <Text style={styles.secondaryText}>Till Köp</Text>
+          <Text style={styles.secondaryText}>Utforska marknaden</Text>
         </TouchableOpacity>
       </View>
     </ScrollView>
@@ -75,76 +70,66 @@ const styles = StyleSheet.create({
     backgroundColor: theme.colors.bg,
   },
   container: {
-    paddingBottom: 40,
+    paddingBottom: theme.spacing.xl,
   },
 
   hero: {
     paddingHorizontal: theme.spacing.lg,
-    paddingTop: 36,
-    paddingBottom: 48,
-    backgroundColor: theme.colors.bg,
+    paddingTop: 28,
+    paddingBottom: 36,
   },
   heroTitle: {
-    fontSize: 38,
+    fontSize: 36,
     fontWeight: '900',
     color: theme.colors.text,
-    marginBottom: 10,
+    marginBottom: 6,
   },
   heroSubtitle: {
-    fontSize: 18,
+    fontSize: 16,
     color: theme.colors.muted,
-    marginBottom: 28,
-    lineHeight: 26,
+    marginBottom: 22,
   },
   primaryButton: {
     backgroundColor: theme.colors.primary,
     borderRadius: theme.radius.lg,
-    paddingVertical: 18,
+    paddingVertical: 16,
     alignItems: 'center',
   },
   primaryButtonText: {
-    fontSize: 17,
+    fontSize: 16,
     fontWeight: '900',
     color: '#000',
   },
 
   section: {
     paddingHorizontal: theme.spacing.lg,
-    paddingTop: 28,
+    paddingTop: 22,
   },
   sectionTitle: {
-    fontSize: 22,
+    fontSize: 18,
     fontWeight: '800',
     color: theme.colors.text,
-    marginBottom: 16,
-  },
-  muted: {
-    fontSize: 14,
-    color: theme.colors.muted,
     marginBottom: 14,
   },
 
-  card: {
-    backgroundColor: theme.colors.surface,
-    borderRadius: theme.radius.md,
-    padding: 18,
-    marginBottom: 14,
-    borderWidth: 1,
-    borderColor: theme.colors.border,
+  row: {
+    paddingVertical: 12,
+    borderBottomWidth: 1,
+    borderBottomColor: theme.colors.border,
   },
-  cardTitle: {
-    fontSize: 17,
+  rowTitle: {
+    fontSize: 15,
     fontWeight: '700',
     color: theme.colors.text,
-    marginBottom: 6,
+    marginBottom: 2,
   },
-  cardText: {
-    fontSize: 15,
+  rowText: {
+    fontSize: 14,
     color: theme.colors.muted,
-    lineHeight: 22,
   },
 
   secondaryButton: {
+    marginTop: 10,
     backgroundColor: theme.colors.card,
     borderRadius: theme.radius.md,
     paddingVertical: 14,
@@ -155,5 +140,6 @@ const styles = StyleSheet.create({
   secondaryText: {
     color: theme.colors.text,
     fontWeight: '700',
+    fontSize: 15,
   },
 });
