@@ -1,5 +1,5 @@
 {
-  "name": "marketbeg",
+  "name": "karma",
   "version": "1.0.0",
   "main": "expo-router/entry",
   "private": true,
@@ -12,16 +12,17 @@
     "lint": "expo lint"
   },
   "dependencies": {
-    "expo": "~51.0.28",
+    "expo": "~50.0.0",
     "expo-router": "~3.5.23",
     "expo-status-bar": "~1.12.1",
     "expo-image-picker": "~15.0.7",
     "expo-constants": "~16.0.2",
+    "expo-font": "~11.10.2",
     "react": "18.2.0",
-    "react-native": "0.74.5",
+    "react-native": "0.73.6",
     "react-dom": "18.2.0",
-    "react-native-web": "~0.19.10",
-    "@expo/vector-icons": "^14.0.2"
+    "react-native-web": "~0.19.6",
+    "@expo/vector-icons": "^14.0.0"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",
