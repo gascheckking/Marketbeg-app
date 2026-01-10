@@ -1,3 +1,8 @@
+// ─────────────────────────────────────────────
+// app/theme.ts
+// Global KARMA theme (canonical)
+// ─────────────────────────────────────────────
+
 export const theme = {
   colors: {
     bg: '#0b0b0f',
