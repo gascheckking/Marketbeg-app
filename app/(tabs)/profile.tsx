@@ -1,6 +1,6 @@
 // ─────────────────────────────────────────────
 // app/(tabs)/profile.tsx
-// Profile – Karma Core
+// Profile – Karma Identity
 // ─────────────────────────────────────────────
 
 import { View, Text, StyleSheet } from 'react-native';
@@ -11,7 +11,7 @@ export default function ProfileScreen() {
     <View style={styles.container}>
       <Text style={styles.title}>Din KARMA</Text>
       <Text style={styles.subtitle}>
-        Ditt finansiella rykte i den nya ekonomin
+        Ditt rykte i ekonomin
       </Text>
 
       <View style={styles.card}>
@@ -22,11 +22,6 @@ export default function ProfileScreen() {
       <View style={styles.card}>
         <Text style={styles.label}>Karma-nivå</Text>
         <Text style={styles.value}>Ny användare</Text>
-      </View>
-
-      <View style={styles.card}>
-        <Text style={styles.label}>Utbetalningar</Text>
-        <Text style={styles.value}>Kommer snart</Text>
       </View>
     </View>
   );
@@ -39,15 +34,14 @@ const styles = StyleSheet.create({
     padding: theme.spacing.lg,
   },
   title: {
-    fontSize: 30,
+    fontSize: 28,
     fontWeight: '900',
     color: theme.colors.text,
-    marginBottom: 6,
   },
   subtitle: {
     color: theme.colors.muted,
-    marginBottom: 28,
-    fontSize: 15,
+    marginBottom: 26,
+    fontSize: 14,
   },
   card: {
     backgroundColor: theme.colors.surface,
@@ -59,8 +53,8 @@ const styles = StyleSheet.create({
   },
   label: {
     color: theme.colors.muted,
-    fontSize: 12,
-    letterSpacing: 0.4,
+    fontSize: 11,
+    letterSpacing: 0.5,
   },
   value: {
     color: theme.colors.text,
