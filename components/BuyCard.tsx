@@ -27,24 +27,22 @@ export default function BuyCard({
 }: Props) {
   return (
     <TouchableOpacity
-      activeOpacity={0.9}
       style={styles.card}
+      activeOpacity={0.9}
       onPress={onPress}
     >
-      {/* IMAGE */}
       <View style={styles.imageWrap}>
         {image ? (
           <Image source={{ uri: image }} style={styles.image} />
         ) : (
-          <View style={styles.imagePlaceholder} />
+          <View style={styles.placeholder} />
         )}
 
-        <View style={styles.overlay}>
+        <View style={styles.badge}>
           <MatchScore score={match} />
         </View>
       </View>
 
-      {/* CONTENT */}
       <Text numberOfLines={2} style={styles.title}>
         {title}
       </Text>
@@ -65,12 +63,9 @@ const styles = StyleSheet.create({
     backgroundColor: theme.colors.surface,
     borderRadius: theme.radius.lg,
     padding: 12,
-    marginBottom: 14,
     borderWidth: 1,
     borderColor: theme.colors.border,
   },
-
-  /* IMAGE */
   imageWrap: {
     position: 'relative',
     marginBottom: 10,
@@ -80,19 +75,17 @@ const styles = StyleSheet.create({
     height: 140,
     borderRadius: 12,
   },
-  imagePlaceholder: {
+  placeholder: {
     width: '100%',
     height: 140,
     borderRadius: 12,
     backgroundColor: '#222',
   },
-  overlay: {
+  badge: {
     position: 'absolute',
     top: 8,
     left: 8,
   },
-
-  /* TEXT */
   title: {
     color: theme.colors.text,
     fontSize: 14,
@@ -102,10 +95,8 @@ const styles = StyleSheet.create({
   category: {
     color: theme.colors.muted,
     fontSize: 12,
-    marginBottom: 8,
+    marginBottom: 10,
   },
-
-  /* FOOTER */
   footer: {
     flexDirection: 'row',
     justifyContent: 'space-between',
