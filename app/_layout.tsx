@@ -1,6 +1,6 @@
 // ─────────────────────────────────────────────
 // app/_layout.tsx
-// Root Layout – KARMA shell (single source)
+// Root Layout – KARMA shell (icon-only tabs)
 // ─────────────────────────────────────────────
 
 import { Tabs } from 'expo-router';
@@ -24,18 +24,21 @@ export default function RootLayout() {
       <Tabs
         screenOptions={{
           headerShown: false,
+          tabBarShowLabel: false,          // 🔑 ICON-ONLY
           tabBarActiveTintColor: '#0bbf8a',
           tabBarInactiveTintColor: '#666',
           tabBarStyle: styles.tabBar,
-          tabBarLabelStyle: styles.tabLabel,
         }}
       >
         <Tabs.Screen
           name="index"
           options={{
-            title: 'Hem',
             tabBarIcon: ({ color, size }) => (
-              <Ionicons name="home-outline" size={size ?? 22} color={color} />
+              <Ionicons
+                name="home-outline"
+                size={size ?? 24}
+                color={color}
+              />
             ),
           }}
         />
@@ -43,9 +46,12 @@ export default function RootLayout() {
         <Tabs.Screen
           name="(tabs)/search"
           options={{
-            title: 'Köp',
             tabBarIcon: ({ color, size }) => (
-              <Ionicons name="search-outline" size={size ?? 22} color={color} />
+              <Ionicons
+                name="search-outline"
+                size={size ?? 24}
+                color={color}
+              />
             ),
           }}
         />
@@ -53,9 +59,12 @@ export default function RootLayout() {
         <Tabs.Screen
           name="(tabs)/sell"
           options={{
-            title: 'Sälj',
             tabBarIcon: ({ color }) => (
-              <Ionicons name="add-circle" size={30} color={color} />
+              <Ionicons
+                name="add-circle"
+                size={30}
+                color={color}
+              />
             ),
           }}
         />
@@ -63,9 +72,12 @@ export default function RootLayout() {
         <Tabs.Screen
           name="(tabs)/profile"
           options={{
-            title: 'Profil',
             tabBarIcon: ({ color, size }) => (
-              <Ionicons name="person-outline" size={size ?? 22} color={color} />
+              <Ionicons
+                name="person-outline"
+                size={size ?? 24}
+                color={color}
+              />
             ),
           }}
         />
@@ -79,6 +91,8 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#0b0b0f',
   },
+
+  /* ── TOP HEADER ─────────────────────────── */
   header: {
     paddingTop: Platform.OS === 'ios' ? 50 : 26,
     paddingBottom: 10,
@@ -90,7 +104,7 @@ const styles = StyleSheet.create({
   logo: {
     fontSize: 20,
     fontWeight: '900',
-    color: '#fff',
+    color: '#ffffff',
     letterSpacing: 1,
   },
   tagline: {
@@ -98,14 +112,12 @@ const styles = StyleSheet.create({
     color: '#0bbf8a',
     marginTop: 2,
   },
+
+  /* ── BOTTOM TABS ────────────────────────── */
   tabBar: {
     backgroundColor: '#0b0b0f',
     borderTopColor: '#1c1c22',
     height: Platform.OS === 'ios' ? 82 : 60,
     paddingBottom: Platform.OS === 'ios' ? 18 : 8,
-  },
-  tabLabel: {
-    fontSize: 10,
-    fontWeight: '600',
   },
 });
