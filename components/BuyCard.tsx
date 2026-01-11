@@ -4,7 +4,7 @@
 // ─────────────────────────────────────────────
 
 import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native';
-import { theme } from '../theme';
+import { theme } from '../app/theme'
 import MatchScore from './MatchScore';
 import LiquidBadge from './LiquidBadge';
 
