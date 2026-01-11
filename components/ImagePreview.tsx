@@ -4,7 +4,7 @@
 // ─────────────────────────────────────────────
 
 import { View, Image, StyleSheet, Dimensions } from 'react-native';
-import { theme } from '../theme';
+import { theme } from '../app/theme';
 
 const { width } = Dimensions.get('window');
 const SIZE = width / 3 - 20;
