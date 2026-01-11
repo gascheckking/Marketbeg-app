@@ -1,6 +1,6 @@
 // ─────────────────────────────────────────────
 // components/BuyCard.tsx
-// Köp-grid card – MatchScore · Pris · Kategori · Likvid
+// Minimal buy grid card (Spotify discipline)
 // ─────────────────────────────────────────────
 
 import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native';
@@ -26,11 +26,7 @@ export default function BuyCard({
   onPress,
 }: Props) {
   return (
-    <TouchableOpacity
-      style={styles.card}
-      activeOpacity={0.9}
-      onPress={onPress}
-    >
+    <TouchableOpacity style={styles.card} onPress={onPress} activeOpacity={0.9}>
       <View style={styles.imageWrap}>
         {image ? (
           <Image source={{ uri: image }} style={styles.image} />
@@ -38,7 +34,7 @@ export default function BuyCard({
           <View style={styles.placeholder} />
         )}
 
-        <View style={styles.badge}>
+        <View style={styles.overlay}>
           <MatchScore score={match} />
         </View>
       </View>
@@ -47,12 +43,12 @@ export default function BuyCard({
         {title}
       </Text>
 
-      <Text style={styles.category}>{category}</Text>
-
-      <View style={styles.footer}>
-        <Text style={styles.price}>{price}</Text>
+      <View style={styles.meta}>
+        <Text style={styles.category}>{category}</Text>
         <LiquidBadge />
       </View>
+
+      <Text style={styles.price}>{price}</Text>
     </TouchableOpacity>
   );
 }
@@ -63,48 +59,49 @@ const styles = StyleSheet.create({
     backgroundColor: theme.colors.surface,
     borderRadius: theme.radius.lg,
     padding: 12,
-    borderWidth: 1,
-    borderColor: theme.colors.border,
   },
+
   imageWrap: {
-    position: 'relative',
-    marginBottom: 10,
+    marginBottom: 8,
   },
   image: {
     width: '100%',
-    height: 140,
-    borderRadius: 12,
+    height: 120,
+    borderRadius: 10,
   },
   placeholder: {
     width: '100%',
-    height: 140,
-    borderRadius: 12,
+    height: 120,
+    borderRadius: 10,
     backgroundColor: '#222',
   },
-  badge: {
+  overlay: {
     position: 'absolute',
-    top: 8,
-    left: 8,
+    top: 6,
+    left: 6,
   },
+
   title: {
-    color: theme.colors.text,
     fontSize: 14,
-    fontWeight: '700',
-    marginBottom: 4,
+    fontWeight: '600',
+    color: theme.colors.text,
+    marginBottom: 6,
   },
-  category: {
-    color: theme.colors.muted,
-    fontSize: 12,
-    marginBottom: 10,
-  },
-  footer: {
+
+  meta: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
+    marginBottom: 6,
   },
+  category: {
+    fontSize: 12,
+    color: theme.colors.muted,
+  },
+
   price: {
-    color: theme.colors.primary,
     fontSize: 18,
     fontWeight: '900',
+    color: theme.colors.primary,
   },
 });
