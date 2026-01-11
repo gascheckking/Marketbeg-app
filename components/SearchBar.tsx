@@ -1,45 +1,35 @@
 // ─────────────────────────────────────────────
 // components/SearchBar.tsx
-// Ultra-minimal AI Search
+// Sticky / compact AI SearchBar
 // ─────────────────────────────────────────────
 
-import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
+import { View, Text, StyleSheet, Animated } from 'react-native';
 import Ionicons from '@expo/vector-icons/Ionicons';
-import { theme } from '../theme';
+import { theme } from '../app/theme';
 
-type Props = {
-  placeholder?: string;
-  onPressText?: () => void;
-  onPressMic?: () => void;
-  onPressCamera?: () => void;
-};
-
-export default function SearchBar({
-  placeholder = 'Sök text, röst eller bild',
-  onPressText,
-  onPressMic,
-  onPressCamera,
-}: Props) {
+export default function SearchBar({ compact = false }: { compact?: boolean }) {
   return (
-    <TouchableOpacity style={styles.container} onPress={onPressText}>
-      <Ionicons name="search-outline" size={18} color={theme.colors.muted} />
+    <Animated.View
+      style={[
+        styles.container,
+        compact && styles.compact,
+      ]}
+    >
+      <Ionicons
+        name="search-outline"
+        size={18}
+        color={theme.colors.muted}
+      />
 
-      <Text style={styles.text}>{placeholder}</Text>
+      {!compact && (
+        <Text style={styles.text}>Sök med text, röst eller bild</Text>
+      )}
 
       <View style={styles.actions}>
-        <TouchableOpacity onPress={onPressMic}>
-          <Ionicons name="mic-outline" size={18} color={theme.colors.primary} />
-        </TouchableOpacity>
-
-        <TouchableOpacity onPress={onPressCamera}>
-          <Ionicons
-            name="camera-outline"
-            size={18}
-            color={theme.colors.primary}
-          />
-        </TouchableOpacity>
+        <Ionicons name="mic-outline" size={18} color={theme.colors.primary} />
+        <Ionicons name="camera-outline" size={18} color={theme.colors.primary} />
       </View>
-    </TouchableOpacity>
+    </Animated.View>
   );
 }
 
@@ -48,20 +38,24 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     backgroundColor: theme.colors.card,
-    borderRadius: 14,
+    borderRadius: theme.radius.md,
     paddingHorizontal: 14,
-    paddingVertical: 10,
+    paddingVertical: 14,
     borderWidth: 1,
     borderColor: theme.colors.border,
+    marginBottom: theme.spacing.md,
+  },
+  compact: {
+    paddingVertical: 10,
   },
   text: {
     flex: 1,
     marginLeft: 10,
-    fontSize: 14,
+    fontSize: 15,
     color: theme.colors.muted,
   },
   actions: {
     flexDirection: 'row',
-    gap: 12,
+    gap: 14,
   },
 });
