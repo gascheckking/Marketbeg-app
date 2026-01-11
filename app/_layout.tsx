@@ -1,6 +1,6 @@
 // ─────────────────────────────────────────────
 // app/_layout.tsx
-// Root Layout – KARMA shell (icon-only tabs)
+// KARMA Root – Spotify-grade navigation
 // ─────────────────────────────────────────────
 
 import { Tabs } from 'expo-router';
@@ -24,21 +24,17 @@ export default function RootLayout() {
       <Tabs
         screenOptions={{
           headerShown: false,
-          tabBarShowLabel: false,          // 🔑 ICON-ONLY
+          tabBarShowLabel: false,
           tabBarActiveTintColor: '#0bbf8a',
-          tabBarInactiveTintColor: '#666',
+          tabBarInactiveTintColor: '#555',
           tabBarStyle: styles.tabBar,
         }}
       >
         <Tabs.Screen
           name="index"
           options={{
-            tabBarIcon: ({ color, size }) => (
-              <Ionicons
-                name="home-outline"
-                size={size ?? 24}
-                color={color}
-              />
+            tabBarIcon: ({ color }) => (
+              <Ionicons name="home-outline" size={22} color={color} />
             ),
           }}
         />
@@ -46,12 +42,8 @@ export default function RootLayout() {
         <Tabs.Screen
           name="(tabs)/search"
           options={{
-            tabBarIcon: ({ color, size }) => (
-              <Ionicons
-                name="search-outline"
-                size={size ?? 24}
-                color={color}
-              />
+            tabBarIcon: ({ color }) => (
+              <Ionicons name="search-outline" size={22} color={color} />
             ),
           }}
         />
@@ -60,11 +52,9 @@ export default function RootLayout() {
           name="(tabs)/sell"
           options={{
             tabBarIcon: ({ color }) => (
-              <Ionicons
-                name="add-circle"
-                size={30}
-                color={color}
-              />
+              <View style={styles.sellButton}>
+                <Ionicons name="add" size={26} color="#000" />
+              </View>
             ),
           }}
         />
@@ -72,12 +62,8 @@ export default function RootLayout() {
         <Tabs.Screen
           name="(tabs)/profile"
           options={{
-            tabBarIcon: ({ color, size }) => (
-              <Ionicons
-                name="person-outline"
-                size={size ?? 24}
-                color={color}
-              />
+            tabBarIcon: ({ color }) => (
+              <Ionicons name="person-outline" size={22} color={color} />
             ),
           }}
         />
@@ -92,32 +78,40 @@ const styles = StyleSheet.create({
     backgroundColor: '#0b0b0f',
   },
 
-  /* ── TOP HEADER ─────────────────────────── */
   header: {
-    paddingTop: Platform.OS === 'ios' ? 50 : 26,
-    paddingBottom: 10,
+    paddingTop: Platform.OS === 'ios' ? 42 : 22,
+    paddingBottom: 8,
     alignItems: 'center',
     backgroundColor: '#0b0b0f',
     borderBottomWidth: 1,
     borderBottomColor: '#1c1c22',
   },
   logo: {
-    fontSize: 20,
+    fontSize: 18,
     fontWeight: '900',
-    color: '#ffffff',
+    color: '#fff',
     letterSpacing: 1,
   },
   tagline: {
-    fontSize: 11,
+    fontSize: 10,
     color: '#0bbf8a',
     marginTop: 2,
   },
 
-  /* ── BOTTOM TABS ────────────────────────── */
   tabBar: {
     backgroundColor: '#0b0b0f',
     borderTopColor: '#1c1c22',
-    height: Platform.OS === 'ios' ? 82 : 60,
-    paddingBottom: Platform.OS === 'ios' ? 18 : 8,
+    height: Platform.OS === 'ios' ? 72 : 56,
+    paddingBottom: Platform.OS === 'ios' ? 14 : 6,
+  },
+
+  sellButton: {
+    width: 46,
+    height: 46,
+    borderRadius: 23,
+    backgroundColor: '#0bbf8a',
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginTop: Platform.OS === 'ios' ? -6 : -4,
   },
 });
