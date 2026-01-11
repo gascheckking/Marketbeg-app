@@ -5,7 +5,7 @@
 
 import { View, Text, StyleSheet, Animated } from 'react-native';
 import Ionicons from '@expo/vector-icons/Ionicons';
-import { theme } from '../theme'; // ✅ FIX
+import { theme } from '../app/theme'; // ✅ FIX
 
 export default function SearchBar({ compact = false }: { compact?: boolean }) {
   return (
