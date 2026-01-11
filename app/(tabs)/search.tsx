@@ -1,8 +1,4 @@
-// ─────────────────────────────────────────────
 // app/(tabs)/search.tsx
-// Buy / Discover – Grid ↔ List
-// ─────────────────────────────────────────────
-
 import { View, Text, StyleSheet, FlatList, TouchableOpacity } from 'react-native';
 import Ionicons from '@expo/vector-icons/Ionicons';
 import { useState } from 'react';
@@ -24,14 +20,12 @@ export default function SearchScreen() {
     <View style={styles.container}>
       <SearchBar compact={list} />
 
-      {/* HEADER */}
       <View style={styles.header}>
         <Text style={styles.title}>Populärt</Text>
-
         <TouchableOpacity onPress={() => setList(!list)}>
           <Ionicons
             name={list ? 'grid-outline' : 'list-outline'}
-            size={22}
+            size={20}
             color={theme.colors.muted}
           />
         </TouchableOpacity>
@@ -42,14 +36,10 @@ export default function SearchScreen() {
         key={list ? 'list' : 'grid'}
         numColumns={list ? 1 : 2}
         keyExtractor={(i) => i.id}
-        columnWrapperStyle={!list ? { gap: 14 } : undefined}
-        contentContainerStyle={{ gap: 14, paddingBottom: 40 }}
+        columnWrapperStyle={!list ? { gap: 12 } : undefined}
+        contentContainerStyle={{ gap: 12, paddingBottom: 80 }}
         renderItem={({ item }) => (
-          <BuyCard
-            title={item.title}
-            price={item.price}
-            category={item.category}
-          />
+          <BuyCard {...item} />
         )}
       />
     </View>
@@ -60,17 +50,18 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: theme.colors.bg,
-    padding: theme.spacing.md,
+    paddingHorizontal: theme.spacing.md,
+    paddingTop: 8,
   },
   header: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    marginBottom: theme.spacing.md,
+    marginBottom: 10,
   },
   title: {
     color: theme.colors.text,
-    fontSize: 18,
+    fontSize: 16,
     fontWeight: '800',
   },
 });
