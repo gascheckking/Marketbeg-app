@@ -1,11 +1,11 @@
 // ─────────────────────────────────────────────
 // components/SearchBar.tsx
-// Sticky / compact AI SearchBar
+// Sticky / compact AI SearchBar (FIXED)
 // ─────────────────────────────────────────────
 
 import { View, Text, StyleSheet, Animated } from 'react-native';
 import Ionicons from '@expo/vector-icons/Ionicons';
-import { theme } from '../app/theme';
+import { theme } from '../theme'; // ✅ FIX
 
 export default function SearchBar({ compact = false }: { compact?: boolean }) {
   return (
@@ -26,8 +26,16 @@ export default function SearchBar({ compact = false }: { compact?: boolean }) {
       )}
 
       <View style={styles.actions}>
-        <Ionicons name="mic-outline" size={18} color={theme.colors.primary} />
-        <Ionicons name="camera-outline" size={18} color={theme.colors.primary} />
+        <Ionicons
+          name="mic-outline"
+          size={18}
+          color={theme.colors.primary}
+        />
+        <Ionicons
+          name="camera-outline"
+          size={18}
+          color={theme.colors.primary}
+        />
       </View>
     </Animated.View>
   );
