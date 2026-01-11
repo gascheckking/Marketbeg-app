@@ -4,7 +4,7 @@
 // ─────────────────────────────────────────────
 
 import { View, Text, StyleSheet, TouchableOpacity, Modal, ScrollView } from 'react-native';
-import { theme } from '../theme';
+import { theme } from '../app/theme';
 
 const CATEGORIES = [
   'Alla',
