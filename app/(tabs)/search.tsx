@@ -1,64 +1,61 @@
 // ─────────────────────────────────────────────
-// app/(tabs)/search.tsx
-// Buy / Discover – Minimal AI feed
+// components/SearchBar.tsx
+// Sticky / compact AI SearchBar
 // ─────────────────────────────────────────────
 
-import { View, Text, StyleSheet, FlatList } from 'react-native';
-import { theme } from '../theme';
-import SearchBar from '../../components/SearchBar';
-import BuyCard from '../../components/BuyCard';
+import { View, Text, StyleSheet, Animated } from 'react-native';
+import Ionicons from '@expo/vector-icons/Ionicons';
+import { theme } from '../app/theme';
 
-const MOCK_ITEMS = Array.from({ length: 6 }).map((_, i) => ({
-  id: String(i),
-  title: `Objekt ${i + 1}`,
-  price: `${(i + 1) * 850} kr`,
-  category: 'Elektronik',
-}));
-
-export default function SearchScreen() {
+export default function SearchBar({ compact = false }: { compact?: boolean }) {
   return (
-    <View style={styles.container}>
-      <SearchBar />
-
-      <Text style={styles.section}>Populärt just nu</Text>
-
-      <FlatList
-        data={MOCK_ITEMS}
-        numColumns={2}
-        keyExtractor={(i) => i.id}
-        columnWrapperStyle={styles.row}
-        contentContainerStyle={styles.list}
-        renderItem={({ item }) => (
-          <BuyCard
-            title={item.title}
-            price={item.price}
-            category={item.category}
-          />
-        )}
-        showsVerticalScrollIndicator={false}
+    <Animated.View
+      style={[
+        styles.container,
+        compact && styles.compact,
+      ]}
+    >
+      <Ionicons
+        name="search-outline"
+        size={18}
+        color={theme.colors.muted}
       />
-    </View>
+
+      {!compact && (
+        <Text style={styles.text}>Sök med text, röst eller bild</Text>
+      )}
+
+      <View style={styles.actions}>
+        <Ionicons name="mic-outline" size={18} color={theme.colors.primary} />
+        <Ionicons name="camera-outline" size={18} color={theme.colors.primary} />
+      </View>
+    </Animated.View>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: theme.colors.card,
+    borderRadius: theme.radius.md,
+    paddingHorizontal: 14,
+    paddingVertical: 14,
+    borderWidth: 1,
+    borderColor: theme.colors.border,
+    marginBottom: theme.spacing.md,
+  },
+  compact: {
+    paddingVertical: 10,
+  },
+  text: {
     flex: 1,
-    backgroundColor: theme.colors.bg,
-    paddingHorizontal: theme.spacing.md,
+    marginLeft: 10,
+    fontSize: 15,
+    color: theme.colors.muted,
   },
-  section: {
-    marginTop: theme.spacing.md,
-    marginBottom: theme.spacing.sm,
-    color: theme.colors.text,
-    fontSize: 17,
-    fontWeight: '800',
-  },
-  row: {
-    gap: 12,
-  },
-  list: {
-    paddingBottom: 120,
-    gap: 12,
+  actions: {
+    flexDirection: 'row',
+    gap: 14,
   },
 });
