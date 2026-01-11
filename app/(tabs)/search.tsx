@@ -1,61 +1,76 @@
 // ─────────────────────────────────────────────
-// components/SearchBar.tsx
-// Sticky / compact AI SearchBar
+// app/(tabs)/search.tsx
+// Buy / Discover – Grid ↔ List
 // ─────────────────────────────────────────────
 
-import { View, Text, StyleSheet, Animated } from 'react-native';
+import { View, Text, StyleSheet, FlatList, TouchableOpacity } from 'react-native';
 import Ionicons from '@expo/vector-icons/Ionicons';
-import { theme } from '../app/theme';
+import { useState } from 'react';
+import { theme } from '../theme';
+import SearchBar from '../../components/SearchBar';
+import BuyCard from '../../components/BuyCard';
 
-export default function SearchBar({ compact = false }: { compact?: boolean }) {
+const MOCK_ITEMS = Array.from({ length: 8 }).map((_, i) => ({
+  id: String(i),
+  title: `Objekt ${i + 1}`,
+  price: `${(i + 1) * 900} kr`,
+  category: 'Elektronik',
+}));
+
+export default function SearchScreen() {
+  const [list, setList] = useState(false);
+
   return (
-    <Animated.View
-      style={[
-        styles.container,
-        compact && styles.compact,
-      ]}
-    >
-      <Ionicons
-        name="search-outline"
-        size={18}
-        color={theme.colors.muted}
-      />
+    <View style={styles.container}>
+      <SearchBar compact={list} />
 
-      {!compact && (
-        <Text style={styles.text}>Sök med text, röst eller bild</Text>
-      )}
+      {/* HEADER */}
+      <View style={styles.header}>
+        <Text style={styles.title}>Populärt</Text>
 
-      <View style={styles.actions}>
-        <Ionicons name="mic-outline" size={18} color={theme.colors.primary} />
-        <Ionicons name="camera-outline" size={18} color={theme.colors.primary} />
+        <TouchableOpacity onPress={() => setList(!list)}>
+          <Ionicons
+            name={list ? 'grid-outline' : 'list-outline'}
+            size={22}
+            color={theme.colors.muted}
+          />
+        </TouchableOpacity>
       </View>
-    </Animated.View>
+
+      <FlatList
+        data={MOCK_ITEMS}
+        key={list ? 'list' : 'grid'}
+        numColumns={list ? 1 : 2}
+        keyExtractor={(i) => i.id}
+        columnWrapperStyle={!list ? { gap: 14 } : undefined}
+        contentContainerStyle={{ gap: 14, paddingBottom: 40 }}
+        renderItem={({ item }) => (
+          <BuyCard
+            title={item.title}
+            price={item.price}
+            category={item.category}
+          />
+        )}
+      />
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
+    flex: 1,
+    backgroundColor: theme.colors.bg,
+    padding: theme.spacing.md,
+  },
+  header: {
     flexDirection: 'row',
+    justifyContent: 'space-between',
     alignItems: 'center',
-    backgroundColor: theme.colors.card,
-    borderRadius: theme.radius.md,
-    paddingHorizontal: 14,
-    paddingVertical: 14,
-    borderWidth: 1,
-    borderColor: theme.colors.border,
     marginBottom: theme.spacing.md,
   },
-  compact: {
-    paddingVertical: 10,
-  },
-  text: {
-    flex: 1,
-    marginLeft: 10,
-    fontSize: 15,
-    color: theme.colors.muted,
-  },
-  actions: {
-    flexDirection: 'row',
-    gap: 14,
+  title: {
+    color: theme.colors.text,
+    fontSize: 18,
+    fontWeight: '800',
   },
 });
