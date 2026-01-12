@@ -1,5 +1,4 @@
 // app/index.tsx
-// HOME – Spotify-grade start
 import { View, Text, StyleSheet, ScrollView, TouchableOpacity } from 'react-native';
 import { router } from 'expo-router';
 import { theme } from './theme';
@@ -8,9 +7,9 @@ export default function HomeScreen() {
   return (
     <ScrollView style={styles.page} contentContainerStyle={styles.container}>
       <View style={styles.hero}>
-        <Text style={styles.heroTitle}>Instant Liquid</Text>
-        <Text style={styles.heroSubtitle}>
-          Sälj direkt till redo köpare.
+        <Text style={styles.title}>Instant Liquid</Text>
+        <Text style={styles.subtitle}>
+          Sälj direkt till köpare som redan väntar.
         </Text>
 
         <TouchableOpacity
@@ -25,9 +24,9 @@ export default function HomeScreen() {
         <Text style={styles.sectionTitle}>Så funkar KARMA</Text>
 
         {[
-          ['📸', 'Ett foto', 'AI identifierar objekt & pris'],
-          ['🧠', 'Direkt match', 'Redo köpare med auto-bud'],
-          ['⚡', 'Likvid direkt', 'Pengar till din KARMA'],
+          ['📸', 'Ett foto', 'AI identifierar objekt och pris'],
+          ['🧠', 'Direkt match', 'Automatiska köpare'],
+          ['⚡', 'Likvid direkt', 'Pengar på sekunder'],
         ].map(([icon, title, text]) => (
           <View key={title} style={styles.row}>
             <Text style={styles.rowTitle}>{icon} {title}</Text>
@@ -49,27 +48,33 @@ export default function HomeScreen() {
 }
 
 const styles = StyleSheet.create({
-  page: { flex: 1, backgroundColor: theme.colors.bg },
-  container: { paddingBottom: theme.spacing.xl },
+  page: {
+    flex: 1,
+    backgroundColor: theme.colors.bg,
+  },
+  container: {
+    paddingBottom: theme.spacing.xl,
+  },
 
   hero: {
     paddingHorizontal: theme.spacing.lg,
-    paddingTop: 18,
-    paddingBottom: 28,
+    paddingTop: 14,
+    paddingBottom: 24,
   },
-  heroTitle: {
-    fontSize: 28,
+
+  title: {
+    fontSize: 24,
     fontWeight: '900',
     color: theme.colors.text,
   },
-  heroSubtitle: {
-    fontSize: 14,
+  subtitle: {
+    fontSize: 13,
     color: theme.colors.muted,
     marginVertical: 6,
   },
 
   primary: {
-    marginTop: 14,
+    marginTop: 12,
     backgroundColor: theme.colors.primary,
     borderRadius: theme.radius.lg,
     paddingVertical: 14,
@@ -83,13 +88,14 @@ const styles = StyleSheet.create({
 
   section: {
     paddingHorizontal: theme.spacing.lg,
-    paddingTop: 18,
+    paddingTop: 16,
   },
+
   sectionTitle: {
-    fontSize: 16,
+    fontSize: 15,
     fontWeight: '800',
     color: theme.colors.text,
-    marginBottom: 12,
+    marginBottom: 10,
   },
 
   row: {
@@ -97,13 +103,15 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1,
     borderBottomColor: theme.colors.border,
   },
+
   rowTitle: {
-    fontSize: 14,
+    fontSize: 13,
     fontWeight: '700',
     color: theme.colors.text,
   },
+
   rowText: {
-    fontSize: 13,
+    fontSize: 12,
     color: theme.colors.muted,
   },
 
@@ -116,8 +124,8 @@ const styles = StyleSheet.create({
     borderColor: theme.colors.border,
   },
   secondaryText: {
-    color: theme.colors.text,
+    fontSize: 13,
     fontWeight: '700',
-    fontSize: 14,
+    color: theme.colors.text,
   },
 });
