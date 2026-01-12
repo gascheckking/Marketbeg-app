@@ -33,10 +33,11 @@ export default function TabsLayout() {
         }}
       />
 
+      {/* SELL – override tabBarButton (RÄTT sätt) */}
       <Tabs.Screen
         name="sell"
         options={{
-          tabBarIcon: () => (
+          tabBarButton: () => (
             <Pressable
               onPress={() => router.push('/(tabs)/sell')}
               style={styles.sellButton}
@@ -68,9 +69,9 @@ const styles = StyleSheet.create({
   },
 
   sellButton: {
-    width: 42,
-    height: 42,
-    borderRadius: 21,
+    width: 44,
+    height: 44,
+    borderRadius: 22,
     backgroundColor: theme.colors.primary,
     justifyContent: 'center',
     alignItems: 'center',
