@@ -1,6 +1,6 @@
 // app/(tabs)/_layout.tsx
 import { Tabs, router } from 'expo-router';
-import { Platform, StyleSheet, Pressable } from 'react-native';
+import { Platform, StyleSheet, Pressable, View } from 'react-native';
 import Ionicons from '@expo/vector-icons/Ionicons';
 import { theme } from '../theme';
 
@@ -11,7 +11,7 @@ export default function TabsLayout() {
         headerShown: false,
         tabBarShowLabel: false,
         tabBarActiveTintColor: theme.colors.primary,
-        tabBarInactiveTintColor: '#555',
+        tabBarInactiveTintColor: '#6b6b70',
         tabBarStyle: styles.tabBar,
       }}
     >
@@ -19,7 +19,7 @@ export default function TabsLayout() {
         name="index"
         options={{
           tabBarIcon: ({ color }) => (
-            <Ionicons name="home-outline" size={20} color={color} />
+            <Ionicons name="home-outline" size={22} color={color} />
           ),
         }}
       />
@@ -28,22 +28,24 @@ export default function TabsLayout() {
         name="search"
         options={{
           tabBarIcon: ({ color }) => (
-            <Ionicons name="search-outline" size={20} color={color} />
+            <Ionicons name="search-outline" size={22} color={color} />
           ),
         }}
       />
 
-      {/* SELL – override tabBarButton (RÄTT sätt) */}
+      {/* SELL – Spotify-style primary action */}
       <Tabs.Screen
         name="sell"
         options={{
           tabBarButton: () => (
-            <Pressable
-              onPress={() => router.push('/(tabs)/sell')}
-              style={styles.sellButton}
-            >
-              <Ionicons name="add" size={22} color="#000" />
-            </Pressable>
+            <View style={styles.sellWrap}>
+              <Pressable
+                onPress={() => router.push('/(tabs)/sell')}
+                style={styles.sellButton}
+              >
+                <Ionicons name="add" size={26} color="#000" />
+              </Pressable>
+            </View>
           ),
         }}
       />
@@ -52,7 +54,7 @@ export default function TabsLayout() {
         name="profile"
         options={{
           tabBarIcon: ({ color }) => (
-            <Ionicons name="person-outline" size={20} color={color} />
+            <Ionicons name="person-outline" size={22} color={color} />
           ),
         }}
       />
@@ -64,17 +66,21 @@ const styles = StyleSheet.create({
   tabBar: {
     backgroundColor: theme.colors.bg,
     borderTopColor: theme.colors.border,
-    height: Platform.OS === 'ios' ? 58 : 52,
+    height: Platform.OS === 'ios' ? 60 : 54,
     paddingBottom: Platform.OS === 'ios' ? 10 : 6,
   },
 
+  sellWrap: {
+    top: -8,
+  },
+
   sellButton: {
-    width: 44,
-    height: 44,
-    borderRadius: 22,
+    width: 48,
+    height: 48,
+    borderRadius: 24,
     backgroundColor: theme.colors.primary,
     justifyContent: 'center',
     alignItems: 'center',
-    marginTop: Platform.OS === 'ios' ? -6 : -4,
+    elevation: 6,
   },
 });
