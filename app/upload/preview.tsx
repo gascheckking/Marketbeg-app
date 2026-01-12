@@ -1,13 +1,12 @@
 // ─────────────────────────────────────────────
 // app/upload/preview.tsx
-// PREVIEW – PRICE / MATCH / LIQUID
+// PREVIEW – Spotify-grade pricing confidence
 // ─────────────────────────────────────────────
 
 import { View, Text, StyleSheet, ScrollView, TouchableOpacity } from 'react-native';
 import { useLocalSearchParams, useRouter } from 'expo-router';
 import { theme } from '../theme';
 
-// ✅ FIXADE IMPORTER
 import MatchScore from '../../components/MatchScore';
 import LiquidBadge from '../../components/LiquidBadge';
 
@@ -18,23 +17,23 @@ export default function PreviewScreen() {
   const imageUris: string[] = images ? JSON.parse(images as string) : [];
 
   return (
-    <ScrollView style={styles.container}>
-      <Text style={styles.title}>AI-förslag</Text>
+    <ScrollView style={styles.container} contentContainerStyle={{ paddingBottom: 32 }}>
+      <Text style={styles.title}>Prisförslag</Text>
       <Text style={styles.subtitle}>
-        Priser baserat på aktuell efterfrågan
+        Baserat på live-efterfrågan
       </Text>
 
       {imageUris.map((_, i) => (
         <View key={i} style={styles.card}>
-          <View style={styles.cardHeader}>
+          <View style={styles.topRow}>
             <MatchScore score={92 - i * 3} />
             <LiquidBadge />
           </View>
 
-          <Text style={styles.itemTitle}>
+          <Text style={styles.price}>1 500 kr</Text>
+          <Text style={styles.item}>
             Identifierat objekt #{i + 1}
           </Text>
-          <Text style={styles.price}>1 500 kr</Text>
           <Text style={styles.meta}>Redo köpare hittad</Text>
         </View>
       ))}
@@ -43,7 +42,7 @@ export default function PreviewScreen() {
         style={styles.cta}
         onPress={() => router.replace('/')}
       >
-        <Text style={styles.ctaText}>Acceptera & få betalt</Text>
+        <Text style={styles.ctaText}>Acceptera och få betalt</Text>
       </TouchableOpacity>
     </ScrollView>
   );
@@ -55,55 +54,63 @@ const styles = StyleSheet.create({
     backgroundColor: theme.colors.bg,
     padding: theme.spacing.md,
   },
+
   title: {
-    fontSize: 28,
+    fontSize: 22,
     fontWeight: '900',
     color: theme.colors.text,
-    marginBottom: 6,
+    marginBottom: 4,
   },
   subtitle: {
+    fontSize: 13,
     color: theme.colors.muted,
-    marginBottom: 24,
+    marginBottom: 18,
   },
+
   card: {
     backgroundColor: theme.colors.surface,
-    borderRadius: theme.radius.md,
-    padding: theme.spacing.md,
+    borderRadius: theme.radius.lg,
+    padding: 16,
     marginBottom: 14,
     borderWidth: 1,
     borderColor: theme.colors.border,
   },
-  cardHeader: {
+
+  topRow: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     marginBottom: 12,
   },
-  itemTitle: {
-    color: theme.colors.text,
-    fontSize: 16,
-    fontWeight: '700',
+
+  price: {
+    fontSize: 26,
+    fontWeight: '900',
+    color: theme.colors.primary,
     marginBottom: 6,
   },
-  price: {
-    color: theme.colors.primary,
-    fontSize: 24,
-    fontWeight: '900',
-    marginBottom: 4,
+
+  item: {
+    fontSize: 14,
+    fontWeight: '600',
+    color: theme.colors.text,
+    marginBottom: 2,
   },
+
   meta: {
+    fontSize: 12,
     color: theme.colors.muted,
-    fontSize: 13,
   },
+
   cta: {
+    marginTop: 18,
     backgroundColor: theme.colors.primary,
     borderRadius: theme.radius.lg,
-    padding: theme.spacing.lg,
+    paddingVertical: 16,
     alignItems: 'center',
-    marginTop: 28,
   },
   ctaText: {
-    color: '#000',
+    fontSize: 15,
     fontWeight: '900',
-    fontSize: 16,
+    color: '#000',
   },
 });
