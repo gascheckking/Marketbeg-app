@@ -1,86 +1,106 @@
-// app/(tabs)/_layout.tsx
-import { Tabs, router } from 'expo-router';
-import { Platform, StyleSheet, Pressable, View } from 'react-native';
-import Ionicons from '@expo/vector-icons/Ionicons';
+// app/upload/preview.tsx
+import { View, Text, StyleSheet, ScrollView, TouchableOpacity } from 'react-native';
+import { useLocalSearchParams, useRouter } from 'expo-router';
 import { theme } from '../theme';
+import MatchScore from '../../components/MatchScore';
+import LiquidBadge from '../../components/LiquidBadge';
 
-export default function TabsLayout() {
+export default function PreviewScreen() {
+  const { images } = useLocalSearchParams();
+  const router = useRouter();
+
+  const imageUris: string[] = images ? JSON.parse(images as string) : [];
+
   return (
-    <Tabs
-      screenOptions={{
-        headerShown: false,
-        tabBarShowLabel: false,
-        tabBarActiveTintColor: theme.colors.primary,
-        tabBarInactiveTintColor: '#6b6b70',
-        tabBarStyle: styles.tabBar,
-      }}
+    <ScrollView
+      style={styles.container}
+      contentContainerStyle={{ paddingBottom: 40 }}
     >
-      <Tabs.Screen
-        name="index"
-        options={{
-          tabBarIcon: ({ color }) => (
-            <Ionicons name="home-outline" size={22} color={color} />
-          ),
-        }}
-      />
+      <Text style={styles.title}>Prisförslag</Text>
+      <Text style={styles.subtitle}>Baserat på aktuell efterfrågan</Text>
 
-      <Tabs.Screen
-        name="search"
-        options={{
-          tabBarIcon: ({ color }) => (
-            <Ionicons name="search-outline" size={22} color={color} />
-          ),
-        }}
-      />
+      {imageUris.map((_, i) => (
+        <View key={i} style={styles.card}>
+          <View style={styles.badges}>
+            <MatchScore score={92 - i * 3} />
+            <LiquidBadge />
+          </View>
 
-      {/* SELL – Spotify-style primary action */}
-      <Tabs.Screen
-        name="sell"
-        options={{
-          tabBarButton: () => (
-            <View style={styles.sellWrap}>
-              <Pressable
-                onPress={() => router.push('/(tabs)/sell')}
-                style={styles.sellButton}
-              >
-                <Ionicons name="add" size={26} color="#000" />
-              </Pressable>
-            </View>
-          ),
-        }}
-      />
+          <Text style={styles.price}>1 500 kr</Text>
+          <Text style={styles.item}>Identifierat objekt #{i + 1}</Text>
+          <Text style={styles.meta}>Redo köpare finns</Text>
+        </View>
+      ))}
 
-      <Tabs.Screen
-        name="profile"
-        options={{
-          tabBarIcon: ({ color }) => (
-            <Ionicons name="person-outline" size={22} color={color} />
-          ),
-        }}
-      />
-    </Tabs>
+      <TouchableOpacity style={styles.cta} onPress={() => router.replace('/')}>
+        <Text style={styles.ctaText}>Acceptera och få betalt</Text>
+      </TouchableOpacity>
+    </ScrollView>
   );
 }
 
 const styles = StyleSheet.create({
-  tabBar: {
+  container: {
+    flex: 1,
     backgroundColor: theme.colors.bg,
-    borderTopColor: theme.colors.border,
-    height: Platform.OS === 'ios' ? 60 : 54,
-    paddingBottom: Platform.OS === 'ios' ? 10 : 6,
+    padding: theme.spacing.md,
   },
 
-  sellWrap: {
-    top: -8,
+  title: {
+    fontSize: 20,
+    fontWeight: '900',
+    color: theme.colors.text,
+  },
+  subtitle: {
+    fontSize: 12,
+    color: theme.colors.muted,
+    marginBottom: 16,
   },
 
-  sellButton: {
-    width: 48,
-    height: 48,
-    borderRadius: 24,
+  card: {
+    backgroundColor: theme.colors.surface,
+    borderRadius: theme.radius.lg,
+    padding: 14,
+    marginBottom: 12,
+    borderWidth: 1,
+    borderColor: theme.colors.border,
+  },
+
+  badges: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginBottom: 10,
+  },
+
+  price: {
+    fontSize: 24,
+    fontWeight: '900',
+    color: theme.colors.primary,
+    marginBottom: 4,
+  },
+
+  item: {
+    fontSize: 13,
+    fontWeight: '600',
+    color: theme.colors.text,
+  },
+
+  meta: {
+    fontSize: 12,
+    color: theme.colors.muted,
+  },
+
+  cta: {
+    marginTop: 18,
     backgroundColor: theme.colors.primary,
-    justifyContent: 'center',
+    borderRadius: theme.radius.lg,
+    paddingVertical: 15,
     alignItems: 'center',
-    elevation: 6,
+  },
+
+  ctaText: {
+    fontSize: 15,
+    fontWeight: '900',
+    color: '#000',
   },
 });
