@@ -1,6 +1,6 @@
 // ─────────────────────────────────────────────
 // components/LiquidBadge.tsx
-// Subtle liquidity indicator
+// Spotify-style liquidity status
 // ─────────────────────────────────────────────
 
 import { View, Text, StyleSheet } from 'react-native';
@@ -9,22 +9,23 @@ import { theme } from '../app/theme';
 export default function LiquidBadge() {
   return (
     <View style={styles.container}>
-      <Text style={styles.text}>Likvid</Text>
+      <Text style={styles.text}>Likvid nu</Text>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: '#0f1f19',
-    paddingHorizontal: 6,
-    paddingVertical: 3,
-    borderRadius: 6,
+    backgroundColor: 'rgba(255,255,255,0.06)',
+    paddingHorizontal: 8,
+    paddingVertical: 4,
+    borderRadius: 8,
   },
   text: {
-    fontSize: 10,
+    fontSize: 11,
     fontWeight: '600',
-    color: theme.colors.primary,
+    color: theme.colors.text,
+    opacity: 0.85,
     letterSpacing: 0.2,
   },
 });
