@@ -1,14 +1,16 @@
 // app/_layout.tsx
 import { Stack } from 'expo-router';
+import { StatusBar } from 'expo-status-bar';
 
 export default function RootLayout() {
   return (
-    <Stack screenOptions={{ headerShown: false }}>
-      {/* Tabs (Home, Sell, etc) */}
-      <Stack.Screen name="(tabs)" />
-
-      {/* Upload flow (modal/stack) */}
-      <Stack.Screen name="upload" />
-    </Stack>
+    <>
+      <StatusBar style="light" />
+      <Stack screenOptions={{ headerShown: false }}>
+        <Stack.Screen name="(tabs)" />
+        <Stack.Screen name="upload" />
+        <Stack.Screen name="trade" />
+      </Stack>
+    </>
   );
 }
