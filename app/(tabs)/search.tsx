@@ -1,16 +1,28 @@
-// app/(tabs)/search.tsx
-import { View, ScrollView, StyleSheet } from 'react-native';
-import { theme } from '../theme';
+import {
+  View,
+  ScrollView,
+  StyleSheet,
+} from 'react-native';
 
+import { theme } from '../theme';
 import SearchBar from '../../components/SearchBar';
 import Section from '../../components/Section';
 import MiniCard from '../../components/MiniCard';
 import RowItem from '../../components/RowItem';
 
+/**
+ * SEARCH
+ * - Inspiration
+ * - Trender
+ * - Snabb utforskning
+ * (inte tung resultatlista)
+ */
 export default function SearchScreen() {
   return (
     <View style={styles.page}>
-      {/* SEARCH INPUT */}
+      {/* =======================
+          SEARCH INPUT
+         ======================= */}
       <View style={styles.searchWrap}>
         <SearchBar />
       </View>
@@ -19,16 +31,32 @@ export default function SearchScreen() {
         contentContainerStyle={styles.container}
         showsVerticalScrollIndicator={false}
       >
-        {/* PERSONLIG */}
+        {/* =======================
+            PERSONLIGT
+           ======================= */}
         <Section title="För dig">
-          <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-            <MiniCard title="Vintagejacka" price="1 200 kr" />
-            <MiniCard title="Sneakers i din stil" price="900 kr" />
-            <MiniCard title="Retro hoodie" price="650 kr" />
+          <ScrollView
+            horizontal
+            showsHorizontalScrollIndicator={false}
+          >
+            <MiniCard
+              title="Vintagejacka"
+              price="1 200 kr"
+            />
+            <MiniCard
+              title="Sneakers i din stil"
+              price="900 kr"
+            />
+            <MiniCard
+              title="Retro hoodie"
+              price="650 kr"
+            />
           </ScrollView>
         </Section>
 
-        {/* POPULÄRT */}
+        {/* =======================
+            TRENDING / SIGNAL
+           ======================= */}
         <Section title="Populärt just nu">
           <RowItem
             title="Barnkläder vinter"
@@ -47,12 +75,26 @@ export default function SearchScreen() {
           />
         </Section>
 
-        {/* UTFORSKA */}
+        {/* =======================
+            EXPLORE / ENTRY
+           ======================= */}
         <Section title="Utforska">
-          <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-            <MiniCard title="Allt för 50 kr" price="Paket" />
-            <MiniCard title="Ge bort lokalt" price="Gratis" />
-            <MiniCard title="Snabb försäljning" price="Likvid" />
+          <ScrollView
+            horizontal
+            showsHorizontalScrollIndicator={false}
+          >
+            <MiniCard
+              title="Allt för 50 kr"
+              price="Paket"
+            />
+            <MiniCard
+              title="Ge bort lokalt"
+              price="Gratis"
+            />
+            <MiniCard
+              title="Snabb försäljning"
+              price="Likvid"
+            />
           </ScrollView>
         </Section>
       </ScrollView>
@@ -60,6 +102,9 @@ export default function SearchScreen() {
   );
 }
 
+/* ===========================
+   STYLES
+   =========================== */
 const styles = StyleSheet.create({
   page: {
     flex: 1,
