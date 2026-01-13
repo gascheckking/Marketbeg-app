@@ -1,14 +1,15 @@
-import { View, Text, StyleSheet, Image } from 'react-native';
+import { View, Text, StyleSheet, Pressable } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { theme } from '../app/theme';
+import { useState } from 'react';
+import TradeSheet from './TradeSheet';
+import AuctionSheet from './AuctionSheet';
 
 type Props = {
   title: string;
   subtitle?: string;
   price: string;
   badge?: string;
-  image?: string; // valfri bild
-  loading?: boolean;
 };
 
 export default function RichCard({
@@ -16,53 +17,70 @@ export default function RichCard({
   subtitle,
   price,
   badge,
-  image,
-  loading = false,
 }: Props) {
-  if (loading) {
-    return (
-      <View style={styles.skeletonCard}>
-        <View style={styles.skeletonImage} />
-        <View style={styles.skeletonContent}>
-          <View style={styles.skeletonLineWide} />
-          <View style={styles.skeletonLine} />
-        </View>
-      </View>
-    );
-  }
+  const [auctionOpen, setAuctionOpen] = useState(false);
+  const [tradeOpen, setTradeOpen] = useState(false);
 
   return (
-    <LinearGradient
-      colors={['#1a1a26', '#0e0e14']}
-      start={{ x: 0, y: 0 }}
-      end={{ x: 1, y: 1 }}
-      style={styles.card}
-    >
-      {image ? (
-        <Image source={{ uri: image }} style={styles.image} />
-      ) : (
-        <View style={styles.imagePlaceholder} />
-      )}
+    <>
+      <LinearGradient
+        colors={['#1a1a26', '#0e0e14']}
+        style={styles.card}
+      >
+        <View style={styles.image} />
 
-      <View style={styles.content}>
-        <View style={styles.row}>
-          <Text style={styles.title} numberOfLines={1}>
-            {title}
-          </Text>
-          <Text style={styles.price}>{price}</Text>
-        </View>
-
-        {subtitle && (
-          <Text style={styles.subtitle}>{subtitle}</Text>
-        )}
-
-        {badge && (
-          <View style={styles.badge}>
-            <Text style={styles.badgeText}>{badge}</Text>
+        <View style={styles.content}>
+          <View style={styles.row}>
+            <Text style={styles.title} numberOfLines={1}>
+              {title}
+            </Text>
+            <Text style={styles.price}>{price}</Text>
           </View>
-        )}
-      </View>
-    </LinearGradient>
+
+          {subtitle && (
+            <Text style={styles.subtitle}>{subtitle}</Text>
+          )}
+
+          <View style={styles.actions}>
+            <Pressable
+              style={styles.actionPrimary}
+              onPress={() => setAuctionOpen(true)}
+            >
+              <Text style={styles.actionPrimaryText}>
+                Auktion
+              </Text>
+            </Pressable>
+
+            <Pressable
+              style={styles.actionSecondary}
+              onPress={() => setTradeOpen(true)}
+            >
+              <Text style={styles.actionSecondaryText}>
+                Byt
+              </Text>
+            </Pressable>
+          </View>
+
+          {badge && (
+            <View style={styles.badge}>
+              <Text style={styles.badgeText}>{badge}</Text>
+            </View>
+          )}
+        </View>
+      </LinearGradient>
+
+      <AuctionSheet
+        visible={auctionOpen}
+        onClose={() => setAuctionOpen(false)}
+        title={title}
+      />
+
+      <TradeSheet
+        visible={tradeOpen}
+        onClose={() => setTradeOpen(false)}
+        title={title}
+      />
+    </>
   );
 }
 
@@ -79,20 +97,12 @@ const styles = StyleSheet.create({
     width: 64,
     height: 64,
     borderRadius: theme.radius.md,
-    marginRight: 12,
-  },
-
-  imagePlaceholder: {
-    width: 64,
-    height: 64,
-    borderRadius: theme.radius.md,
     backgroundColor: '#2a2a36',
     marginRight: 12,
   },
 
   content: {
     flex: 1,
-    justifyContent: 'center',
   },
 
   row: {
@@ -121,6 +131,37 @@ const styles = StyleSheet.create({
     marginTop: 2,
   },
 
+  actions: {
+    flexDirection: 'row',
+    gap: 8,
+    marginTop: 10,
+  },
+
+  actionPrimary: {
+    backgroundColor: theme.colors.primary,
+    borderRadius: theme.radius.sm,
+    paddingVertical: 6,
+    paddingHorizontal: 12,
+  },
+
+  actionPrimaryText: {
+    fontWeight: '900',
+    color: '#000',
+  },
+
+  actionSecondary: {
+    borderWidth: 1,
+    borderColor: theme.colors.border,
+    borderRadius: theme.radius.sm,
+    paddingVertical: 6,
+    paddingHorizontal: 12,
+  },
+
+  actionSecondaryText: {
+    color: theme.colors.text,
+    fontWeight: '700',
+  },
+
   badge: {
     alignSelf: 'flex-start',
     marginTop: 6,
@@ -136,44 +177,5 @@ const styles = StyleSheet.create({
     fontSize: 11,
     fontWeight: '700',
     color: theme.colors.primary,
-  },
-
-  /* ---------- SKELETON ---------- */
-
-  skeletonCard: {
-    flexDirection: 'row',
-    padding: 10,
-    borderRadius: theme.radius.lg,
-    backgroundColor: theme.colors.card,
-    borderWidth: 1,
-    borderColor: theme.colors.border,
-  },
-
-  skeletonImage: {
-    width: 64,
-    height: 64,
-    borderRadius: theme.radius.md,
-    backgroundColor: '#2a2a36',
-    marginRight: 12,
-  },
-
-  skeletonContent: {
-    flex: 1,
-    justifyContent: 'center',
-    gap: 6,
-  },
-
-  skeletonLineWide: {
-    height: 12,
-    width: '70%',
-    backgroundColor: '#2a2a36',
-    borderRadius: 6,
-  },
-
-  skeletonLine: {
-    height: 10,
-    width: '40%',
-    backgroundColor: '#2a2a36',
-    borderRadius: 6,
   },
 });
