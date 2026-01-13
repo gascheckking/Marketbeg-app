@@ -19,7 +19,7 @@ export default function HomeScreen() {
       contentContainerStyle={styles.container}
       showsVerticalScrollIndicator={false}
     >
-      {/* TOP HERO BACKGROUND */}
+      {/* HERO */}
       <View style={styles.heroWrap}>
         <View style={styles.hero}>
           <Text style={styles.kicker}>Välkommen tillbaka</Text>
@@ -33,16 +33,11 @@ export default function HomeScreen() {
             <Text style={styles.karmaMeta}>Eco-hjälte</Text>
 
             <View style={styles.karmaActions}>
-              <Pressable style={styles.karmaBtnPrimary}>
-                <Text style={styles.karmaBtnPrimaryText}>
-                  Tjäna Karma
-                </Text>
+              <Pressable style={styles.karmaPrimary}>
+                <Text style={styles.karmaPrimaryText}>Tjäna Karma</Text>
               </Pressable>
-
-              <Pressable style={styles.karmaBtnSecondary}>
-                <Text style={styles.karmaBtnSecondaryText}>
-                  Min impact
-                </Text>
+              <Pressable style={styles.karmaSecondary}>
+                <Text style={styles.karmaSecondaryText}>Min impact</Text>
               </Pressable>
             </View>
           </View>
@@ -64,7 +59,7 @@ export default function HomeScreen() {
         )}
       </ScrollView>
 
-      {/* RECOMMENDED */}
+      {/* SECTIONS */}
       <Section title="Utvalt för dig">
         <ScrollView horizontal showsHorizontalScrollIndicator={false}>
           <MiniCard title="Vintagejacka" price="1 200 kr" />
@@ -73,7 +68,6 @@ export default function HomeScreen() {
         </ScrollView>
       </Section>
 
-      {/* TREND */}
       <Section title="Populärt just nu">
         <ScrollView horizontal showsHorizontalScrollIndicator={false}>
           <MiniCard title="Barnkläder vinter" price="Paket" />
@@ -82,7 +76,6 @@ export default function HomeScreen() {
         </ScrollView>
       </Section>
 
-      {/* CURATED */}
       <Section title="Utvalda samlingar">
         <ScrollView horizontal showsHorizontalScrollIndicator={false}>
           <MiniCard title="Vintagefynd" price="Handplockat" />
@@ -91,7 +84,7 @@ export default function HomeScreen() {
         </ScrollView>
       </Section>
 
-      {/* SELL ENTRY */}
+      {/* SELL */}
       <Pressable
         style={styles.sellHint}
         onPress={() => router.push('/(tabs)/sell')}
@@ -150,13 +143,13 @@ const styles = StyleSheet.create({
   karmaLabel: {
     fontSize: theme.text.xs,
     color: theme.colors.muted,
-    marginBottom: 6,
   },
 
   karmaValue: {
     fontSize: 34,
     fontWeight: '900',
     color: theme.colors.text,
+    marginTop: 2,
   },
 
   karmaMeta: {
@@ -171,7 +164,7 @@ const styles = StyleSheet.create({
     marginTop: theme.spacing.sm,
   },
 
-  karmaBtnPrimary: {
+  karmaPrimary: {
     flex: 1,
     backgroundColor: theme.colors.primary,
     borderRadius: theme.radius.md,
@@ -179,13 +172,13 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
 
-  karmaBtnPrimaryText: {
+  karmaPrimaryText: {
     fontSize: theme.text.sm,
     fontWeight: '800',
     color: '#000',
   },
 
-  karmaBtnSecondary: {
+  karmaSecondary: {
     flex: 1,
     backgroundColor: '#2a2a33',
     borderRadius: theme.radius.md,
@@ -193,7 +186,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
 
-  karmaBtnSecondaryText: {
+  karmaSecondaryText: {
     fontSize: theme.text.sm,
     fontWeight: '700',
     color: theme.colors.text,
