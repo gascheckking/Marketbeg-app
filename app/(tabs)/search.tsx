@@ -1,6 +1,5 @@
 // app/(tabs)/search.tsx
-
-import { View, FlatList } from 'react-native';
+import { View, ScrollView, StyleSheet } from 'react-native';
 import { theme } from '../theme';
 
 import SearchBar from '../../components/SearchBar';
@@ -10,47 +9,74 @@ import RowItem from '../../components/RowItem';
 
 export default function SearchScreen() {
   return (
-    <View
-      style={{
-        flex: 1,
-        backgroundColor: theme.colors.bg,
-        padding: theme.spacing.md,
-      }}
-    >
-      {/* SEARCH */}
-      <SearchBar />
+    <View style={styles.page}>
+      {/* SEARCH INPUT */}
+      <View style={styles.searchWrap}>
+        <SearchBar />
+      </View>
 
-      {/* POPULÄRT */}
-      <Section title="Populärt just nu">
-        <FlatList
-          horizontal
-          data={[1, 2, 3, 4]}
-          keyExtractor={(i) => String(i)}
-          showsHorizontalScrollIndicator={false}
-          renderItem={() => (
-            <MiniCard title="Objekt" price="900 kr" />
-          )}
-        />
-      </Section>
+      <ScrollView
+        contentContainerStyle={styles.container}
+        showsVerticalScrollIndicator={false}
+      >
+        {/* PERSONLIG */}
+        <Section title="För dig">
+          <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+            <MiniCard title="Vintagejacka" price="1 200 kr" />
+            <MiniCard title="Sneakers i din stil" price="900 kr" />
+            <MiniCard title="Retro hoodie" price="650 kr" />
+          </ScrollView>
+        </Section>
 
-      {/* REDO ATT SÄLJAS */}
-      <Section title="Redo att säljas">
-        {[1, 2, 3].map((i) => (
+        {/* POPULÄRT */}
+        <Section title="Populärt just nu">
           <RowItem
-            key={i}
-            title={`Objekt ${i}`}
-            price={`${i * 900} kr`}
+            title="Barnkläder vinter"
+            subtitle="Säljs snabbt just nu"
+            price="Paket"
           />
-        ))}
-      </Section>
+          <RowItem
+            title="Säkerhetskläder"
+            subtitle="Ökad efterfrågan"
+            price="Trend"
+          />
+          <RowItem
+            title="Småmöbler"
+            subtitle="Många tittar"
+            price="Het"
+          />
+        </Section>
 
-      {/* REKOMMENDERAT */}
-      <Section title="Rekommenderat för dig">
-        <View style={{ flexDirection: 'row', gap: 12 }}>
-          <MiniCard title="Objekt A" price="1200 kr" />
-          <MiniCard title="Objekt B" price="1800 kr" />
-        </View>
-      </Section>
+        {/* UTFORSKA */}
+        <Section title="Utforska">
+          <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+            <MiniCard title="Allt för 50 kr" price="Paket" />
+            <MiniCard title="Ge bort lokalt" price="Gratis" />
+            <MiniCard title="Snabb försäljning" price="Likvid" />
+          </ScrollView>
+        </Section>
+      </ScrollView>
     </View>
   );
 }
+
+const styles = StyleSheet.create({
+  page: {
+    flex: 1,
+    backgroundColor: theme.colors.bg,
+  },
+
+  searchWrap: {
+    paddingHorizontal: theme.spacing.md,
+    paddingTop: theme.spacing.sm,
+    paddingBottom: theme.spacing.xs,
+    borderBottomWidth: 1,
+    borderBottomColor: theme.colors.border,
+  },
+
+  container: {
+    paddingHorizontal: theme.spacing.md,
+    paddingTop: theme.spacing.sm,
+    paddingBottom: theme.spacing.xl,
+  },
+});
