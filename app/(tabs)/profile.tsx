@@ -1,78 +1,52 @@
-// app/(tabs)/profile.tsx
-import { View, Text, StyleSheet, Pressable } from 'react-native';
-import Ionicons from '@expo/vector-icons/Ionicons';
+import {
+  View,
+  Text,
+  StyleSheet,
+  ScrollView,
+  Pressable,
+} from 'react-native';
 import { theme } from '../theme';
-
-const SECTIONS = [
-  {
-    title: 'Ditt konto',
-    rows: [
-      { label: 'Affärer', value: '0' },
-      { label: 'Karma-nivå', value: 'Ny användare' },
-      { label: 'Historik', value: 'Kommer snart' },
-    ],
-  },
-  {
-    title: 'Inställningar',
-    rows: [
-      { label: 'Aviseringar' },
-      { label: 'Betalningar' },
-      { label: 'Sekretess' },
-    ],
-  },
-  {
-    title: 'Support',
-    rows: [
-      { label: 'Hjälp & support' },
-      { label: 'Villkor' },
-      { label: 'Om KARMA' },
-    ],
-  },
-];
+import { getEvents, resetAnalytics } from '../lib/analytics';
 
 export default function ProfileScreen() {
+  const events = getEvents().slice().reverse();
+
   return (
-    <View style={styles.page}>
-      {/* HEADER */}
-      <View style={styles.header}>
-        <Text style={styles.kicker}>Din profil</Text>
-        <Text style={styles.title}>KARMA</Text>
-        <Text style={styles.subtitle}>
-          Ditt rykte i den cirkulära ekonomin
+    <ScrollView
+      style={styles.page}
+      contentContainerStyle={styles.container}
+    >
+      <Text style={styles.title}>Intern KPI</Text>
+      <Text style={styles.subtitle}>
+        Endast för test / beta
+      </Text>
+
+      {events.length === 0 && (
+        <Text style={styles.empty}>
+          Ingen data ännu
         </Text>
-      </View>
+      )}
 
-      {/* LISTS */}
-      {SECTIONS.map((section) => (
-        <View key={section.title} style={styles.section}>
-          <Text style={styles.sectionTitle}>{section.title}</Text>
-
-          <View style={styles.list}>
-            {section.rows.map((row) => (
-              <Pressable key={row.label} style={styles.row}>
-                <Text style={styles.rowLabel}>{row.label}</Text>
-
-                <View style={styles.rowRight}>
-                  {row.value && (
-                    <Text style={styles.rowValue}>{row.value}</Text>
-                  )}
-                  <Ionicons
-                    name="chevron-forward"
-                    size={16}
-                    color={theme.colors.muted}
-                  />
-                </View>
-              </Pressable>
-            ))}
-          </View>
+      {events.map((e, i) => (
+        <View key={i} style={styles.row}>
+          <Text style={styles.event}>{e.name}</Text>
+          {e.data?.seconds && (
+            <Text style={styles.meta}>
+              {e.data.seconds}s
+            </Text>
+          )}
         </View>
       ))}
 
-      {/* FOOTER */}
-      <Text style={styles.footer}>
-        Mer kontroll och funktioner kommer snart.
-      </Text>
-    </View>
+      <Pressable
+        style={styles.reset}
+        onPress={resetAnalytics}
+      >
+        <Text style={styles.resetText}>
+          Nollställ data
+        </Text>
+      </Pressable>
+    </ScrollView>
   );
 }
 
@@ -80,81 +54,44 @@ const styles = StyleSheet.create({
   page: {
     flex: 1,
     backgroundColor: theme.colors.bg,
-    paddingTop: theme.spacing.lg,
   },
-
-  header: {
-    paddingHorizontal: theme.spacing.lg,
-    marginBottom: theme.spacing.lg,
+  container: {
+    padding: theme.spacing.lg,
+    paddingBottom: 120,
   },
-
-  kicker: {
-    fontSize: theme.text.xs,
-    color: theme.colors.muted,
-    marginBottom: 2,
-  },
-
   title: {
-    fontSize: theme.text.xl,
+    fontSize: theme.text.lg,
     fontWeight: '900',
     color: theme.colors.text,
   },
-
   subtitle: {
-    fontSize: theme.text.sm,
     color: theme.colors.muted,
-    marginTop: 4,
+    marginBottom: 16,
   },
-
-  section: {
-    marginBottom: theme.spacing.lg,
-  },
-
-  sectionTitle: {
-    fontSize: theme.text.sm,
-    fontWeight: '700',
+  empty: {
     color: theme.colors.muted,
-    paddingHorizontal: theme.spacing.lg,
-    marginBottom: 6,
+    marginTop: 20,
   },
-
-  list: {
-    borderTopWidth: 1,
-    borderTopColor: theme.colors.border,
-  },
-
   row: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    paddingHorizontal: theme.spacing.lg,
-    paddingVertical: 14,
+    paddingVertical: 10,
     borderBottomWidth: 1,
     borderBottomColor: theme.colors.border,
-    backgroundColor: theme.colors.bg,
-  },
-
-  rowLabel: {
-    fontSize: theme.text.sm,
-    fontWeight: '600',
-    color: theme.colors.text,
-  },
-
-  rowRight: {
     flexDirection: 'row',
+    justifyContent: 'space-between',
+  },
+  event: {
+    color: theme.colors.text,
+    fontWeight: '700',
+  },
+  meta: {
+    color: theme.colors.primary,
+    fontWeight: '900',
+  },
+  reset: {
+    marginTop: 20,
     alignItems: 'center',
-    gap: 8,
   },
-
-  rowValue: {
-    fontSize: theme.text.xs,
-    color: theme.colors.muted,
-  },
-
-  footer: {
-    marginTop: theme.spacing.lg,
-    textAlign: 'center',
-    fontSize: theme.text.xs,
+  resetText: {
     color: theme.colors.muted,
   },
 });
