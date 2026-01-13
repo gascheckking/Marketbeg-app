@@ -1,24 +1,28 @@
 import { View, Text, StyleSheet } from 'react-native';
 import { theme } from '../app/theme';
 
-export default function Section({ title, children }: {
+export default function Section({
+  title,
+  children,
+}: {
   title: string;
   children: React.ReactNode;
 }) {
   return (
-    <View style={styles.section}>
+    <View style={styles.wrap}>
       <Text style={styles.title}>{title}</Text>
-      {children}
+      <View>{children}</View>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-  section: {
-    marginBottom: 22,
+  wrap: {
+    paddingHorizontal: theme.spacing.md,
+    marginTop: theme.spacing.lg,
   },
   title: {
-    fontSize: 15,
+    fontSize: theme.text.md,
     fontWeight: '800',
     color: theme.colors.text,
     marginBottom: 10,
