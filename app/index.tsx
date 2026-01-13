@@ -7,6 +7,7 @@ import {
   Pressable,
 } from 'react-native';
 import { router } from 'expo-router';
+import { LinearGradient } from 'expo-linear-gradient';
 import { theme } from './theme';
 
 import Section from '../components/Section';
@@ -19,15 +20,25 @@ export default function HomeScreen() {
       contentContainerStyle={styles.container}
       showsVerticalScrollIndicator={false}
     >
-      {/* HERO */}
-      <View style={styles.heroWrap}>
+      {/* HERO GRADIENT */}
+      <LinearGradient
+        colors={['#14141b', '#0b0b0f']}
+        start={{ x: 0.5, y: 0 }}
+        end={{ x: 0.5, y: 1 }}
+        style={styles.heroWrap}
+      >
         <View style={styles.hero}>
           <Text style={styles.kicker}>Välkommen tillbaka</Text>
           <Text style={styles.title}>Karma</Text>
           <Text style={styles.subtitle}>Hitta något nytt idag</Text>
 
           {/* KARMA CARD */}
-          <View style={styles.karmaCard}>
+          <LinearGradient
+            colors={['#1e1e2a', '#14141b']}
+            start={{ x: 0, y: 0 }}
+            end={{ x: 1, y: 1 }}
+            style={styles.karmaCard}
+          >
             <Text style={styles.karmaLabel}>KARMA-SCORE</Text>
             <Text style={styles.karmaValue}>1 250</Text>
             <Text style={styles.karmaMeta}>Eco-hjälte</Text>
@@ -40,9 +51,9 @@ export default function HomeScreen() {
                 <Text style={styles.karmaSecondaryText}>Min impact</Text>
               </Pressable>
             </View>
-          </View>
+          </LinearGradient>
         </View>
-      </View>
+      </LinearGradient>
 
       {/* CATEGORIES */}
       <ScrollView
@@ -106,7 +117,6 @@ const styles = StyleSheet.create({
   },
 
   heroWrap: {
-    backgroundColor: '#121218',
     paddingBottom: theme.spacing.lg,
   },
 
@@ -135,7 +145,6 @@ const styles = StyleSheet.create({
 
   karmaCard: {
     marginTop: theme.spacing.md,
-    backgroundColor: '#1a1a22',
     borderRadius: theme.radius.lg,
     padding: 16,
   },
@@ -180,7 +189,7 @@ const styles = StyleSheet.create({
 
   karmaSecondary: {
     flex: 1,
-    backgroundColor: '#2a2a33',
+    backgroundColor: 'rgba(255,255,255,0.06)',
     borderRadius: theme.radius.md,
     paddingVertical: 10,
     alignItems: 'center',
