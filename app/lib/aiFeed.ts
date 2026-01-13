@@ -1,4 +1,7 @@
+// app/lib/aiFeed.ts
+
 import { priceForItem } from './aiPricing';
+import { getBadgeWeight } from './aiProfile';
 
 export type FeedItem = {
   id: string;
@@ -7,15 +10,22 @@ export type FeedItem = {
   badge: 'Säljes' | 'Paket' | 'Snabbt sålt' | 'Hög efterfrågan';
 };
 
-const badgePriority: Record<FeedItem['badge'], number> = {
+/**
+ * Basprioritet (global logik)
+ * Lägre = viktigare
+ */
+const basePriority: Record<FeedItem['badge'], number> = {
   'Snabbt sålt': 1,
   'Hög efterfrågan': 2,
   'Säljes': 3,
   'Paket': 4,
 };
 
+/**
+ * Home-feed med personlig AI-sortering
+ */
 export function getHomeFeed(): FeedItem[] {
-  const raw = Array.from({ length: 12 }).map((_, i) => {
+  const raw: FeedItem[] = Array.from({ length: 12 }).map((_, i) => {
     const ai = priceForItem(i + 1);
 
     return {
@@ -26,8 +36,15 @@ export function getHomeFeed(): FeedItem[] {
     };
   });
 
-  return raw.sort(
-    (a, b) =>
-      badgePriority[a.badge] - badgePriority[b.badge]
-  );
+  return raw.sort((a, b) => {
+    const scoreA =
+      basePriority[a.badge] /
+      getBadgeWeight(a.badge);
+
+    const scoreB =
+      basePriority[b.badge] /
+      getBadgeWeight(b.badge);
+
+    return scoreA - scoreB;
+  });
 }
