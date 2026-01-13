@@ -2,8 +2,8 @@ import { View, Text, StyleSheet, Pressable } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { theme } from '../app/theme';
 import { useState } from 'react';
-import TradeSheet from './TradeSheet';
 import AuctionSheet from './AuctionSheet';
+import TradeSheet from './TradeSheet';
 
 type Props = {
   title: string;
@@ -18,8 +18,7 @@ export default function RichCard({
   price,
   badge,
 }: Props) {
-  const [auctionOpen, setAuctionOpen] = useState(false);
-  const [tradeOpen, setTradeOpen] = useState(false);
+  const [mode, setMode] = useState<null | 'auction' | 'trade'>(null);
 
   return (
     <>
@@ -43,21 +42,17 @@ export default function RichCard({
 
           <View style={styles.actions}>
             <Pressable
-              style={styles.actionPrimary}
-              onPress={() => setAuctionOpen(true)}
+              style={styles.primary}
+              onPress={() => setMode('auction')}
             >
-              <Text style={styles.actionPrimaryText}>
-                Auktion
-              </Text>
+              <Text style={styles.primaryText}>Auktion</Text>
             </Pressable>
 
             <Pressable
-              style={styles.actionSecondary}
-              onPress={() => setTradeOpen(true)}
+              style={styles.secondary}
+              onPress={() => setMode('trade')}
             >
-              <Text style={styles.actionSecondaryText}>
-                Byt
-              </Text>
+              <Text style={styles.secondaryText}>Byt</Text>
             </Pressable>
           </View>
 
@@ -70,14 +65,14 @@ export default function RichCard({
       </LinearGradient>
 
       <AuctionSheet
-        visible={auctionOpen}
-        onClose={() => setAuctionOpen(false)}
+        visible={mode === 'auction'}
+        onClose={() => setMode(null)}
         title={title}
       />
 
       <TradeSheet
-        visible={tradeOpen}
-        onClose={() => setTradeOpen(false)}
+        visible={mode === 'trade'}
+        onClose={() => setMode(null)}
         title={title}
       />
     </>
@@ -87,8 +82,8 @@ export default function RichCard({
 const styles = StyleSheet.create({
   card: {
     flexDirection: 'row',
-    borderRadius: theme.radius.lg,
     padding: 10,
+    borderRadius: theme.radius.lg,
     borderWidth: 1,
     borderColor: theme.colors.border,
   },
@@ -101,9 +96,7 @@ const styles = StyleSheet.create({
     marginRight: 12,
   },
 
-  content: {
-    flex: 1,
-  },
+  content: { flex: 1 },
 
   row: {
     flexDirection: 'row',
@@ -137,40 +130,35 @@ const styles = StyleSheet.create({
     marginTop: 10,
   },
 
-  actionPrimary: {
+  primary: {
     backgroundColor: theme.colors.primary,
     borderRadius: theme.radius.sm,
     paddingVertical: 6,
-    paddingHorizontal: 12,
+    paddingHorizontal: 14,
   },
+  primaryText: { fontWeight: '900', color: '#000' },
 
-  actionPrimaryText: {
-    fontWeight: '900',
-    color: '#000',
-  },
-
-  actionSecondary: {
+  secondary: {
     borderWidth: 1,
     borderColor: theme.colors.border,
     borderRadius: theme.radius.sm,
     paddingVertical: 6,
-    paddingHorizontal: 12,
+    paddingHorizontal: 14,
   },
-
-  actionSecondaryText: {
-    color: theme.colors.text,
+  secondaryText: {
     fontWeight: '700',
+    color: theme.colors.text,
   },
 
   badge: {
-    alignSelf: 'flex-start',
     marginTop: 6,
-    backgroundColor: theme.colors.card,
+    alignSelf: 'flex-start',
     borderRadius: 999,
     paddingHorizontal: 8,
     paddingVertical: 2,
     borderWidth: 1,
     borderColor: theme.colors.border,
+    backgroundColor: theme.colors.card,
   },
 
   badgeText: {
