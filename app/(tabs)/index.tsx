@@ -39,7 +39,11 @@ export default function HomeScreen() {
         </View>
       </View>
 
-      <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={styles.categories}>
+      <ScrollView
+        horizontal
+        showsHorizontalScrollIndicator={false}
+        contentContainerStyle={styles.categories}
+      >
         {['Kläder', 'Skor', 'Hem', 'Elektronik', 'Barn'].map((c) => (
           <View key={c} style={styles.category}>
             <Text style={styles.categoryText}>{c}</Text>
@@ -49,17 +53,41 @@ export default function HomeScreen() {
 
       <Section title="Utvalt för dig">
         <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-          <MiniCard title="Vintagejacka" price="1 200 kr" />
-          <MiniCard title="Sneakers i din stil" price="900 kr" />
-          <MiniCard title="Retro hoodie" price="650 kr" />
+          <MiniCard
+            title="Vintagejacka"
+            price="1 200 kr"
+            badge="Hög efterfrågan"
+          />
+          <MiniCard
+            title="Sneakers i din stil"
+            price="900 kr"
+            badge="Snabbt sålt"
+          />
+          <MiniCard
+            title="Retro hoodie"
+            price="650 kr"
+            badge="Lågt värde"
+          />
         </ScrollView>
       </Section>
 
       <Section title="Populärt just nu">
         <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-          <MiniCard title="Barnkläder vinter" price="Paket" />
-          <MiniCard title="Säkerhetskläder" price="Snabbt sålt" />
-          <MiniCard title="Småmöbler" price="Hög efterfrågan" />
+          <MiniCard
+            title="Barnkläder vinter"
+            price="Paket"
+            badge="Snabbt sålt"
+          />
+          <MiniCard
+            title="Säkerhetskläder"
+            price="Snabbt sålt"
+            badge="Hög efterfrågan"
+          />
+          <MiniCard
+            title="Småmöbler"
+            price="Hög efterfrågan"
+            badge="Hög efterfrågan"
+          />
         </ScrollView>
       </Section>
 
