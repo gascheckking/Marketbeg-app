@@ -14,9 +14,13 @@ export default function RowItem({
   return (
     <View style={styles.row}>
       <View style={styles.left}>
-        <Text style={styles.title}>{title}</Text>
+        <Text numberOfLines={1} style={styles.title}>
+          {title}
+        </Text>
         {subtitle && (
-          <Text style={styles.subtitle}>{subtitle}</Text>
+          <Text numberOfLines={1} style={styles.subtitle}>
+            {subtitle}
+          </Text>
         )}
       </View>
 
@@ -35,8 +39,8 @@ export default function RowItem({
 const styles = StyleSheet.create({
   row: {
     flexDirection: 'row',
-    justifyContent: 'space-between',
     alignItems: 'center',
+    justifyContent: 'space-between',
     paddingVertical: 10,
     borderBottomWidth: 1,
     borderBottomColor: theme.colors.border,
