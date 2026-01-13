@@ -1,56 +1,73 @@
 // components/MiniCard.tsx
 import { View, Text, StyleSheet } from 'react-native';
-import { LinearGradient } from 'expo-linear-gradient';
 import { theme } from '../app/theme';
 
-export default function MiniCard({
-  title,
-  price,
-}: {
+type Props = {
   title: string;
   price: string;
-}) {
+  badge?: 'Hög efterfrågan' | 'Snabbt sålt' | 'Lågt värde';
+};
+
+export default function MiniCard({ title, price, badge }: Props) {
   return (
-    <LinearGradient
-      colors={['#1b1b23', '#14141b']}
-      start={{ x: 0, y: 0 }}
-      end={{ x: 1, y: 1 }}
-      style={styles.card}
-    >
+    <View style={styles.card}>
       <View style={styles.image} />
-      <Text numberOfLines={1} style={styles.title}>
+
+      {badge && (
+        <View style={styles.badge}>
+          <Text style={styles.badgeText}>{badge}</Text>
+        </View>
+      )}
+
+      <Text style={styles.title} numberOfLines={1}>
         {title}
       </Text>
       <Text style={styles.price}>{price}</Text>
-    </LinearGradient>
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
   card: {
-    width: 116,
+    width: 140,
     marginRight: 12,
-    borderRadius: theme.radius.md,
-    padding: 8,
   },
 
   image: {
-    height: 76,
-    borderRadius: theme.radius.sm,
-    backgroundColor: '#242433',
-    marginBottom: 6,
+    height: 120,
+    borderRadius: theme.radius.md,
+    backgroundColor: theme.colors.surface,
+    marginBottom: 8,
+  },
+
+  badge: {
+    position: 'absolute',
+    top: 8,
+    left: 8,
+    paddingHorizontal: 8,
+    paddingVertical: 4,
+    borderRadius: 999,
+    backgroundColor: '#0f1a16',
+    borderWidth: 1,
+    borderColor: '#1f3a2f',
+  },
+
+  badgeText: {
+    fontSize: 11,
+    fontWeight: '700',
+    color: theme.colors.primary,
   },
 
   title: {
-    fontSize: theme.text.xs,
+    fontSize: theme.text.sm,
     fontWeight: '600',
     color: theme.colors.text,
-    marginBottom: 2,
   },
 
   price: {
-    fontSize: theme.text.xs,
-    fontWeight: '800',
+    marginTop: 2,
+    fontSize: theme.text.sm,
+    fontWeight: '900',
     color: theme.colors.primary,
   },
 });
