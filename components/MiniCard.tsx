@@ -1,5 +1,6 @@
 // components/MiniCard.tsx
 import { View, Text, StyleSheet } from 'react-native';
+import { LinearGradient } from 'expo-linear-gradient';
 import { theme } from '../app/theme';
 
 export default function MiniCard({
@@ -10,13 +11,18 @@ export default function MiniCard({
   price: string;
 }) {
   return (
-    <View style={styles.card}>
+    <LinearGradient
+      colors={['#1b1b23', '#14141b']}
+      start={{ x: 0, y: 0 }}
+      end={{ x: 1, y: 1 }}
+      style={styles.card}
+    >
       <View style={styles.image} />
       <Text numberOfLines={1} style={styles.title}>
         {title}
       </Text>
       <Text style={styles.price}>{price}</Text>
-    </View>
+    </LinearGradient>
   );
 }
 
@@ -24,7 +30,6 @@ const styles = StyleSheet.create({
   card: {
     width: 116,
     marginRight: 12,
-    backgroundColor: '#15151b',
     borderRadius: theme.radius.md,
     padding: 8,
   },
@@ -32,7 +37,7 @@ const styles = StyleSheet.create({
   image: {
     height: 76,
     borderRadius: theme.radius.sm,
-    backgroundColor: '#22222b',
+    backgroundColor: '#242433',
     marginBottom: 6,
   },
 
