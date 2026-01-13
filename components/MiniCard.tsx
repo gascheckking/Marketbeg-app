@@ -1,73 +1,79 @@
-// components/MiniCard.tsx
 import { View, Text, StyleSheet } from 'react-native';
+import { LinearGradient } from 'expo-linear-gradient';
 import { theme } from '../app/theme';
 
 type Props = {
   title: string;
   price: string;
-  badge?: 'Hög efterfrågan' | 'Snabbt sålt' | 'Lågt värde';
+  label?: string;
 };
 
-export default function MiniCard({ title, price, badge }: Props) {
+export default function MiniCard({ title, price, label }: Props) {
   return (
-    <View style={styles.card}>
-      <View style={styles.image} />
-
-      {badge && (
+    <LinearGradient
+      colors={['#171722', '#0f0f14']}
+      style={styles.card}
+    >
+      {label && (
         <View style={styles.badge}>
-          <Text style={styles.badgeText}>{badge}</Text>
+          <Text style={styles.badgeText}>{label}</Text>
         </View>
       )}
+
+      <View style={styles.image} />
 
       <Text style={styles.title} numberOfLines={1}>
         {title}
       </Text>
       <Text style={styles.price}>{price}</Text>
-    </View>
+    </LinearGradient>
   );
 }
 
 const styles = StyleSheet.create({
   card: {
-    width: 140,
+    width: 150,
+    borderRadius: theme.radius.lg,
+    padding: 12,
     marginRight: 12,
+    borderWidth: 1,
+    borderColor: theme.colors.border,
   },
 
   image: {
-    height: 120,
+    height: 90,
     borderRadius: theme.radius.md,
-    backgroundColor: theme.colors.surface,
+    backgroundColor: '#2a2a36',
     marginBottom: 8,
   },
 
   badge: {
     position: 'absolute',
     top: 8,
-    left: 8,
-    paddingHorizontal: 8,
-    paddingVertical: 4,
+    right: 8,
+    backgroundColor: theme.colors.primary,
     borderRadius: 999,
-    backgroundColor: '#0f1a16',
-    borderWidth: 1,
-    borderColor: '#1f3a2f',
+    paddingHorizontal: 8,
+    paddingVertical: 2,
+    zIndex: 2,
   },
 
   badgeText: {
-    fontSize: 11,
-    fontWeight: '700',
-    color: theme.colors.primary,
+    fontSize: 10,
+    fontWeight: '900',
+    color: '#000',
   },
 
   title: {
     fontSize: theme.text.sm,
-    fontWeight: '600',
+    fontWeight: '700',
     color: theme.colors.text,
   },
 
   price: {
-    marginTop: 2,
     fontSize: theme.text.sm,
     fontWeight: '900',
     color: theme.colors.primary,
+    marginTop: 2,
   },
 });
