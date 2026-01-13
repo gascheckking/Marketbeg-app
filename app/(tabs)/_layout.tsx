@@ -15,6 +15,7 @@ export default function TabsLayout() {
         tabBarStyle: styles.tabBar,
       }}
     >
+      {/* HOME */}
       <Tabs.Screen
         name="index"
         options={{
@@ -24,6 +25,7 @@ export default function TabsLayout() {
         }}
       />
 
+      {/* SEARCH */}
       <Tabs.Screen
         name="search"
         options={{
@@ -33,7 +35,17 @@ export default function TabsLayout() {
         }}
       />
 
-      {/* SELL – Spotify-style primary action */}
+      {/* AUCTION */}
+      <Tabs.Screen
+        name="auction"
+        options={{
+          tabBarIcon: ({ color }) => (
+            <Ionicons name="hammer-outline" size={22} color={color} />
+          ),
+        }}
+      />
+
+      {/* SELL – primary action */}
       <Tabs.Screen
         name="sell"
         options={{
@@ -50,6 +62,17 @@ export default function TabsLayout() {
         }}
       />
 
+      {/* TRADE */}
+      <Tabs.Screen
+        name="trade"
+        options={{
+          tabBarIcon: ({ color }) => (
+            <Ionicons name="swap-horizontal-outline" size={22} color={color} />
+          ),
+        }}
+      />
+
+      {/* PROFILE */}
       <Tabs.Screen
         name="profile"
         options={{
