@@ -1,5 +1,6 @@
 // app/index.tsx
 import { View, Text, StyleSheet, ScrollView, Pressable } from 'react-native';
+import { router } from 'expo-router';
 import { theme } from './theme';
 
 import Section from '../components/Section';
@@ -19,7 +20,7 @@ export default function HomeScreen() {
         <Text style={styles.subtitle}>Hitta något nytt idag</Text>
       </View>
 
-      {/* KATEGORIER (LUGNT) */}
+      {/* KATEGORIER */}
       <ScrollView
         horizontal
         showsHorizontalScrollIndicator={false}
@@ -32,7 +33,7 @@ export default function HomeScreen() {
         ))}
       </ScrollView>
 
-      {/* PERSONLIG VY */}
+      {/* PERSONLIG */}
       <Section title="Utvalt för dig">
         <ScrollView horizontal showsHorizontalScrollIndicator={false}>
           <MiniCard title="Vintagejacka" price="1 200 kr" />
@@ -59,8 +60,11 @@ export default function HomeScreen() {
         </ScrollView>
       </Section>
 
-      {/* DISKRET SELL-INGÅNG */}
-      <Pressable style={styles.sellHint}>
+      {/* SELL INGÅNG */}
+      <Pressable
+        style={styles.sellHint}
+        onPress={() => router.push('/(tabs)/sell')}
+      >
         <Text style={styles.sellHintText}>Vill du sälja något?</Text>
       </Pressable>
     </ScrollView>
