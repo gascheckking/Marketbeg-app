@@ -1,15 +1,12 @@
-import { View, Text, StyleSheet, Pressable } from 'react-native';
-import { LinearGradient } from 'expo-linear-gradient';
+import { View, Text, StyleSheet } from 'react-native';
 import { theme } from '../app/theme';
-import { useState } from 'react';
-import AuctionSheet from './AuctionSheet';
-import TradeSheet from './TradeSheet';
 
 type Props = {
   title: string;
   subtitle?: string;
-  price: string;
+  price?: string;
   badge?: string;
+  confidence?: number;
 };
 
 export default function RichCard({
@@ -17,153 +14,106 @@ export default function RichCard({
   subtitle,
   price,
   badge,
+  confidence,
 }: Props) {
-  const [mode, setMode] = useState<null | 'auction' | 'trade'>(null);
-
   return (
-    <>
-      <LinearGradient
-        colors={['#1a1a26', '#0e0e14']}
-        style={styles.card}
-      >
-        <View style={styles.image} />
-
-        <View style={styles.content}>
-          <View style={styles.row}>
-            <Text style={styles.title} numberOfLines={1}>
-              {title}
+    <View style={styles.card}>
+      {/* HEADER */}
+      <View style={styles.header}>
+        <Text style={styles.title}>{title}</Text>
+        {badge && (
+          <View style={styles.badge}>
+            <Text style={styles.badgeText}>
+              {badge}
             </Text>
-            <Text style={styles.price}>{price}</Text>
           </View>
+        )}
+      </View>
 
-          {subtitle && (
-            <Text style={styles.subtitle}>{subtitle}</Text>
-          )}
+      {/* META */}
+      {subtitle && (
+        <Text style={styles.subtitle}>
+          {subtitle}
+        </Text>
+      )}
 
-          <View style={styles.actions}>
-            <Pressable
-              style={styles.primary}
-              onPress={() => setMode('auction')}
-            >
-              <Text style={styles.primaryText}>Auktion</Text>
-            </Pressable>
+      {/* FOOTER */}
+      <View style={styles.footer}>
+        {price && (
+          <Text style={styles.price}>
+            {price}
+          </Text>
+        )}
 
-            <Pressable
-              style={styles.secondary}
-              onPress={() => setMode('trade')}
-            >
-              <Text style={styles.secondaryText}>Byt</Text>
-            </Pressable>
-          </View>
-
-          {badge && (
-            <View style={styles.badge}>
-              <Text style={styles.badgeText}>{badge}</Text>
-            </View>
-          )}
-        </View>
-      </LinearGradient>
-
-      <AuctionSheet
-        visible={mode === 'auction'}
-        onClose={() => setMode(null)}
-        title={title}
-      />
-
-      <TradeSheet
-        visible={mode === 'trade'}
-        onClose={() => setMode(null)}
-        title={title}
-      />
-    </>
+        {/* AI CONFIDENCE (SUBTIL) */}
+        {typeof confidence === 'number' && (
+          <Text style={styles.confidence}>
+            {confidence}% match
+          </Text>
+        )}
+      </View>
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
   card: {
-    flexDirection: 'row',
-    padding: 10,
+    backgroundColor: theme.colors.card,
     borderRadius: theme.radius.lg,
+    padding: 14,
+    marginBottom: 10,
     borderWidth: 1,
     borderColor: theme.colors.border,
   },
 
-  image: {
-    width: 64,
-    height: 64,
-    borderRadius: theme.radius.md,
-    backgroundColor: '#2a2a36',
-    marginRight: 12,
+  header: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'flex-start',
+    marginBottom: 4,
   },
 
-  content: { flex: 1 },
+  title: {
+    fontSize: theme.text.sm,
+    fontWeight: '700',
+    color: theme.colors.text,
+    flex: 1,
+    paddingRight: 8,
+  },
 
-  row: {
+  badge: {
+    backgroundColor: theme.colors.border,
+    borderRadius: 999,
+    paddingHorizontal: 8,
+    paddingVertical: 2,
+  },
+
+  badgeText: {
+    fontSize: theme.text.xs,
+    color: theme.colors.muted,
+    fontWeight: '600',
+  },
+
+  subtitle: {
+    fontSize: theme.text.xs,
+    color: theme.colors.muted,
+    marginBottom: 6,
+  },
+
+  footer: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
   },
 
-  title: {
-    fontSize: theme.text.md,
-    fontWeight: '800',
-    color: theme.colors.text,
-    flex: 1,
-    marginRight: 8,
-  },
-
   price: {
-    fontSize: theme.text.md,
-    fontWeight: '900',
-    color: theme.colors.primary,
-  },
-
-  subtitle: {
     fontSize: theme.text.sm,
-    color: theme.colors.muted,
-    marginTop: 2,
-  },
-
-  actions: {
-    flexDirection: 'row',
-    gap: 8,
-    marginTop: 10,
-  },
-
-  primary: {
-    backgroundColor: theme.colors.primary,
-    borderRadius: theme.radius.sm,
-    paddingVertical: 6,
-    paddingHorizontal: 14,
-  },
-  primaryText: { fontWeight: '900', color: '#000' },
-
-  secondary: {
-    borderWidth: 1,
-    borderColor: theme.colors.border,
-    borderRadius: theme.radius.sm,
-    paddingVertical: 6,
-    paddingHorizontal: 14,
-  },
-  secondaryText: {
-    fontWeight: '700',
-    color: theme.colors.text,
-  },
-
-  badge: {
-    marginTop: 6,
-    alignSelf: 'flex-start',
-    borderRadius: 999,
-    paddingHorizontal: 8,
-    paddingVertical: 2,
-    borderWidth: 1,
-    borderColor: theme.colors.border,
-    backgroundColor: theme.colors.card,
-  },
-
-  badgeText: {
-    fontSize: 11,
-    fontWeight: '700',
+    fontWeight: '800',
     color: theme.colors.primary,
+  },
+
+  confidence: {
+    fontSize: theme.text.xs,
+    color: theme.colors.muted,
   },
 });
