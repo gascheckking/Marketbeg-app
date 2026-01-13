@@ -1,5 +1,11 @@
 // app/index.tsx
-import { View, Text, StyleSheet, ScrollView, Pressable } from 'react-native';
+import {
+  View,
+  Text,
+  StyleSheet,
+  ScrollView,
+  Pressable,
+} from 'react-native';
 import { router } from 'expo-router';
 import { theme } from './theme';
 
@@ -13,27 +19,52 @@ export default function HomeScreen() {
       contentContainerStyle={styles.container}
       showsVerticalScrollIndicator={false}
     >
-      {/* HERO / IDENTITET */}
-      <View style={styles.hero}>
-        <Text style={styles.kicker}>Välkommen tillbaka</Text>
-        <Text style={styles.title}>Karma</Text>
-        <Text style={styles.subtitle}>Hitta något nytt idag</Text>
+      {/* TOP HERO BACKGROUND */}
+      <View style={styles.heroWrap}>
+        <View style={styles.hero}>
+          <Text style={styles.kicker}>Välkommen tillbaka</Text>
+          <Text style={styles.title}>Karma</Text>
+          <Text style={styles.subtitle}>Hitta något nytt idag</Text>
+
+          {/* KARMA CARD */}
+          <View style={styles.karmaCard}>
+            <Text style={styles.karmaLabel}>KARMA-SCORE</Text>
+            <Text style={styles.karmaValue}>1 250</Text>
+            <Text style={styles.karmaMeta}>Eco-hjälte</Text>
+
+            <View style={styles.karmaActions}>
+              <Pressable style={styles.karmaBtnPrimary}>
+                <Text style={styles.karmaBtnPrimaryText}>
+                  Tjäna Karma
+                </Text>
+              </Pressable>
+
+              <Pressable style={styles.karmaBtnSecondary}>
+                <Text style={styles.karmaBtnSecondaryText}>
+                  Min impact
+                </Text>
+              </Pressable>
+            </View>
+          </View>
+        </View>
       </View>
 
-      {/* KATEGORIER */}
+      {/* CATEGORIES */}
       <ScrollView
         horizontal
         showsHorizontalScrollIndicator={false}
         contentContainerStyle={styles.categories}
       >
-        {['Kläder', 'Skor', 'Hem', 'Elektronik', 'Barn', 'Övrigt'].map((c) => (
-          <View key={c} style={styles.category}>
-            <Text style={styles.categoryText}>{c}</Text>
-          </View>
-        ))}
+        {['Kläder', 'Skor', 'Hem', 'Elektronik', 'Barn', 'Övrigt'].map(
+          (c) => (
+            <View key={c} style={styles.category}>
+              <Text style={styles.categoryText}>{c}</Text>
+            </View>
+          )
+        )}
       </ScrollView>
 
-      {/* PERSONLIG */}
+      {/* RECOMMENDED */}
       <Section title="Utvalt för dig">
         <ScrollView horizontal showsHorizontalScrollIndicator={false}>
           <MiniCard title="Vintagejacka" price="1 200 kr" />
@@ -51,16 +82,16 @@ export default function HomeScreen() {
         </ScrollView>
       </Section>
 
-      {/* KURERAT */}
+      {/* CURATED */}
       <Section title="Utvalda samlingar">
         <ScrollView horizontal showsHorizontalScrollIndicator={false}>
           <MiniCard title="Vintagefynd" price="Handplockat" />
-          <MiniCard title="Märkesväskor" price="30% rabatt" />
+          <MiniCard title="Märkesväskor" price="30 % rabatt" />
           <MiniCard title="Allt för 50 kr" price="Paket" />
         </ScrollView>
       </Section>
 
-      {/* SELL INGÅNG */}
+      {/* SELL ENTRY */}
       <Pressable
         style={styles.sellHint}
         onPress={() => router.push('/(tabs)/sell')}
@@ -81,28 +112,91 @@ const styles = StyleSheet.create({
     paddingBottom: theme.spacing.xl,
   },
 
+  heroWrap: {
+    backgroundColor: '#121218',
+    paddingBottom: theme.spacing.lg,
+  },
+
   hero: {
     paddingHorizontal: theme.spacing.lg,
     paddingTop: theme.spacing.lg,
-    paddingBottom: theme.spacing.md,
   },
 
   kicker: {
     fontSize: theme.text.xs,
     color: theme.colors.muted,
-    marginBottom: 2,
+    marginBottom: 4,
   },
 
   title: {
     fontSize: theme.text.xl,
     fontWeight: '900',
     color: theme.colors.text,
-    marginBottom: 2,
   },
 
   subtitle: {
     fontSize: theme.text.sm,
     color: theme.colors.muted,
+    marginTop: 2,
+  },
+
+  karmaCard: {
+    marginTop: theme.spacing.md,
+    backgroundColor: '#1a1a22',
+    borderRadius: theme.radius.lg,
+    padding: 16,
+  },
+
+  karmaLabel: {
+    fontSize: theme.text.xs,
+    color: theme.colors.muted,
+    marginBottom: 6,
+  },
+
+  karmaValue: {
+    fontSize: 34,
+    fontWeight: '900',
+    color: theme.colors.text,
+  },
+
+  karmaMeta: {
+    fontSize: theme.text.sm,
+    color: theme.colors.muted,
+    marginTop: 2,
+  },
+
+  karmaActions: {
+    flexDirection: 'row',
+    gap: 10,
+    marginTop: theme.spacing.sm,
+  },
+
+  karmaBtnPrimary: {
+    flex: 1,
+    backgroundColor: theme.colors.primary,
+    borderRadius: theme.radius.md,
+    paddingVertical: 10,
+    alignItems: 'center',
+  },
+
+  karmaBtnPrimaryText: {
+    fontSize: theme.text.sm,
+    fontWeight: '800',
+    color: '#000',
+  },
+
+  karmaBtnSecondary: {
+    flex: 1,
+    backgroundColor: '#2a2a33',
+    borderRadius: theme.radius.md,
+    paddingVertical: 10,
+    alignItems: 'center',
+  },
+
+  karmaBtnSecondaryText: {
+    fontSize: theme.text.sm,
+    fontWeight: '700',
+    color: theme.colors.text,
   },
 
   categories: {
