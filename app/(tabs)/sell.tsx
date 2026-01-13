@@ -15,35 +15,36 @@ export default function SellScreen() {
         </Text>
       </View>
 
-      {/* ACTIONS */}
-      <View style={styles.actions}>
-        <Pressable
-          style={styles.primary}
-          onPress={() => router.push('/upload')}
-        >
-          <Text style={styles.primaryTitle}>Sälj objekt</Text>
-          <Text style={styles.primaryMeta}>
-            Ta foto • Få pris • Klart
-          </Text>
-        </Pressable>
+      {/* PRIMARY ACTION */}
+      <Pressable
+        style={styles.primary}
+        onPress={() => router.push('/upload')}
+      >
+        <Text style={styles.primaryTitle}>Sälj objekt</Text>
+        <Text style={styles.primaryMeta}>
+          Ta foto • Pris direkt • Klart
+        </Text>
+      </Pressable>
 
+      {/* SECONDARY ACTIONS */}
+      <View style={styles.secondaryWrap}>
         <Pressable
-          style={styles.card}
+          style={styles.secondary}
           onPress={() => router.push('/upload?mode=mass')}
         >
-          <Text style={styles.cardTitle}>Skanna förråd</Text>
-          <Text style={styles.cardMeta}>
-            Flera objekt • Paket • AI
+          <Text style={styles.secondaryTitle}>Skanna förråd</Text>
+          <Text style={styles.secondaryMeta}>
+            Många objekt • Paket • AI
           </Text>
         </Pressable>
 
         <Pressable
-          style={styles.card}
+          style={styles.secondary}
           onPress={() => router.push('/trade')}
         >
-          <Text style={styles.cardTitle}>Byt / Trada</Text>
-          <Text style={styles.cardMeta}>
-            Direkt match • Inget krångel
+          <Text style={styles.secondaryTitle}>Byt / Trada</Text>
+          <Text style={styles.secondaryMeta}>
+            Direkt byte • Snabb match
           </Text>
         </Pressable>
       </View>
@@ -80,47 +81,48 @@ const styles = StyleSheet.create({
     marginTop: 4,
   },
 
-  actions: {
-    gap: 14,
-  },
-
   primary: {
     backgroundColor: theme.colors.primary,
     borderRadius: theme.radius.lg,
-    paddingVertical: 22,
-    paddingHorizontal: 18,
+    paddingVertical: 24,
+    paddingHorizontal: 20,
+    marginBottom: theme.spacing.md,
   },
 
   primaryTitle: {
-    fontSize: theme.text.md,
+    fontSize: theme.text.lg,
     fontWeight: '900',
     color: '#000',
-    marginBottom: 4,
+    marginBottom: 6,
   },
 
   primaryMeta: {
     fontSize: theme.text.sm,
     color: '#000',
-    opacity: 0.8,
+    opacity: 0.85,
   },
 
-  card: {
+  secondaryWrap: {
+    gap: 12,
+  },
+
+  secondary: {
     backgroundColor: theme.colors.card,
     borderRadius: theme.radius.lg,
-    paddingVertical: 20,
+    paddingVertical: 18,
     paddingHorizontal: 18,
     borderWidth: 1,
     borderColor: theme.colors.border,
   },
 
-  cardTitle: {
+  secondaryTitle: {
     fontSize: theme.text.md,
     fontWeight: '800',
     color: theme.colors.text,
     marginBottom: 4,
   },
 
-  cardMeta: {
+  secondaryMeta: {
     fontSize: theme.text.sm,
     color: theme.colors.muted,
   },
