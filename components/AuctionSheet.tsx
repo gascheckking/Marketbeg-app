@@ -12,7 +12,7 @@ export default function AuctionSheet({
 }) {
   return (
     <Modal transparent visible={visible} animationType="slide">
-      <View style={styles.backdrop}>
+      <Pressable style={styles.backdrop} onPress={onClose}>
         <View style={styles.sheet}>
           <Text style={styles.title}>Starta auktion</Text>
           <Text style={styles.item}>{title}</Text>
@@ -22,12 +22,8 @@ export default function AuctionSheet({
               <Text style={styles.optionText}>{t}</Text>
             </Pressable>
           ))}
-
-          <Pressable style={styles.close} onPress={onClose}>
-            <Text style={styles.closeText}>Stäng</Text>
-          </Pressable>
         </View>
-      </View>
+      </Pressable>
     </Modal>
   );
 }
@@ -45,8 +41,8 @@ const styles = StyleSheet.create({
     borderTopRightRadius: theme.radius.xl,
   },
   title: {
-    fontSize: theme.text.md,
     fontWeight: '900',
+    fontSize: theme.text.md,
     color: theme.colors.text,
   },
   item: {
@@ -54,19 +50,12 @@ const styles = StyleSheet.create({
     marginBottom: 12,
   },
   option: {
-    paddingVertical: 12,
+    paddingVertical: 14,
     borderBottomWidth: 1,
     borderBottomColor: theme.colors.border,
   },
   optionText: {
     fontSize: theme.text.md,
     color: theme.colors.text,
-  },
-  close: {
-    marginTop: 12,
-    alignItems: 'center',
-  },
-  closeText: {
-    color: theme.colors.muted,
   },
 });
