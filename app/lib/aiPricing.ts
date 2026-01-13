@@ -1,20 +1,23 @@
 // app/lib/aiPricing.ts
+import { adjustPrice } from './aiProfile';
+
 export type PriceResult = {
   price: number;
   label: 'Hög efterfrågan' | 'Snabbt sålt' | 'Lågt värde';
-  confidence: number; // 0–100
+  confidence: number;
 };
 
 const labels = ['Hög efterfrågan', 'Snabbt sålt', 'Lågt värde'] as const;
 
 export function priceForImage(uri: string, index: number): PriceResult {
-  // deterministisk pseudo-AI
   const base = 150 + (index * 73) % 900;
   const confidence = 60 + (index * 11) % 35;
   const label = labels[index % labels.length];
 
+  const adjusted = adjustPrice(Math.round(base / 10) * 10);
+
   return {
-    price: Math.round(base / 10) * 10,
+    price: adjusted,
     label,
     confidence,
   };
