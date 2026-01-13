@@ -1,4 +1,3 @@
-// app/upload/preview.tsx
 import {
   View,
   Text,
@@ -17,11 +16,12 @@ export default function PreviewScreen() {
 
   const results = uris.map((_, i) => priceForItem(i + 1));
 
-  const accept = () => {
+  const publish = () => {
     results.forEach((r) => {
       learnFromDecision(r.price, r.price);
     });
-    router.replace('/(tabs)');
+
+    router.replace('/upload/confirm');
   };
 
   return (
@@ -31,7 +31,7 @@ export default function PreviewScreen() {
     >
       <Text style={styles.title}>Prisförslag</Text>
       <Text style={styles.subtitle}>
-        Baserat på efterfrågan just nu
+        AI-förslag baserat på efterfrågan
       </Text>
 
       {results.map((r, i) => (
@@ -46,9 +46,9 @@ export default function PreviewScreen() {
         </View>
       ))}
 
-      <Pressable style={styles.cta} onPress={accept}>
+      <Pressable style={styles.cta} onPress={publish}>
         <Text style={styles.ctaText}>
-          Acceptera & publicera
+          Publicera nu
         </Text>
       </Pressable>
     </ScrollView>
