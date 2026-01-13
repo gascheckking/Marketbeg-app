@@ -1,4 +1,3 @@
-// app/(tabs)/index.tsx
 import {
   View,
   Text,
@@ -8,10 +7,17 @@ import {
 } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { router } from 'expo-router';
+
 import { theme } from '../theme';
 import Section from '../../components/Section';
 import RichCard from '../../components/RichCard';
 
+/**
+ * HOME / FEED
+ * - Inspiration
+ * - Personlig kontext (Karma)
+ * - Snabb väg till sälj
+ */
 export default function HomeScreen() {
   return (
     <ScrollView
@@ -19,13 +25,15 @@ export default function HomeScreen() {
       contentContainerStyle={styles.container}
       showsVerticalScrollIndicator={false}
     >
-      {/* HERO */}
+      {/* =======================
+          HERO / CONTEXT
+         ======================= */}
       <View style={styles.hero}>
         <Text style={styles.kicker}>Välkommen tillbaka</Text>
         <Text style={styles.title}>Karma</Text>
         <Text style={styles.subtitle}>Hitta något nytt idag</Text>
 
-        {/* KARMA CARD */}
+        {/* KARMA STATUS CARD */}
         <LinearGradient
           colors={['#1b1b28', '#0f0f14']}
           start={{ x: 0, y: 0 }}
@@ -40,6 +48,7 @@ export default function HomeScreen() {
             <Pressable style={styles.primaryBtn}>
               <Text style={styles.primaryText}>Tjäna Karma</Text>
             </Pressable>
+
             <Pressable style={styles.secondaryBtn}>
               <Text style={styles.secondaryText}>Min impact</Text>
             </Pressable>
@@ -47,71 +56,94 @@ export default function HomeScreen() {
         </LinearGradient>
       </View>
 
-      {/* CATEGORIES */}
+      {/* =======================
+          CATEGORIES (FILTERS)
+         ======================= */}
       <ScrollView
         horizontal
         showsHorizontalScrollIndicator={false}
         contentContainerStyle={styles.categories}
       >
-        {['Kläder', 'Skor', 'Hem', 'Elektronik', 'Barn'].map((c) => (
-          <View key={c} style={styles.category}>
-            <Text style={styles.categoryText}>{c}</Text>
-          </View>
-        ))}
+        {['Kläder', 'Skor', 'Hem', 'Elektronik', 'Barn'].map(
+          (category) => (
+            <View key={category} style={styles.category}>
+              <Text style={styles.categoryText}>
+                {category}
+              </Text>
+            </View>
+          )
+        )}
       </ScrollView>
 
-      {/* SECTIONS */}
+      {/* =======================
+          RECOMMENDED
+         ======================= */}
       <Section title="Rekommenderat för dig">
-  <RichCard
-    title="Nike Air Max 97"
-    subtitle="Säljes"
-    price="650 kr"
-    badge="Säljes"
-  />
-  <RichCard
-    title="North Face"
-    subtitle="Nästan nyskick"
-    price="1 200 kr"
-    badge="Paket"
-  />
-  <RichCard
-    title="Streetwear paket"
-    subtitle="Mycket bra skick"
-    price="500 kr"
-    badge="Paket"
-  />
-</Section>
+        <RichCard
+          title="Nike Air Max 97"
+          subtitle="Säljes"
+          price="650 kr"
+          badge="Säljes"
+        />
 
+        <RichCard
+          title="North Face"
+          subtitle="Nästan nyskick"
+          price="1 200 kr"
+          badge="Paket"
+        />
+
+        <RichCard
+          title="Streetwear-paket"
+          subtitle="Mycket bra skick"
+          price="500 kr"
+          badge="Paket"
+        />
+      </Section>
+
+      {/* =======================
+          TRENDING
+         ======================= */}
       <Section title="Populärt just nu">
-  <RichCard
-    title="Barnkläder vinter"
-    subtitle="Flera köpare"
-    price="Paket"
-    badge="Snabbt sålt"
-  />
-  <RichCard
-    title="Säkerhetskläder"
-    subtitle="Efterfrågas lokalt"
-    price="—"
-    badge="Hög efterfrågan"
-  />
-</Section>
+        <RichCard
+          title="Barnkläder vinter"
+          subtitle="Flera köpare"
+          price="Paket"
+          badge="Snabbt sålt"
+        />
 
+        <RichCard
+          title="Säkerhetskläder"
+          subtitle="Efterfrågas lokalt"
+          price="—"
+          badge="Hög efterfrågan"
+        />
+      </Section>
+
+      {/* =======================
+          SELL ENTRY
+         ======================= */}
       <Pressable
         style={styles.sellHint}
         onPress={() => router.push('/(tabs)/sell')}
       >
-        <Text style={styles.sellHintText}>Vill du sälja något?</Text>
+        <Text style={styles.sellHintText}>
+          Vill du sälja något?
+        </Text>
       </Pressable>
     </ScrollView>
   );
 }
 
+/* ===========================
+   STYLES
+   =========================== */
 const styles = StyleSheet.create({
   page: {
     flex: 1,
     backgroundColor: theme.colors.bg,
   },
+
   container: {
     paddingBottom: theme.spacing.lg,
   },
@@ -124,11 +156,13 @@ const styles = StyleSheet.create({
     fontSize: theme.text.xs,
     color: theme.colors.muted,
   },
+
   title: {
     fontSize: theme.text.xl,
     fontWeight: '900',
     color: theme.colors.text,
   },
+
   subtitle: {
     fontSize: theme.text.sm,
     color: theme.colors.muted,
@@ -150,12 +184,14 @@ const styles = StyleSheet.create({
     color: theme.colors.muted,
     letterSpacing: 1,
   },
+
   karmaValue: {
     fontSize: 36,
     fontWeight: '900',
     color: theme.colors.text,
     marginTop: 4,
   },
+
   karmaMeta: {
     fontSize: theme.text.sm,
     color: theme.colors.muted,
@@ -174,6 +210,7 @@ const styles = StyleSheet.create({
     paddingVertical: 12,
     alignItems: 'center',
   },
+
   primaryText: {
     fontWeight: '900',
     color: '#000',
@@ -187,6 +224,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: theme.colors.border,
   },
+
   secondaryText: {
     color: theme.colors.text,
     fontWeight: '700',
@@ -196,6 +234,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: theme.spacing.md,
     gap: 8,
   },
+
   category: {
     paddingHorizontal: 14,
     paddingVertical: 8,
@@ -204,6 +243,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: theme.colors.border,
   },
+
   categoryText: {
     color: theme.colors.text,
     fontWeight: '600',
@@ -213,6 +253,7 @@ const styles = StyleSheet.create({
     marginVertical: 20,
     alignItems: 'center',
   },
+
   sellHintText: {
     color: theme.colors.muted,
   },
