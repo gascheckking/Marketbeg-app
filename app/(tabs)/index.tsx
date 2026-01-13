@@ -18,52 +18,35 @@ export default function HomeScreen() {
       contentContainerStyle={styles.container}
       showsVerticalScrollIndicator={false}
     >
-      {/* HERO */}
-      <View style={styles.heroWrap}>
-        <View style={styles.hero}>
-          <Text style={styles.kicker}>Välkommen tillbaka</Text>
-          <Text style={styles.title}>Karma</Text>
-          <Text style={styles.subtitle}>Hitta något nytt idag</Text>
+      <View style={styles.hero}>
+        <Text style={styles.kicker}>Välkommen tillbaka</Text>
+        <Text style={styles.title}>Karma</Text>
+        <Text style={styles.subtitle}>Hitta något nytt idag</Text>
 
-          {/* KARMA CARD */}
-          <View style={styles.karmaCard}>
-            <Text style={styles.karmaLabel}>KARMA</Text>
-            <Text style={styles.karmaValue}>1 250</Text>
-            <Text style={styles.karmaMeta}>Eco-hjälte</Text>
+        <View style={styles.karmaCard}>
+          <Text style={styles.karmaLabel}>KARMA</Text>
+          <Text style={styles.karmaValue}>1 250</Text>
+          <Text style={styles.karmaMeta}>Eco-hjälte</Text>
 
-            <View style={styles.karmaActions}>
-              <Pressable style={styles.karmaPrimary}>
-                <Text style={styles.karmaPrimaryText}>
-                  Tjäna Karma
-                </Text>
-              </Pressable>
-
-              <Pressable style={styles.karmaSecondary}>
-                <Text style={styles.karmaSecondaryText}>
-                  Min impact
-                </Text>
-              </Pressable>
-            </View>
+          <View style={styles.karmaActions}>
+            <Pressable style={styles.primaryBtn}>
+              <Text style={styles.primaryText}>Tjäna Karma</Text>
+            </Pressable>
+            <Pressable style={styles.secondaryBtn}>
+              <Text style={styles.secondaryText}>Min impact</Text>
+            </Pressable>
           </View>
         </View>
       </View>
 
-      {/* CATEGORIES */}
-      <ScrollView
-        horizontal
-        showsHorizontalScrollIndicator={false}
-        contentContainerStyle={styles.categories}
-      >
-        {['Kläder', 'Skor', 'Hem', 'Elektronik', 'Barn', 'Övrigt'].map(
-          (c) => (
-            <View key={c} style={styles.category}>
-              <Text style={styles.categoryText}>{c}</Text>
-            </View>
-          )
-        )}
+      <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={styles.categories}>
+        {['Kläder', 'Skor', 'Hem', 'Elektronik', 'Barn'].map((c) => (
+          <View key={c} style={styles.category}>
+            <Text style={styles.categoryText}>{c}</Text>
+          </View>
+        ))}
       </ScrollView>
 
-      {/* SECTIONS */}
       <Section title="Utvalt för dig">
         <ScrollView horizontal showsHorizontalScrollIndicator={false}>
           <MiniCard title="Vintagejacka" price="1 200 kr" />
@@ -80,59 +63,27 @@ export default function HomeScreen() {
         </ScrollView>
       </Section>
 
-      {/* SELL ENTRY */}
       <Pressable
         style={styles.sellHint}
         onPress={() => router.push('/(tabs)/sell')}
       >
-        <Text style={styles.sellHintText}>
-          Vill du sälja något?
-        </Text>
+        <Text style={styles.sellHintText}>Vill du sälja något?</Text>
       </Pressable>
     </ScrollView>
   );
 }
 
 const styles = StyleSheet.create({
-  page: {
-    flex: 1,
-    backgroundColor: theme.colors.bg,
-  },
+  page: { flex: 1, backgroundColor: theme.colors.bg },
+  container: { paddingBottom: theme.spacing.lg },
 
-  container: {
-    paddingBottom: theme.spacing.xl,
-  },
-
-  heroWrap: {
-    backgroundColor: theme.colors.surface,
-    paddingBottom: theme.spacing.lg,
-  },
-
-  hero: {
-    paddingHorizontal: theme.spacing.lg,
-    paddingTop: theme.spacing.lg,
-  },
-
-  kicker: {
-    fontSize: theme.text.xs,
-    color: theme.colors.muted,
-    marginBottom: 4,
-  },
-
-  title: {
-    fontSize: theme.text.xl,
-    fontWeight: '900',
-    color: theme.colors.text,
-  },
-
-  subtitle: {
-    fontSize: theme.text.sm,
-    color: theme.colors.muted,
-    marginTop: 2,
-  },
+  hero: { padding: theme.spacing.md },
+  kicker: { fontSize: theme.text.xs, color: theme.colors.muted },
+  title: { fontSize: theme.text.xl, fontWeight: '900', color: theme.colors.text },
+  subtitle: { fontSize: theme.text.sm, color: theme.colors.muted },
 
   karmaCard: {
-    marginTop: theme.spacing.md,
+    marginTop: 12,
     backgroundColor: theme.colors.card,
     borderRadius: theme.radius.lg,
     padding: 16,
@@ -140,66 +91,30 @@ const styles = StyleSheet.create({
     borderColor: theme.colors.border,
   },
 
-  karmaLabel: {
-    fontSize: theme.text.xs,
-    color: theme.colors.muted,
-  },
+  karmaLabel: { fontSize: theme.text.xs, color: theme.colors.muted },
+  karmaValue: { fontSize: 34, fontWeight: '900', color: theme.colors.text },
+  karmaMeta: { fontSize: theme.text.sm, color: theme.colors.muted },
 
-  karmaValue: {
-    fontSize: 34,
-    fontWeight: '900',
-    color: theme.colors.text,
-    marginTop: 2,
-  },
-
-  karmaMeta: {
-    fontSize: theme.text.sm,
-    color: theme.colors.muted,
-    marginTop: 2,
-  },
-
-  karmaActions: {
-    flexDirection: 'row',
-    gap: 10,
-    marginTop: theme.spacing.sm,
-  },
-
-  karmaPrimary: {
+  karmaActions: { flexDirection: 'row', gap: 10, marginTop: 12 },
+  primaryBtn: {
     flex: 1,
     backgroundColor: theme.colors.primary,
     borderRadius: theme.radius.md,
     paddingVertical: 10,
     alignItems: 'center',
   },
-
-  karmaPrimaryText: {
-    fontSize: theme.text.sm,
-    fontWeight: '800',
-    color: '#000',
-  },
-
-  karmaSecondary: {
+  primaryText: { fontWeight: '900', color: '#000' },
+  secondaryBtn: {
     flex: 1,
-    backgroundColor: theme.colors.surface,
     borderRadius: theme.radius.md,
     paddingVertical: 10,
     alignItems: 'center',
     borderWidth: 1,
     borderColor: theme.colors.border,
   },
+  secondaryText: { color: theme.colors.text },
 
-  karmaSecondaryText: {
-    fontSize: theme.text.sm,
-    fontWeight: '700',
-    color: theme.colors.text,
-  },
-
-  categories: {
-    paddingHorizontal: theme.spacing.lg,
-    paddingVertical: theme.spacing.sm,
-    gap: 8,
-  },
-
+  categories: { paddingHorizontal: theme.spacing.md, gap: 8 },
   category: {
     paddingHorizontal: 14,
     paddingVertical: 8,
@@ -208,20 +123,8 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: theme.colors.border,
   },
+  categoryText: { color: theme.colors.text },
 
-  categoryText: {
-    fontSize: theme.text.sm,
-    fontWeight: '600',
-    color: theme.colors.text,
-  },
-
-  sellHint: {
-    marginTop: theme.spacing.lg,
-    alignItems: 'center',
-  },
-
-  sellHintText: {
-    fontSize: theme.text.sm,
-    color: theme.colors.muted,
-  },
+  sellHint: { marginVertical: 20, alignItems: 'center' },
+  sellHintText: { color: theme.colors.muted },
 });
