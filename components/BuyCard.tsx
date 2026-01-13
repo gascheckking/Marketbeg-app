@@ -1,42 +1,50 @@
 import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native';
 import { theme } from '../app/theme';
-import MatchScore from './MatchScore';
-import LiquidBadge from './LiquidBadge';
 
 export default function BuyCard({
   image,
   title,
-  price,
   category,
-  match = 90,
+  price,
+  meta,
   onPress,
 }: {
   image?: string;
   title: string;
+  category?: string;
   price: string;
-  category: string;
-  match?: number;
+  meta?: string;
   onPress?: () => void;
 }) {
   return (
-    <TouchableOpacity style={styles.card} onPress={onPress} activeOpacity={0.85}>
+    <TouchableOpacity
+      style={styles.card}
+      activeOpacity={0.9}
+      onPress={onPress}
+    >
       <View style={styles.imageWrap}>
         {image ? (
           <Image source={{ uri: image }} style={styles.image} />
         ) : (
           <View style={styles.placeholder} />
         )}
-        <View style={styles.match}>
-          <MatchScore score={match} />
-        </View>
       </View>
 
-      <Text numberOfLines={1} style={styles.title}>{title}</Text>
+      <Text numberOfLines={1} style={styles.title}>
+        {title}
+      </Text>
 
-      <View style={styles.row}>
-        <Text style={styles.category}>{category}</Text>
-        <LiquidBadge />
-      </View>
+      {category && (
+        <Text numberOfLines={1} style={styles.category}>
+          {category}
+        </Text>
+      )}
+
+      {meta && (
+        <Text numberOfLines={1} style={styles.meta}>
+          {meta}
+        </Text>
+      )}
 
       <Text style={styles.price}>{price}</Text>
     </TouchableOpacity>
@@ -45,49 +53,51 @@ export default function BuyCard({
 
 const styles = StyleSheet.create({
   card: {
-    flex: 1,
     backgroundColor: theme.colors.surface,
-    borderRadius: theme.radius.md,
+    borderRadius: theme.radius.lg,
     padding: 10,
+    width: 160,
   },
+
   imageWrap: {
-    marginBottom: 6,
+    marginBottom: 8,
   },
+
   image: {
     width: '100%',
-    height: 96,
-    borderRadius: 8,
+    height: 110,
+    borderRadius: theme.radius.md,
   },
+
   placeholder: {
     width: '100%',
-    height: 96,
-    borderRadius: 8,
-    backgroundColor: '#222',
+    height: 110,
+    borderRadius: theme.radius.md,
+    backgroundColor: '#1a1a22',
   },
-  match: {
-    position: 'absolute',
-    top: 6,
-    left: 6,
-  },
+
   title: {
-    fontSize: 13,
+    fontSize: theme.text.sm,
     fontWeight: '600',
     color: theme.colors.text,
-    marginBottom: 4,
+    marginBottom: 2,
   },
-  row: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    marginBottom: 4,
-  },
+
   category: {
-    fontSize: 11,
+    fontSize: theme.text.xs,
     color: theme.colors.muted,
+    marginBottom: 2,
   },
+
+  meta: {
+    fontSize: theme.text.xs,
+    color: theme.colors.muted,
+    marginBottom: 4,
+  },
+
   price: {
-    fontSize: 16,
-    fontWeight: '900',
+    fontSize: theme.text.sm,
+    fontWeight: '800',
     color: theme.colors.primary,
   },
 });
