@@ -10,7 +10,7 @@ import { LinearGradient } from 'expo-linear-gradient';
 import { router } from 'expo-router';
 import { theme } from '../theme';
 import Section from '../../components/Section';
-import MiniCard from '../../components/MiniCard';
+import RichCard from '../../components/RichCard';
 
 export default function HomeScreen() {
   return (
