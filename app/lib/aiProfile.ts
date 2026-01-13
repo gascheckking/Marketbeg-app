@@ -1,32 +1,22 @@
 // app/lib/aiProfile.ts
-export type UserBias = {
-  priceMultiplier: number; // t.ex. 0.9 = sänker pris, 1.1 = höjer
-};
 
-let profile: UserBias = {
-  priceMultiplier: 1,
-};
+let bias = 1.0;
 
 export function adjustPrice(basePrice: number) {
-  return Math.round((basePrice * profile.priceMultiplier) / 10) * 10;
+  return Math.round(basePrice * bias);
 }
 
 export function learnFromDecision(
-  acceptedPrice: number,
-  suggestedPrice: number
+  suggestedPrice: number,
+  acceptedPrice: number
 ) {
-  if (acceptedPrice > suggestedPrice) {
-    profile.priceMultiplier += 0.03;
-  } else if (acceptedPrice < suggestedPrice) {
-    profile.priceMultiplier -= 0.03;
-  }
+  if (!suggestedPrice || !acceptedPrice) return;
 
-  profile.priceMultiplier = Math.min(
-    1.3,
-    Math.max(0.7, profile.priceMultiplier)
-  );
-}
+  const ratio = acceptedPrice / suggestedPrice;
 
-export function getProfile() {
-  return profile;
+  // mild inlärning
+  bias = bias * 0.9 + ratio * 0.1;
+
+  // clamp
+  bias = Math.max(0.7, Math.min(1.3, bias));
 }
