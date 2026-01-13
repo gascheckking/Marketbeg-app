@@ -6,13 +6,10 @@ import {
   Alert,
 } from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
-import { useState } from 'react';
 import { router } from 'expo-router';
 import { theme } from '../theme';
 
 export default function UploadScreen() {
-  const [processing, setProcessing] = useState(false);
-
   const takePhoto = async () => {
     const permission = await ImagePicker.requestCameraPermissionsAsync();
     if (!permission.granted) {
@@ -42,11 +39,7 @@ export default function UploadScreen() {
           Ta ett foto – AI gör resten
         </Text>
 
-        <TouchableOpacity
-          style={styles.cta}
-          onPress={takePhoto}
-          disabled={processing}
-        >
+        <TouchableOpacity style={styles.cta} onPress={takePhoto}>
           <Text style={styles.ctaText}>Ta foto</Text>
         </TouchableOpacity>
       </View>
