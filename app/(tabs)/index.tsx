@@ -61,21 +61,41 @@ export default function HomeScreen() {
       </ScrollView>
 
       {/* SECTIONS */}
-      <Section title="Utvalt för dig">
-        <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-          <MiniCard title="Vintagejacka" price="1 200 kr" label="Hög efterfrågan" />
-          <MiniCard title="Sneakers i din stil" price="900 kr" label="Snabbt sålt" />
-          <MiniCard title="Retro hoodie" price="650 kr" />
-        </ScrollView>
-      </Section>
+      <Section title="Rekommenderat för dig">
+  <RichCard
+    title="Nike Air Max 97"
+    subtitle="Säljes"
+    price="650 kr"
+    badge="Säljes"
+  />
+  <RichCard
+    title="North Face"
+    subtitle="Nästan nyskick"
+    price="1 200 kr"
+    badge="Paket"
+  />
+  <RichCard
+    title="Streetwear paket"
+    subtitle="Mycket bra skick"
+    price="500 kr"
+    badge="Paket"
+  />
+</Section>
 
       <Section title="Populärt just nu">
-        <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-          <MiniCard title="Barnkläder vinter" price="Paket" label="Paket" />
-          <MiniCard title="Säkerhetskläder" price="Snabbt sålt" label="Snabbt sålt" />
-          <MiniCard title="Småmöbler" price="Hög efterfrågan" label="Trend" />
-        </ScrollView>
-      </Section>
+  <RichCard
+    title="Barnkläder vinter"
+    subtitle="Flera köpare"
+    price="Paket"
+    badge="Snabbt sålt"
+  />
+  <RichCard
+    title="Säkerhetskläder"
+    subtitle="Efterfrågas lokalt"
+    price="—"
+    badge="Hög efterfrågan"
+  />
+</Section>
 
       <Pressable
         style={styles.sellHint}
