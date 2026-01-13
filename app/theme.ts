@@ -1,3 +1,5 @@
+// app/theme.ts
+
 export const theme = {
   colors: {
     bg: '#0b0b0f',
@@ -9,9 +11,9 @@ export const theme = {
     muted: '#9a9aa3',
 
     // Accent används SPARSAMT
-    primary: '#7CF3C0',     // mint (handling)
-    accent: '#8B7CFF',      // lila (identitet, ibland)
-    highlight: '#FFB703',   // guld/orange (endast kampanj)
+    primary: '#7CF3C0',   // handling
+    accent: '#8B7CFF',    // identitet
+    highlight: '#FFB703', // kampanj
     danger: '#ff4d4f',
   },
 
@@ -23,7 +25,6 @@ export const theme = {
     xl: 22,
   },
 
-  // tätare = Spotify/Airbnb-känsla
   spacing: {
     xxs: 2,
     xs: 4,
