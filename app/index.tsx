@@ -1,48 +1,62 @@
-// app/index.tsx
 import { View, Text, StyleSheet, ScrollView, TouchableOpacity } from 'react-native';
 import { router } from 'expo-router';
 import { theme } from './theme';
 
+import Section from '../components/Section';
+import MiniCard from '../components/MiniCard';
+
 export default function HomeScreen() {
   return (
     <ScrollView style={styles.page} contentContainerStyle={styles.container}>
+
+      {/* 1. TOPP / IDENTITET */}
       <View style={styles.hero}>
-        <Text style={styles.title}>Instant Liquid</Text>
-        <Text style={styles.subtitle}>
-          Sälj direkt till köpare som redan väntar.
-        </Text>
+        <Text style={styles.kicker}>Välkommen tillbaka</Text>
+        <Text style={styles.title}>Redo att rensa?</Text>
 
         <TouchableOpacity
           style={styles.primary}
           onPress={() => router.push('/(tabs)/sell')}
         >
-          <Text style={styles.primaryText}>Starta snabbsälj</Text>
+          <Text style={styles.primaryText}>Skanna förråd</Text>
         </TouchableOpacity>
       </View>
 
-      <View style={styles.section}>
-        <Text style={styles.sectionTitle}>Så funkar KARMA</Text>
-
-        {[
-          ['📸', 'Ett foto', 'AI identifierar objekt och pris'],
-          ['🧠', 'Direkt match', 'Automatiska köpare'],
-          ['⚡', 'Likvid direkt', 'Pengar på sekunder'],
-        ].map(([icon, title, text]) => (
-          <View key={title} style={styles.row}>
-            <Text style={styles.rowTitle}>{icon} {title}</Text>
-            <Text style={styles.rowText}>{text}</Text>
+      {/* 2. KATEGORIER (stabila) */}
+      <View style={styles.categories}>
+        {['Kläder', 'Skor', 'Hem', 'Elektronik', 'Barn', 'Övrigt'].map((c) => (
+          <View key={c} style={styles.categoryPill}>
+            <Text style={styles.categoryText}>{c}</Text>
           </View>
         ))}
       </View>
 
-      <View style={styles.section}>
-        <TouchableOpacity
-          style={styles.secondary}
-          onPress={() => router.push('/(tabs)/search')}
-        >
-          <Text style={styles.secondaryText}>Utforska marknaden</Text>
-        </TouchableOpacity>
-      </View>
+      {/* 3. PERSONLIG VY */}
+      <Section title="Utvalt för dig">
+        <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+          <MiniCard title="Vintagejacka" price="1 200 kr" />
+          <MiniCard title="Sneakers i din stil" price="900 kr" />
+          <MiniCard title="Retro hoodie" price="650 kr" />
+        </ScrollView>
+      </Section>
+
+      {/* 4. TREND / MARKNAD */}
+      <Section title="Populärt just nu">
+        <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+          <MiniCard title="Barnkläder vinter" price="Paket" />
+          <MiniCard title="Säkerhetskläder" price="Snabbt sålt" />
+          <MiniCard title="Småmöbler" price="Hög efterfrågan" />
+        </ScrollView>
+      </Section>
+
+      {/* 5. UTFORSKA */}
+      <Section title="Inspireras">
+        <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+          <MiniCard title="Allt för 50 kr" price="Paket" />
+          <MiniCard title="Ge bort lokalt" price="Gratis" />
+        </ScrollView>
+      </Section>
+
     </ScrollView>
   );
 }
@@ -58,74 +72,51 @@ const styles = StyleSheet.create({
 
   hero: {
     paddingHorizontal: theme.spacing.lg,
-    paddingTop: 14,
-    paddingBottom: 24,
+    paddingTop: theme.spacing.lg,
+    paddingBottom: theme.spacing.md,
   },
-
+  kicker: {
+    fontSize: theme.text.sm,
+    color: theme.colors.muted,
+    marginBottom: 4,
+  },
   title: {
-    fontSize: 24,
+    fontSize: theme.text.xl,
     fontWeight: '900',
     color: theme.colors.text,
-  },
-  subtitle: {
-    fontSize: 13,
-    color: theme.colors.muted,
-    marginVertical: 6,
+    marginBottom: theme.spacing.sm,
   },
 
   primary: {
-    marginTop: 12,
+    marginTop: theme.spacing.sm,
     backgroundColor: theme.colors.primary,
     borderRadius: theme.radius.lg,
     paddingVertical: 14,
     alignItems: 'center',
   },
   primaryText: {
-    fontSize: 15,
+    fontSize: theme.text.md,
     fontWeight: '900',
     color: '#000',
   },
 
-  section: {
+  categories: {
+    flexDirection: 'row',
+    gap: 8,
     paddingHorizontal: theme.spacing.lg,
-    paddingTop: 16,
+    paddingVertical: theme.spacing.sm,
   },
-
-  sectionTitle: {
-    fontSize: 15,
-    fontWeight: '800',
-    color: theme.colors.text,
-    marginBottom: 10,
-  },
-
-  row: {
-    paddingVertical: 10,
-    borderBottomWidth: 1,
-    borderBottomColor: theme.colors.border,
-  },
-
-  rowTitle: {
-    fontSize: 13,
-    fontWeight: '700',
-    color: theme.colors.text,
-  },
-
-  rowText: {
-    fontSize: 12,
-    color: theme.colors.muted,
-  },
-
-  secondary: {
+  categoryPill: {
+    paddingHorizontal: 12,
+    paddingVertical: 6,
+    borderRadius: 999,
     backgroundColor: theme.colors.card,
-    borderRadius: theme.radius.md,
-    paddingVertical: 13,
-    alignItems: 'center',
     borderWidth: 1,
     borderColor: theme.colors.border,
   },
-  secondaryText: {
-    fontSize: 13,
-    fontWeight: '700',
+  categoryText: {
+    fontSize: theme.text.sm,
     color: theme.colors.text,
+    fontWeight: '600',
   },
 });
