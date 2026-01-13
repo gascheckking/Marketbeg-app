@@ -1,17 +1,17 @@
-// ─────────────────────────────────────────────
-// app/theme.ts
-// KARMA theme – Spotify-grade density
-// ─────────────────────────────────────────────
-
 export const theme = {
   colors: {
     bg: '#0b0b0f',
-    surface: '#141418',
-    card: '#16161a',
-    border: '#1c1c22',
+    surface: '#121216',
+    card: '#15151b',
+    border: '#1e1e26',
+
     text: '#ffffff',
-    muted: '#8a8a8f',
-    primary: '#0bbf8a',
+    muted: '#9a9aa3',
+
+    // Accent används SPARSAMT
+    primary: '#7CF3C0',     // mint (handling)
+    accent: '#8B7CFF',      // lila (identitet, ibland)
+    highlight: '#FFB703',   // guld/orange (endast kampanj)
     danger: '#ff4d4f',
   },
 
@@ -20,22 +20,24 @@ export const theme = {
     sm: 8,
     md: 12,
     lg: 16,
+    xl: 22,
   },
 
+  // tätare = Spotify/Airbnb-känsla
   spacing: {
-    xxs: 4,
-    xs: 6,
-    sm: 10,
-    md: 14,
-    lg: 18,
-    xl: 24,
+    xxs: 2,
+    xs: 4,
+    sm: 8,
+    md: 12,
+    lg: 16,
+    xl: 20,
   },
 
   text: {
     xs: 11,
-    sm: 13,
-    md: 15,
-    lg: 18,
+    sm: 12,
+    md: 14,
+    lg: 17,
     xl: 22,
   },
 };
