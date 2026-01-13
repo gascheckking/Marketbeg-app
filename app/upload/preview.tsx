@@ -3,6 +3,7 @@ import { View, Text, StyleSheet, ScrollView, Pressable } from 'react-native';
 import { useLocalSearchParams, router } from 'expo-router';
 import { theme } from '../theme';
 import { priceForImage, packageSuggestion } from '../lib/aiPricing';
+import { learnFromDecision } from '../lib/aiProfile';
 
 export default function PreviewScreen() {
   const { images } = useLocalSearchParams();
@@ -10,6 +11,13 @@ export default function PreviewScreen() {
 
   const results = uris.map((uri, i) => priceForImage(uri, i));
   const pack = packageSuggestion(results);
+
+  const accept = () => {
+    results.forEach((r) => {
+      learnFromDecision(r.price, r.price);
+    });
+    router.replace('/(tabs)');
+  };
 
   return (
     <ScrollView style={styles.page} contentContainerStyle={styles.container}>
@@ -22,24 +30,19 @@ export default function PreviewScreen() {
             <Text style={styles.price}>{r.price} kr</Text>
             <Text style={styles.meta}>{r.label}</Text>
           </View>
-          <View style={styles.confWrap}>
-            <Text style={styles.conf}>{r.confidence}% match</Text>
-          </View>
+          <Text style={styles.conf}>{r.confidence}% match</Text>
         </View>
       ))}
 
       {pack && (
         <View style={styles.pack}>
-          <Text style={styles.packTitle}>{pack.title}</Text>
+          <Text style={styles.packTitle}>Paketförslag</Text>
           <Text style={styles.packPrice}>{pack.price} kr</Text>
           <Text style={styles.packReason}>{pack.reason}</Text>
         </View>
       )}
 
-      <Pressable
-        style={styles.cta}
-        onPress={() => router.replace('/(tabs)')}
-      >
+      <Pressable style={styles.cta} onPress={accept}>
         <Text style={styles.ctaText}>Acceptera & publicera</Text>
       </Pressable>
     </ScrollView>
@@ -78,24 +81,8 @@ const styles = StyleSheet.create({
     fontWeight: '900',
     color: theme.colors.primary,
   },
-  meta: {
-    marginTop: 2,
-    color: theme.colors.muted,
-  },
-
-  confWrap: {
-    paddingHorizontal: 10,
-    paddingVertical: 6,
-    borderRadius: 999,
-    backgroundColor: '#0f1a16',
-    borderWidth: 1,
-    borderColor: '#1f3a2f',
-  },
-  conf: {
-    color: theme.colors.primary,
-    fontWeight: '700',
-    fontSize: 12,
-  },
+  meta: { color: theme.colors.muted },
+  conf: { color: theme.colors.primary, fontWeight: '700' },
 
   pack: {
     marginTop: 12,
@@ -115,10 +102,7 @@ const styles = StyleSheet.create({
     fontWeight: '900',
     color: theme.colors.primary,
   },
-  packReason: {
-    marginTop: 6,
-    color: theme.colors.muted,
-  },
+  packReason: { color: theme.colors.muted },
 
   cta: {
     position: 'absolute',
@@ -130,8 +114,5 @@ const styles = StyleSheet.create({
     paddingVertical: 16,
     alignItems: 'center',
   },
-  ctaText: {
-    fontWeight: '900',
-    color: '#000',
-  },
+  ctaText: { fontWeight: '900', color: '#000' },
 });
