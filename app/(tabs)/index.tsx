@@ -1,3 +1,5 @@
+// app/(tabs)/index.tsx
+
 import {
   View,
   Text,
@@ -7,18 +9,24 @@ import {
 } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { router } from 'expo-router';
+import { useEffect, useMemo } from 'react';
 
 import { theme } from '../theme';
 import Section from '../../components/Section';
 import RichCard from '../../components/RichCard';
 
-/**
- * HOME / FEED
- * - Inspiration
- * - Personlig kontext (Karma)
- * - Snabb väg till sälj
- */
+import { getHomeFeed } from '../lib/aiFeed';
+import { track } from '../lib/analytics';
+
 export default function HomeScreen() {
+  // Track home view (KPI)
+  useEffect(() => {
+    track('home_viewed');
+  }, []);
+
+  // AI feed (deterministisk, snabb)
+  const feed = useMemo(() => getHomeFeed(), []);
+
   return (
     <ScrollView
       style={styles.page}
@@ -33,7 +41,7 @@ export default function HomeScreen() {
         <Text style={styles.title}>Karma</Text>
         <Text style={styles.subtitle}>Hitta något nytt idag</Text>
 
-        {/* KARMA STATUS CARD */}
+        {/* KARMA STATUS */}
         <LinearGradient
           colors={['#1b1b28', '#0f0f14']}
           start={{ x: 0, y: 0 }}
@@ -57,7 +65,7 @@ export default function HomeScreen() {
       </View>
 
       {/* =======================
-          CATEGORIES (FILTERS)
+          CATEGORIES (STATIC)
          ======================= */}
       <ScrollView
         horizontal
@@ -76,49 +84,29 @@ export default function HomeScreen() {
       </ScrollView>
 
       {/* =======================
-          RECOMMENDED
+          AI FEED SECTIONS
          ======================= */}
-      <Section title="Rekommenderat för dig">
-        <RichCard
-          title="Nike Air Max 97"
-          subtitle="Säljes"
-          price="650 kr"
-          badge="Säljes"
-        />
-
-        <RichCard
-          title="North Face"
-          subtitle="Nästan nyskick"
-          price="1 200 kr"
-          badge="Paket"
-        />
-
-        <RichCard
-          title="Streetwear-paket"
-          subtitle="Mycket bra skick"
-          price="500 kr"
-          badge="Paket"
-        />
-      </Section>
-
-      {/* =======================
-          TRENDING
-         ======================= */}
-      <Section title="Populärt just nu">
-        <RichCard
-          title="Barnkläder vinter"
-          subtitle="Flera köpare"
-          price="Paket"
-          badge="Snabbt sålt"
-        />
-
-        <RichCard
-          title="Säkerhetskläder"
-          subtitle="Efterfrågas lokalt"
-          price="—"
-          badge="Hög efterfrågan"
-        />
-      </Section>
+      {feed.map((section) => (
+        <Section
+          key={section.id}
+          title={section.title}
+        >
+          {section.items.map((item) => (
+            <RichCard
+              key={item.id}
+              title={item.title}
+              subtitle={item.subtitle}
+              price={
+                typeof item.price === 'number'
+                  ? `${item.price} kr`
+                  : item.price
+              }
+              badge={item.badge}
+              confidence={item.confidence}
+            />
+          ))}
+        </Section>
+      ))}
 
       {/* =======================
           SELL ENTRY
@@ -174,9 +162,6 @@ const styles = StyleSheet.create({
     padding: 18,
     borderWidth: 1,
     borderColor: theme.colors.border,
-    shadowColor: theme.colors.primary,
-    shadowOpacity: 0.12,
-    shadowRadius: 18,
   },
 
   karmaLabel: {
