@@ -10,10 +10,6 @@ export type FeedItem = {
   badge: 'Säljes' | 'Paket' | 'Snabbt sålt' | 'Hög efterfrågan';
 };
 
-/**
- * Basprioritet (global logik)
- * Lägre = viktigare
- */
 const basePriority: Record<FeedItem['badge'], number> = {
   'Snabbt sålt': 1,
   'Hög efterfrågan': 2,
@@ -21,9 +17,6 @@ const basePriority: Record<FeedItem['badge'], number> = {
   'Paket': 4,
 };
 
-/**
- * Home-feed med personlig AI-sortering
- */
 export function getHomeFeed(): FeedItem[] {
   const raw: FeedItem[] = Array.from({ length: 12 }).map((_, i) => {
     const ai = priceForItem(i + 1);
@@ -37,14 +30,8 @@ export function getHomeFeed(): FeedItem[] {
   });
 
   return raw.sort((a, b) => {
-    const scoreA =
-      basePriority[a.badge] /
-      getBadgeWeight(a.badge);
-
-    const scoreB =
-      basePriority[b.badge] /
-      getBadgeWeight(b.badge);
-
+    const scoreA = basePriority[a.badge] / getBadgeWeight(a.badge);
+    const scoreB = basePriority[b.badge] / getBadgeWeight(b.badge);
     return scoreA - scoreB;
   });
 }
