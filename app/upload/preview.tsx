@@ -1,3 +1,5 @@
+// app/upload/preview.tsx
+
 import {
   View,
   Text,
@@ -12,13 +14,17 @@ import { learnFromDecision } from '../lib/aiProfile';
 
 export default function PreviewScreen() {
   const { images } = useLocalSearchParams();
-  const uris: string[] = images ? JSON.parse(images as string) : [];
+  const uris: string[] = images
+    ? JSON.parse(images as string)
+    : [];
 
-  const results = uris.map((_, i) => priceForItem(i + 1));
+  const results = uris.map((_, i) =>
+    priceForItem(i + 1)
+  );
 
   const publish = () => {
     results.forEach((r) => {
-      learnFromDecision(r.price, r.price);
+      learnFromDecision(r.badge, true);
     });
 
     router.replace('/upload/confirm');
@@ -37,16 +43,24 @@ export default function PreviewScreen() {
       {results.map((r, i) => (
         <View key={i} style={styles.card}>
           <View>
-            <Text style={styles.price}>{r.price} kr</Text>
-            <Text style={styles.badge}>{r.badge}</Text>
+            <Text style={styles.price}>
+              {r.price} kr
+            </Text>
+            <Text style={styles.badge}>
+              {r.badge}
+            </Text>
           </View>
+
           <Text style={styles.conf}>
             {r.confidence}% match
           </Text>
         </View>
       ))}
 
-      <Pressable style={styles.cta} onPress={publish}>
+      <Pressable
+        style={styles.cta}
+        onPress={publish}
+      >
         <Text style={styles.ctaText}>
           Publicera nu
         </Text>
