@@ -6,6 +6,7 @@ import {
   StyleSheet,
   ScrollView,
   Pressable,
+  Image,
 } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { router } from 'expo-router';
@@ -57,6 +58,26 @@ export default function HomeScreen() {
         </LinearGradient>
       </View>
 
+      {/* FEATURED IMAGES – PUBLIC/IMAGES */}
+      <View style={styles.featured}>
+        <Image
+          source={{ uri: '/images/arbetsklader.png' }}
+          style={styles.featuredImage}
+        />
+        <Image
+          source={{ uri: '/images/skor.PNG' }}
+          style={styles.featuredImage}
+        />
+        <Image
+          source={{ uri: '/images/markesvaskor.PNG' }}
+          style={styles.featuredImage}
+        />
+        <Image
+          source={{ uri: '/images/vintagefynd.PNG' }}
+          style={styles.featuredImage}
+        />
+      </View>
+
       {/* CATEGORIES */}
       <ScrollView
         horizontal
@@ -99,9 +120,11 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: theme.colors.bg,
   },
+
   container: {
     paddingBottom: theme.spacing.lg,
   },
+
   hero: {
     padding: theme.spacing.md,
   },
@@ -110,11 +133,13 @@ const styles = StyleSheet.create({
     fontSize: theme.text.xs,
     color: theme.colors.muted,
   },
+
   title: {
     fontSize: theme.text.xl,
     fontWeight: '900',
     color: theme.colors.text,
   },
+
   subtitle: {
     fontSize: theme.text.sm,
     color: theme.colors.muted,
@@ -132,11 +157,13 @@ const styles = StyleSheet.create({
     fontSize: theme.text.xs,
     color: theme.colors.muted,
   },
+
   karmaValue: {
     fontSize: 36,
     fontWeight: '900',
     color: theme.colors.text,
   },
+
   karmaMeta: {
     fontSize: theme.text.sm,
     color: theme.colors.muted,
@@ -155,6 +182,7 @@ const styles = StyleSheet.create({
     paddingVertical: 12,
     alignItems: 'center',
   },
+
   primaryText: {
     fontWeight: '900',
     color: '#000',
@@ -168,15 +196,30 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: theme.colors.border,
   },
+
   secondaryText: {
     color: theme.colors.text,
     fontWeight: '700',
+  },
+
+  featured: {
+    paddingHorizontal: theme.spacing.md,
+    gap: 12,
+    marginBottom: 20,
+  },
+
+  featuredImage: {
+    width: '100%',
+    height: 160,
+    borderRadius: theme.radius.lg,
+    backgroundColor: '#111',
   },
 
   categories: {
     paddingHorizontal: theme.spacing.md,
     gap: 8,
   },
+
   category: {
     paddingHorizontal: 14,
     paddingVertical: 8,
@@ -185,6 +228,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: theme.colors.border,
   },
+
   categoryText: {
     color: theme.colors.text,
     fontWeight: '600',
@@ -194,6 +238,7 @@ const styles = StyleSheet.create({
     marginVertical: 20,
     alignItems: 'center',
   },
+
   sellHintText: {
     color: theme.colors.muted,
   },
