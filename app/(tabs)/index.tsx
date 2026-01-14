@@ -19,12 +19,10 @@ import { getHomeFeed } from '../lib/aiFeed';
 import { track } from '../lib/analytics';
 
 export default function HomeScreen() {
-  // Track home view (KPI)
   useEffect(() => {
     track('home_viewed');
   }, []);
 
-  // AI feed (deterministisk, snabb)
   const feed = useMemo(() => getHomeFeed(), []);
 
   return (
@@ -33,19 +31,14 @@ export default function HomeScreen() {
       contentContainerStyle={styles.container}
       showsVerticalScrollIndicator={false}
     >
-      {/* =======================
-          HERO / CONTEXT
-         ======================= */}
+      {/* HERO */}
       <View style={styles.hero}>
         <Text style={styles.kicker}>Välkommen tillbaka</Text>
         <Text style={styles.title}>Karma</Text>
         <Text style={styles.subtitle}>Hitta något nytt idag</Text>
 
-        {/* KARMA STATUS */}
         <LinearGradient
           colors={['#1b1b28', '#0f0f14']}
-          start={{ x: 0, y: 0 }}
-          end={{ x: 1, y: 1 }}
           style={styles.karmaCard}
         >
           <Text style={styles.karmaLabel}>KARMA-SCORE</Text>
@@ -64,53 +57,31 @@ export default function HomeScreen() {
         </LinearGradient>
       </View>
 
-      {/* =======================
-          CATEGORIES (STATIC)
-         ======================= */}
+      {/* CATEGORIES */}
       <ScrollView
         horizontal
         showsHorizontalScrollIndicator={false}
         contentContainerStyle={styles.categories}
       >
-        {['Kläder', 'Skor', 'Hem', 'Elektronik', 'Barn'].map(
-          (category) => (
-            <View key={category} style={styles.category}>
-              <Text style={styles.categoryText}>
-                {category}
-              </Text>
-            </View>
-          )
-        )}
+        {['Kläder', 'Skor', 'Hem', 'Elektronik', 'Barn'].map((c) => (
+          <View key={c} style={styles.category}>
+            <Text style={styles.categoryText}>{c}</Text>
+          </View>
+        ))}
       </ScrollView>
 
-      {/* =======================
-          AI FEED SECTIONS
-         ======================= */}
-      {feed.map((section) => (
-        <Section
-          key={section.id}
-          title={section.title}
-        >
-          {section.items.map((item) => (
-            <RichCard
-              key={item.id}
-              title={item.title}
-              subtitle={item.subtitle}
-              price={
-                typeof item.price === 'number'
-                  ? `${item.price} kr`
-                  : item.price
-              }
-              badge={item.badge}
-              confidence={item.confidence}
-            />
-          ))}
-        </Section>
-      ))}
+      {/* AI FEED */}
+      <Section title="Rekommenderat för dig">
+        {feed.map((item) => (
+          <RichCard
+            key={item.id}
+            title={item.title}
+            price={`${item.price} kr`}
+            badge={item.badge}
+          />
+        ))}
+      </Section>
 
-      {/* =======================
-          SELL ENTRY
-         ======================= */}
       <Pressable
         style={styles.sellHint}
         onPress={() => router.push('/(tabs)/sell')}
@@ -123,19 +94,14 @@ export default function HomeScreen() {
   );
 }
 
-/* ===========================
-   STYLES
-   =========================== */
 const styles = StyleSheet.create({
   page: {
     flex: 1,
     backgroundColor: theme.colors.bg,
   },
-
   container: {
     paddingBottom: theme.spacing.lg,
   },
-
   hero: {
     padding: theme.spacing.md,
   },
@@ -144,13 +110,11 @@ const styles = StyleSheet.create({
     fontSize: theme.text.xs,
     color: theme.colors.muted,
   },
-
   title: {
     fontSize: theme.text.xl,
     fontWeight: '900',
     color: theme.colors.text,
   },
-
   subtitle: {
     fontSize: theme.text.sm,
     color: theme.colors.muted,
@@ -167,16 +131,12 @@ const styles = StyleSheet.create({
   karmaLabel: {
     fontSize: theme.text.xs,
     color: theme.colors.muted,
-    letterSpacing: 1,
   },
-
   karmaValue: {
     fontSize: 36,
     fontWeight: '900',
     color: theme.colors.text,
-    marginTop: 4,
   },
-
   karmaMeta: {
     fontSize: theme.text.sm,
     color: theme.colors.muted,
@@ -195,7 +155,6 @@ const styles = StyleSheet.create({
     paddingVertical: 12,
     alignItems: 'center',
   },
-
   primaryText: {
     fontWeight: '900',
     color: '#000',
@@ -209,7 +168,6 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: theme.colors.border,
   },
-
   secondaryText: {
     color: theme.colors.text,
     fontWeight: '700',
@@ -219,7 +177,6 @@ const styles = StyleSheet.create({
     paddingHorizontal: theme.spacing.md,
     gap: 8,
   },
-
   category: {
     paddingHorizontal: 14,
     paddingVertical: 8,
@@ -228,7 +185,6 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: theme.colors.border,
   },
-
   categoryText: {
     color: theme.colors.text,
     fontWeight: '600',
@@ -238,7 +194,6 @@ const styles = StyleSheet.create({
     marginVertical: 20,
     alignItems: 'center',
   },
-
   sellHintText: {
     color: theme.colors.muted,
   },
