@@ -1,5 +1,3 @@
-// app/lib/aiFeed.ts
-
 import { priceForItem } from './aiPricing';
 import { getBadgeWeight } from './aiProfile';
 
@@ -30,8 +28,10 @@ export function getHomeFeed(): FeedItem[] {
   });
 
   return raw.sort((a, b) => {
-    const scoreA = basePriority[a.badge] / getBadgeWeight(a.badge);
-    const scoreB = basePriority[b.badge] / getBadgeWeight(b.badge);
+    const scoreA =
+      basePriority[a.badge] / getBadgeWeight(a.badge);
+    const scoreB =
+      basePriority[b.badge] / getBadgeWeight(b.badge);
     return scoreA - scoreB;
   });
 }
