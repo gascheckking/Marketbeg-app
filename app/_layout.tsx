@@ -1,14 +1,18 @@
+// app/_layout.tsx
 import { Stack } from 'expo-router';
-import { View } from 'react-native';
+import { StatusBar } from 'expo-status-bar';
+import { theme } from './theme';
 
 export default function RootLayout() {
   return (
-    <View style={{ flex: 1, backgroundColor: '#0b0b0f' }}>
+    <>
+      <StatusBar style="light" />
       <Stack
         screenOptions={{
           headerShown: false,
+          contentStyle: { backgroundColor: theme.colors.bg },
         }}
       />
-    </View>
+    </>
   );
 }
