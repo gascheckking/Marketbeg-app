@@ -14,9 +14,9 @@
     },
     "android": {},
     "web": {
-      "bundler": "metro",
-      "output": "static"
-    },
+  "bundler": "metro",
+  "output": "static"
+}
     "scheme": "karma",
     "plugins": ["expo-router"]
   }
