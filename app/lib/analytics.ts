@@ -1,5 +1,3 @@
-// app/lib/analytics.ts
-
 export type EventName =
   | 'home_viewed'
   | 'sell_started'
@@ -19,7 +17,6 @@ export type Event = {
 let events: Event[] = [];
 let sellStartTime: number | null = null;
 
-// Skydd så vi inte läcker minne i långa sessioner
 const MAX_EVENTS = 500;
 
 export function track(
