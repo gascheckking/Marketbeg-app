@@ -49,7 +49,7 @@ export default function TabsLayout() {
           tabBarButton: () => (
             <View style={styles.sellWrap}>
               <Pressable
-                onPress={() => router.push('/(tabs)/sell')}
+                onPress={() => router.push('sell')}
                 style={styles.sellButton}
               >
                 <Ionicons name="add" size={26} color="#000" />
