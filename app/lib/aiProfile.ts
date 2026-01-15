@@ -1,5 +1,3 @@
-// app/lib/aiProfile.ts
-
 export type Badge =
   | 'Säljes'
   | 'Paket'
@@ -19,11 +17,6 @@ let profile: Profile = {
   },
 };
 
-/**
- * Lär av användarens beslut i Preview
- * accepted = true → förstärk
- * accepted = false → tona ner
- */
 export function learnFromDecision(
   badge: Badge,
   accepted: boolean
@@ -38,16 +31,17 @@ export function learnFromDecision(
   }
 }
 
-/**
- * Vikt som används i sortering
- */
 export function getBadgeWeight(badge: Badge): number {
   return profile.badgeBias[badge] ?? 1;
 }
 
 /**
- * (valfritt, debug)
+ * MÅSTE FINNAS – används av aiPricing
  */
+export function adjustPrice(price: number): number {
+  return price;
+}
+
 export function getProfile() {
   return profile;
 }
