@@ -1,4 +1,3 @@
-// app/lib/aiPricing.ts
 import { adjustPrice } from './aiProfile';
 
 export type PriceBadge =
@@ -10,7 +9,7 @@ export type PriceBadge =
 export type PriceResult = {
   price: number;
   badge: PriceBadge;
-  confidence: number; // 0–100
+  confidence: number;
 };
 
 const BADGES: PriceBadge[] = [
@@ -20,26 +19,13 @@ const BADGES: PriceBadge[] = [
   'Hög efterfrågan',
 ];
 
-/**
- * MVP-prissättning
- * Deterministisk, snabb, UI-vänlig
- */
-export function priceForItem(
-  seed: number
-): PriceResult {
-  const base =
-    200 + (seed * 137) % 900;
-
-  const confidence =
-    60 + (seed * 17) % 35;
-
-  const badge =
-    BADGES[seed % BADGES.length];
+export function priceForItem(seed: number): PriceResult {
+  const base = 200 + (seed * 137) % 900;
+  const confidence = 60 + (seed * 17) % 35;
+  const badge = BADGES[seed % BADGES.length];
 
   return {
-    price: adjustPrice(
-      Math.round(base / 10) * 10
-    ),
+    price: adjustPrice(Math.round(base / 10) * 10),
     badge,
     confidence,
   };
