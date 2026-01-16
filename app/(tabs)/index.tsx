@@ -1,5 +1,3 @@
-// app/(tabs)/index.tsx
-
 import {
   View,
   Text,
@@ -13,8 +11,6 @@ import { router } from 'expo-router';
 import { useEffect, useMemo } from 'react';
 
 import { theme } from '../theme';
-import { images } from '../assets/images';
-
 import Section from '../../components/Section';
 import RichCard from '../../components/RichCard';
 
@@ -62,18 +58,27 @@ export default function HomeScreen() {
 
       {/* FEATURED IMAGES */}
       <View style={styles.featured}>
-  <Image source={images.arbetsklader} style={styles.featuredImage} />
-  <Image source={images.skor} style={styles.featuredImage} />
-  <Image source={images.markesvaskor} style={styles.featuredImage} />
-  <Image source={images.vintagefynd} style={styles.featuredImage} />
-</View>
+        <Image
+          source={require('../../assets/images/arbetsklader.png')}
+          style={styles.featuredImage}
+        />
+        <Image
+          source={require('../../assets/images/skor.png')}
+          style={styles.featuredImage}
+        />
+        <Image
+          source={require('../../assets/images/markesvaskor.png')}
+          style={styles.featuredImage}
+        />
+        <Image
+          source={require('../../assets/images/vintagefynd.png')}
+          style={styles.featuredImage}
+        />
+      </View>
 
       {/* CATEGORIES */}
-      <ScrollView
-        horizontal
-        showsHorizontalScrollIndicator={false}
-        contentContainerStyle={styles.categories}
-      >
+      <ScrollView horizontal showsHorizontalScrollIndicator={false}
+        contentContainerStyle={styles.categories}>
         {['Kläder', 'Skor', 'Hem', 'Elektronik', 'Barn'].map((c) => (
           <View key={c} style={styles.category}>
             <Text style={styles.categoryText}>{c}</Text>
@@ -81,7 +86,6 @@ export default function HomeScreen() {
         ))}
       </ScrollView>
 
-      {/* AI FEED */}
       <Section title="Rekommenderat för dig">
         {feed.map((item) => (
           <RichCard
@@ -106,54 +110,26 @@ export default function HomeScreen() {
 }
 
 const styles = StyleSheet.create({
-  page: {
-    flex: 1,
-    backgroundColor: theme.colors.bg,
-  },
-  container: {
-    paddingBottom: theme.spacing.lg,
-  },
-  hero: {
-    padding: theme.spacing.md,
-  },
-  kicker: {
-    fontSize: theme.text.xs,
-    color: theme.colors.muted,
-  },
-  title: {
-    fontSize: theme.text.xl,
-    fontWeight: '900',
-    color: theme.colors.text,
-  },
-  subtitle: {
-    fontSize: theme.text.sm,
-    color: theme.colors.muted,
-    marginBottom: 12,
-  },
+  page: { flex: 1, backgroundColor: theme.colors.bg },
+  container: { paddingBottom: theme.spacing.lg },
+  hero: { padding: theme.spacing.md },
+  kicker: { fontSize: theme.text.xs, color: theme.colors.muted },
+  title: { fontSize: theme.text.xl, fontWeight: '900', color: theme.colors.text },
+  subtitle: { fontSize: theme.text.sm, color: theme.colors.muted, marginBottom: 12 },
+
   karmaCard: {
     borderRadius: theme.radius.xl,
     padding: 18,
     borderWidth: 1,
     borderColor: theme.colors.border,
   },
-  karmaLabel: {
-    fontSize: theme.text.xs,
-    color: theme.colors.muted,
-  },
-  karmaValue: {
-    fontSize: 36,
-    fontWeight: '900',
-    color: theme.colors.text,
-  },
-  karmaMeta: {
-    fontSize: theme.text.sm,
-    color: theme.colors.muted,
-  },
-  karmaActions: {
-    flexDirection: 'row',
-    gap: 10,
-    marginTop: 16,
-  },
+
+  karmaLabel: { fontSize: theme.text.xs, color: theme.colors.muted },
+  karmaValue: { fontSize: 36, fontWeight: '900', color: theme.colors.text },
+  karmaMeta: { fontSize: theme.text.sm, color: theme.colors.muted },
+
+  karmaActions: { flexDirection: 'row', gap: 10, marginTop: 16 },
+
   primaryBtn: {
     flex: 1,
     backgroundColor: theme.colors.primary,
@@ -161,10 +137,9 @@ const styles = StyleSheet.create({
     paddingVertical: 12,
     alignItems: 'center',
   },
-  primaryText: {
-    fontWeight: '900',
-    color: '#000',
-  },
+
+  primaryText: { fontWeight: '900', color: '#000' },
+
   secondaryBtn: {
     flex: 1,
     borderRadius: theme.radius.md,
@@ -173,25 +148,13 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: theme.colors.border,
   },
-  secondaryText: {
-    color: theme.colors.text,
-    fontWeight: '700',
-  },
-  featured: {
-    paddingHorizontal: theme.spacing.md,
-    gap: 12,
-    marginBottom: 20,
-  },
-  featuredImage: {
-    width: '100%',
-    height: 160,
-    borderRadius: theme.radius.lg,
-    backgroundColor: '#111',
-  },
-  categories: {
-    paddingHorizontal: theme.spacing.md,
-    gap: 8,
-  },
+
+  secondaryText: { color: theme.colors.text, fontWeight: '700' },
+
+  featured: { paddingHorizontal: theme.spacing.md, gap: 12, marginBottom: 20 },
+  featuredImage: { width: '100%', height: 160, borderRadius: theme.radius.lg },
+
+  categories: { paddingHorizontal: theme.spacing.md, gap: 8 },
   category: {
     paddingHorizontal: 14,
     paddingVertical: 8,
@@ -200,15 +163,9 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: theme.colors.border,
   },
-  categoryText: {
-    color: theme.colors.text,
-    fontWeight: '600',
-  },
-  sellHint: {
-    marginVertical: 20,
-    alignItems: 'center',
-  },
-  sellHintText: {
-    color: theme.colors.muted,
-  },
+
+  categoryText: { color: theme.colors.text, fontWeight: '600' },
+
+  sellHint: { marginVertical: 20, alignItems: 'center' },
+  sellHintText: { color: theme.colors.muted },
 });
