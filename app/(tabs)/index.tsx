@@ -13,6 +13,8 @@ import { router } from 'expo-router';
 import { useEffect, useMemo } from 'react';
 
 import { theme } from '../theme';
+import { images } from '../assets/images';
+
 import Section from '../../components/Section';
 import RichCard from '../../components/RichCard';
 
@@ -60,22 +62,10 @@ export default function HomeScreen() {
 
       {/* FEATURED IMAGES */}
       <View style={styles.featured}>
-        <Image
-          source={require('../../public/images/arbetsklader.png')}
-          style={styles.featuredImage}
-        />
-        <Image
-          source={require('../../public/images/skor.PNG')}
-          style={styles.featuredImage}
-        />
-        <Image
-          source={require('../../public/images/markesvaskor.PNG')}
-          style={styles.featuredImage}
-        />
-        <Image
-          source={require('../../public/images/vintagefynd.PNG')}
-          style={styles.featuredImage}
-        />
+        <Image source={images.arbetsklader} style={styles.featuredImage} />
+        <Image source={images.skor} style={styles.featuredImage} />
+        <Image source={images.markesvaskor} style={styles.featuredImage} />
+        <Image source={images.vintagefynd} style={styles.featuredImage} />
       </View>
 
       {/* CATEGORIES */}
