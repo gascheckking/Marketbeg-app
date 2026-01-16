@@ -62,11 +62,11 @@ export default function HomeScreen() {
 
       {/* FEATURED IMAGES */}
       <View style={styles.featured}>
-        <Image source={images.arbetsklader} style={styles.featuredImage} />
-        <Image source={images.skor} style={styles.featuredImage} />
-        <Image source={images.markesvaskor} style={styles.featuredImage} />
-        <Image source={images.vintagefynd} style={styles.featuredImage} />
-      </View>
+  <Image source={images.arbetsklader} style={styles.featuredImage} />
+  <Image source={images.skor} style={styles.featuredImage} />
+  <Image source={images.markesvaskor} style={styles.featuredImage} />
+  <Image source={images.vintagefynd} style={styles.featuredImage} />
+</View>
 
       {/* CATEGORIES */}
       <ScrollView
