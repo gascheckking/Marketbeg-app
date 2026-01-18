@@ -25,7 +25,11 @@ export default function HomeScreen() {
   const feed = useMemo(() => getHomeFeed(), []);
 
   return (
-    <ScrollView style={styles.page} showsVerticalScrollIndicator={false}>
+    <ScrollView
+      style={styles.page}
+      contentContainerStyle={{ paddingBottom: 100 }}
+      showsVerticalScrollIndicator={false}
+    >
       {/* HEADER */}
       <View style={styles.header}>
         <Text style={styles.title}>Karma</Text>
@@ -45,13 +49,14 @@ export default function HomeScreen() {
           <Pressable style={styles.primaryBtn}>
             <Text style={styles.primaryText}>Tjäna Karma</Text>
           </Pressable>
+
           <Pressable style={styles.secondaryBtn}>
             <Text style={styles.secondaryText}>Min impact</Text>
           </Pressable>
         </View>
       </LinearGradient>
 
-      {/* FEATURED GRID (1/4 SIZE) */}
+      {/* FEATURED GRID */}
       <View style={styles.featuredGrid}>
         <Featured image={images.arbetsklader} label="Arbetskläder" />
         <Featured image={images.skor} label="Sneakers" />
@@ -85,6 +90,7 @@ function Featured({ image, label }: { image: any; label: string }) {
   return (
     <View style={styles.featureCard}>
       <Image source={image} style={styles.featureImage} />
+
       <LinearGradient
         colors={['transparent', 'rgba(0,0,0,0.85)']}
         style={styles.featureOverlay}
@@ -116,7 +122,8 @@ const styles = StyleSheet.create({
   },
 
   scoreCard: {
-    margin: 16,
+    marginHorizontal: 16,
+    marginBottom: 20,
     borderRadius: 22,
     padding: 18,
     borderWidth: 1,
@@ -171,7 +178,6 @@ const styles = StyleSheet.create({
     fontWeight: '700',
   },
 
-  /* GRID */
   featuredGrid: {
     flexDirection: 'row',
     flexWrap: 'wrap',
@@ -181,8 +187,8 @@ const styles = StyleSheet.create({
   },
 
   featureCard: {
-    width: '48%',       // 2 per rad = 1/4 storlek visuellt
-    aspectRatio: 1.15,  // exakt som mockup
+    width: '48%',
+    aspectRatio: 1.15,
     borderRadius: 18,
     overflow: 'hidden',
     backgroundColor: '#111',
@@ -191,6 +197,7 @@ const styles = StyleSheet.create({
   featureImage: {
     width: '100%',
     height: '100%',
+    resizeMode: 'cover',
   },
 
   featureOverlay: {
