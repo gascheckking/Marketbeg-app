@@ -1,5 +1,10 @@
-import { Redirect } from 'expo-router';
+import { Redirect, usePathname } from 'expo-router';
+import { Platform } from 'react-native';
 
 export default function Index() {
-  return <Redirect href="/(landing)" />;
+  if (Platform.OS === 'web') {
+    return <Redirect href="/(landing)" />;
+  }
+
+  return <Redirect href="/(tabs)" />;
 }
