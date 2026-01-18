@@ -51,11 +51,12 @@ export default function HomeScreen() {
         </View>
       </LinearGradient>
 
-      {/* FEATURED */}
-      <View style={styles.featured}>
+      {/* FEATURED GRID (1/4 SIZE) */}
+      <View style={styles.featuredGrid}>
         <Featured image={images.arbetsklader} label="Arbetskläder" />
         <Featured image={images.skor} label="Sneakers" />
         <Featured image={images.markesvaskor} label="Märkesväskor" />
+        <Featured image={images.vintagefynd} label="Vintagefynd" />
       </View>
 
       {/* FEED */}
@@ -85,7 +86,7 @@ function Featured({ image, label }: { image: any; label: string }) {
     <View style={styles.featureCard}>
       <Image source={image} style={styles.featureImage} />
       <LinearGradient
-        colors={['transparent', 'rgba(0,0,0,0.9)']}
+        colors={['transparent', 'rgba(0,0,0,0.85)']}
         style={styles.featureOverlay}
       >
         <Text style={styles.featureText}>{label}</Text>
@@ -170,22 +171,26 @@ const styles = StyleSheet.create({
     fontWeight: '700',
   },
 
-  featured: {
+  /* GRID */
+  featuredGrid: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    gap: 12,
     paddingHorizontal: 16,
-    gap: 16,
     marginBottom: 24,
   },
 
   featureCard: {
-    height: 180,
-    borderRadius: 22,
+    width: '48%',       // 2 per rad = 1/4 storlek visuellt
+    aspectRatio: 1.15,  // exakt som mockup
+    borderRadius: 18,
     overflow: 'hidden',
+    backgroundColor: '#111',
   },
 
   featureImage: {
     width: '100%',
     height: '100%',
-    resizeMode: 'cover',
   },
 
   featureOverlay: {
@@ -193,12 +198,12 @@ const styles = StyleSheet.create({
     bottom: 0,
     left: 0,
     right: 0,
-    padding: 14,
+    padding: 10,
   },
 
   featureText: {
     color: '#fff',
-    fontSize: 18,
+    fontSize: 14,
     fontWeight: '900',
   },
 
