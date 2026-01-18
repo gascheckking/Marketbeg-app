@@ -11,11 +11,11 @@ import { router } from 'expo-router';
 import { useEffect, useMemo } from 'react';
 
 import { theme } from '../theme';
-import { images } from '../assets/images'; // ✅ VIKTIGT
 import Section from '../../components/Section';
 import RichCard from '../../components/RichCard';
 import { getHomeFeed } from '../lib/aiFeed';
 import { track } from '../lib/analytics';
+import { images } from '../assets/images'; // ← VIKTIGT
 
 export default function HomeScreen() {
   useEffect(() => {
@@ -55,7 +55,7 @@ export default function HomeScreen() {
         </LinearGradient>
       </View>
 
-      {/* ✅ BILDER – KORREKT */}
+      {/* FEATURED */}
       <View style={styles.featured}>
         <Image source={images.arbetsklader} style={styles.featuredImage} />
         <Image source={images.skor} style={styles.featuredImage} />
