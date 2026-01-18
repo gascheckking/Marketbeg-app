@@ -1,3 +1,4 @@
+// app/index.tsx
 import { useEffect } from 'react';
 import { router } from 'expo-router';
 
