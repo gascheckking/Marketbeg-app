@@ -1,3 +1,5 @@
+// app/lib/aiProfile.ts
+
 export type Badge =
   | 'Säljes'
   | 'Paket'
