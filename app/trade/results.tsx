@@ -16,7 +16,6 @@ export default function TradeResultsScreen() {
     want?: string;
   }>();
 
-  // Mockade matchningar (v1)
   const matches: Match[] = [
     {
       id: '1',
@@ -40,7 +39,6 @@ export default function TradeResultsScreen() {
 
   return (
     <View style={styles.page}>
-      {/* HEADER */}
       <View style={styles.header}>
         <Text style={styles.kicker}>Matchningar</Text>
         <Text style={styles.title}>Direkt byte</Text>
@@ -49,7 +47,6 @@ export default function TradeResultsScreen() {
         </Text>
       </View>
 
-      {/* LIST */}
       <ScrollView contentContainerStyle={styles.list}>
         {matches.map((m) => (
           <Pressable
@@ -63,22 +60,16 @@ export default function TradeResultsScreen() {
             }
           >
             <View style={styles.thumb} />
-
             <View style={styles.cardBody}>
               <Text style={styles.cardTitle}>{m.title}</Text>
               <Text style={styles.cardMeta}>{m.meta}</Text>
             </View>
-
             <Text style={styles.cardHint}>{m.valueHint}</Text>
           </Pressable>
         ))}
       </ScrollView>
 
-      {/* FOOTER CTA */}
-      <Pressable
-        style={styles.ctaSecondary}
-        onPress={() => router.back()}
-      >
+      <Pressable style={styles.ctaSecondary} onPress={() => router.back()}>
         <Text style={styles.ctaSecondaryText}>Ändra byte</Text>
       </Pressable>
     </View>
@@ -91,34 +82,28 @@ const styles = StyleSheet.create({
     backgroundColor: theme.colors.bg,
     padding: theme.spacing.lg,
   },
-
   header: {
     marginBottom: theme.spacing.lg,
   },
-
   kicker: {
     fontSize: theme.text.xs,
     color: theme.colors.muted,
     marginBottom: 4,
   },
-
   title: {
     fontSize: theme.text.xl,
     fontWeight: '900',
     color: theme.colors.text,
   },
-
   subtitle: {
     fontSize: theme.text.sm,
     color: theme.colors.muted,
     marginTop: 4,
   },
-
   list: {
     gap: 12,
     paddingBottom: theme.spacing.xl,
   },
-
   card: {
     flexDirection: 'row',
     alignItems: 'center',
@@ -129,41 +114,34 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: theme.colors.border,
   },
-
   thumb: {
     width: 56,
     height: 56,
     borderRadius: theme.radius.md,
     backgroundColor: '#242433',
   },
-
   cardBody: {
     flex: 1,
   },
-
   cardTitle: {
     fontSize: theme.text.md,
     fontWeight: '800',
     color: theme.colors.text,
     marginBottom: 2,
   },
-
   cardMeta: {
     fontSize: theme.text.sm,
     color: theme.colors.muted,
   },
-
   cardHint: {
     fontSize: theme.text.sm,
     fontWeight: '700',
     color: theme.colors.primary,
   },
-
   ctaSecondary: {
     marginTop: theme.spacing.md,
     alignItems: 'center',
   },
-
   ctaSecondaryText: {
     fontSize: theme.text.sm,
     color: theme.colors.muted,
