@@ -1,3 +1,5 @@
+// app/upload/confirm.tsx
+
 import { View, Text, StyleSheet, Pressable } from 'react-native';
 import { router } from 'expo-router';
 import { LinearGradient } from 'expo-linear-gradient';
@@ -39,7 +41,6 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     padding: theme.spacing.lg,
   },
-
   card: {
     borderRadius: theme.radius.xl,
     padding: 24,
@@ -47,34 +48,29 @@ const styles = StyleSheet.create({
     borderColor: theme.colors.border,
     alignItems: 'center',
   },
-
   title: {
     fontSize: 28,
     fontWeight: '900',
     color: theme.colors.text,
     marginBottom: 8,
   },
-
   subtitle: {
     fontSize: theme.text.md,
     color: theme.colors.text,
     marginBottom: 6,
   },
-
   meta: {
     fontSize: theme.text.sm,
     color: theme.colors.muted,
     textAlign: 'center',
     marginBottom: 20,
   },
-
   primary: {
     backgroundColor: theme.colors.primary,
     borderRadius: theme.radius.md,
     paddingVertical: 14,
     paddingHorizontal: 24,
   },
-
   primaryText: {
     fontWeight: '900',
     color: '#000',
