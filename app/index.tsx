@@ -1,4 +1,4 @@
-import { Redirect, usePathname } from 'expo-router';
+import { Redirect } from 'expo-router';
 import { Platform } from 'react-native';
 
 export default function Index() {
