@@ -1,3 +1,5 @@
+// app/lib/aiFeed.ts
+
 import { priceForItem } from './aiPricing';
 import { getBadgeWeight } from './aiProfile';
 
