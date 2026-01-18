@@ -1,11 +1,5 @@
-// app/index.tsx
-import { useEffect } from 'react';
-import { router } from 'expo-router';
+import { Redirect } from 'expo-router';
 
 export default function Index() {
-  useEffect(() => {
-    router.replace('/(tabs)');
-  }, []);
-
-  return null;
+  return <Redirect href="/(tabs)" />;
 }
