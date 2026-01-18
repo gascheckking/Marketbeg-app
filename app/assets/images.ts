@@ -1,4 +1,4 @@
-// app/assets/images.ts  (SLUTLIG, FUNKAR PÅ VERCEL / LINUX)
+// app/assets/images.ts
 
 export const images = {
   arbetsklader: require('./arbetsklader.png'),
