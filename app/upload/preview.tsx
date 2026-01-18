@@ -43,12 +43,8 @@ export default function PreviewScreen() {
       {results.map((r, i) => (
         <View key={i} style={styles.card}>
           <View>
-            <Text style={styles.price}>
-              {r.price} kr
-            </Text>
-            <Text style={styles.badge}>
-              {r.badge}
-            </Text>
+            <Text style={styles.price}>{r.price} kr</Text>
+            <Text style={styles.badge}>{r.badge}</Text>
           </View>
 
           <Text style={styles.conf}>
@@ -57,13 +53,8 @@ export default function PreviewScreen() {
         </View>
       ))}
 
-      <Pressable
-        style={styles.cta}
-        onPress={publish}
-      >
-        <Text style={styles.ctaText}>
-          Publicera nu
-        </Text>
+      <Pressable style={styles.cta} onPress={publish}>
+        <Text style={styles.ctaText}>Publicera nu</Text>
       </Pressable>
     </ScrollView>
   );
