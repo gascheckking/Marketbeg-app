@@ -1,3 +1,5 @@
+// app/lib/aiPricing.ts
+
 import { adjustPrice } from './aiProfile';
 
 export type PriceBadge =
