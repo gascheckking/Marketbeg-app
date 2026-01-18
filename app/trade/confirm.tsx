@@ -24,7 +24,7 @@ export default function TradeConfirmScreen() {
 
       <Pressable
         style={styles.primary}
-        onPress={() => router.replace('/')}
+        onPress={() => router.replace('/(tabs)')}
       >
         <Text style={styles.primaryText}>Tillbaka till Home</Text>
       </Pressable>
@@ -39,26 +39,22 @@ const styles = StyleSheet.create({
     padding: theme.spacing.lg,
     justifyContent: 'space-between',
   },
-
   center: {
     alignItems: 'center',
     marginTop: theme.spacing.xl,
   },
-
   title: {
     fontSize: theme.text.xl,
     fontWeight: '900',
     color: theme.colors.text,
     marginBottom: 6,
   },
-
   subtitle: {
     fontSize: theme.text.sm,
     color: theme.colors.muted,
     marginBottom: theme.spacing.lg,
     textAlign: 'center',
   },
-
   card: {
     backgroundColor: theme.colors.card,
     borderRadius: theme.radius.lg,
@@ -67,26 +63,22 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: theme.colors.border,
   },
-
   cardText: {
     fontSize: theme.text.md,
     fontWeight: '800',
     color: theme.colors.text,
     marginBottom: 4,
   },
-
   cardMeta: {
     fontSize: theme.text.sm,
     color: theme.colors.muted,
   },
-
   primary: {
     backgroundColor: theme.colors.primary,
     borderRadius: theme.radius.lg,
     paddingVertical: 18,
     alignItems: 'center',
   },
-
   primaryText: {
     fontSize: theme.text.md,
     fontWeight: '900',
