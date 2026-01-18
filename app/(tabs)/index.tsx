@@ -25,68 +25,38 @@ export default function HomeScreen() {
   const feed = useMemo(() => getHomeFeed(), []);
 
   return (
-    <ScrollView
-      style={styles.page}
-      contentContainerStyle={styles.container}
-      showsVerticalScrollIndicator={false}
-    >
-      {/* HERO */}
-      <View style={styles.hero}>
-        <Text style={styles.kicker}>Välkommen tillbaka</Text>
+    <ScrollView style={styles.page} showsVerticalScrollIndicator={false}>
+      {/* HEADER */}
+      <View style={styles.header}>
         <Text style={styles.title}>Karma</Text>
         <Text style={styles.subtitle}>Hitta något nytt idag</Text>
-
-        <LinearGradient
-          colors={['#1b1b28', '#0f0f14']}
-          style={styles.karmaCard}
-        >
-          <Text style={styles.karmaLabel}>KARMA-SCORE</Text>
-          <Text style={styles.karmaValue}>1 250</Text>
-          <Text style={styles.karmaMeta}>Eco-hjälte</Text>
-
-          <View style={styles.karmaActions}>
-            <Pressable style={styles.primaryBtn}>
-              <Text style={styles.primaryText}>Tjäna Karma</Text>
-            </Pressable>
-
-            <Pressable style={styles.secondaryBtn}>
-              <Text style={styles.secondaryText}>Min impact</Text>
-            </Pressable>
-          </View>
-        </LinearGradient>
       </View>
 
-      {/* FEATURED IMAGES */}
-      <View style={styles.featured}>
-        <View style={styles.featuredCard}>
-          <Image source={images.arbetsklader} style={styles.featuredImage} />
-        </View>
-
-        <View style={styles.featuredCard}>
-          <Image source={images.skor} style={styles.featuredImage} />
-        </View>
-
-        <View style={styles.featuredCard}>
-          <Image source={images.markesvaskor} style={styles.featuredImage} />
-        </View>
-
-        <View style={styles.featuredCard}>
-          <Image source={images.vintagefynd} style={styles.featuredImage} />
-        </View>
-      </View>
-
-      {/* CATEGORIES */}
-      <ScrollView
-        horizontal
-        showsHorizontalScrollIndicator={false}
-        contentContainerStyle={styles.categories}
+      {/* SCORE CARD */}
+      <LinearGradient
+        colors={['#1b1b28', '#0f0f14']}
+        style={styles.scoreCard}
       >
-        {['Kläder', 'Skor', 'Hem', 'Elektronik', 'Barn'].map((c) => (
-          <View key={c} style={styles.category}>
-            <Text style={styles.categoryText}>{c}</Text>
-          </View>
-        ))}
-      </ScrollView>
+        <Text style={styles.scoreLabel}>KARMA-SCORE</Text>
+        <Text style={styles.scoreValue}>1 250</Text>
+        <Text style={styles.scoreMeta}>Eco-hjälte</Text>
+
+        <View style={styles.scoreActions}>
+          <Pressable style={styles.primaryBtn}>
+            <Text style={styles.primaryText}>Tjäna Karma</Text>
+          </Pressable>
+          <Pressable style={styles.secondaryBtn}>
+            <Text style={styles.secondaryText}>Min impact</Text>
+          </Pressable>
+        </View>
+      </LinearGradient>
+
+      {/* FEATURED */}
+      <View style={styles.featured}>
+        <Featured image={images.arbetsklader} label="Arbetskläder" />
+        <Featured image={images.skor} label="Sneakers" />
+        <Featured image={images.markesvaskor} label="Märkesväskor" />
+      </View>
 
       {/* FEED */}
       <Section title="Rekommenderat för dig">
@@ -110,70 +80,73 @@ export default function HomeScreen() {
   );
 }
 
+function Featured({ image, label }: { image: any; label: string }) {
+  return (
+    <View style={styles.featureCard}>
+      <Image source={image} style={styles.featureImage} />
+      <LinearGradient
+        colors={['transparent', 'rgba(0,0,0,0.9)']}
+        style={styles.featureOverlay}
+      >
+        <Text style={styles.featureText}>{label}</Text>
+      </LinearGradient>
+    </View>
+  );
+}
+
 const styles = StyleSheet.create({
   page: {
     flex: 1,
-    backgroundColor: theme.colors.bg,
+    backgroundColor: '#0b0b0f',
   },
 
-  container: {
-    paddingBottom: theme.spacing.lg,
-  },
-
-  hero: {
-    padding: theme.spacing.md,
-  },
-
-  kicker: {
-    fontSize: theme.text.xs,
-    color: theme.colors.muted,
+  header: {
+    padding: 16,
   },
 
   title: {
-    fontSize: theme.text.xl,
+    fontSize: 28,
     fontWeight: '900',
-    color: theme.colors.text,
+    color: '#fff',
   },
 
   subtitle: {
-    fontSize: theme.text.sm,
-    color: theme.colors.muted,
+    color: '#9a9aa0',
+  },
+
+  scoreCard: {
+    margin: 16,
+    borderRadius: 22,
+    padding: 18,
+    borderWidth: 1,
+    borderColor: '#2a2a36',
+  },
+
+  scoreLabel: {
+    fontSize: 12,
+    color: '#8b8b93',
+  },
+
+  scoreValue: {
+    fontSize: 42,
+    fontWeight: '900',
+    color: '#fff',
+  },
+
+  scoreMeta: {
+    color: '#8b8b93',
     marginBottom: 12,
   },
 
-  karmaCard: {
-    borderRadius: theme.radius.xl,
-    padding: 18,
-    borderWidth: 1,
-    borderColor: theme.colors.border,
-  },
-
-  karmaLabel: {
-    fontSize: theme.text.xs,
-    color: theme.colors.muted,
-  },
-
-  karmaValue: {
-    fontSize: 36,
-    fontWeight: '900',
-    color: theme.colors.text,
-  },
-
-  karmaMeta: {
-    fontSize: theme.text.sm,
-    color: theme.colors.muted,
-  },
-
-  karmaActions: {
+  scoreActions: {
     flexDirection: 'row',
     gap: 10,
-    marginTop: 16,
   },
 
   primaryBtn: {
     flex: 1,
-    backgroundColor: theme.colors.primary,
-    borderRadius: theme.radius.md,
+    backgroundColor: '#7CF3C0',
+    borderRadius: 14,
     paddingVertical: 12,
     alignItems: 'center',
   },
@@ -185,61 +158,56 @@ const styles = StyleSheet.create({
 
   secondaryBtn: {
     flex: 1,
-    borderRadius: theme.radius.md,
+    borderRadius: 14,
     paddingVertical: 12,
     alignItems: 'center',
     borderWidth: 1,
-    borderColor: theme.colors.border,
+    borderColor: '#2a2a36',
   },
 
   secondaryText: {
-    color: theme.colors.text,
+    color: '#fff',
     fontWeight: '700',
   },
 
   featured: {
-    paddingHorizontal: theme.spacing.md,
+    paddingHorizontal: 16,
     gap: 16,
     marginBottom: 24,
   },
 
-  featuredCard: {
-    borderRadius: theme.radius.lg,
+  featureCard: {
+    height: 180,
+    borderRadius: 22,
     overflow: 'hidden',
-    backgroundColor: '#000',
   },
 
-  featuredImage: {
+  featureImage: {
     width: '100%',
-    height: 240,
+    height: '100%',
     resizeMode: 'cover',
   },
 
-  categories: {
-    paddingHorizontal: theme.spacing.md,
-    gap: 8,
+  featureOverlay: {
+    position: 'absolute',
+    bottom: 0,
+    left: 0,
+    right: 0,
+    padding: 14,
   },
 
-  category: {
-    paddingHorizontal: 14,
-    paddingVertical: 8,
-    borderRadius: 999,
-    backgroundColor: theme.colors.card,
-    borderWidth: 1,
-    borderColor: theme.colors.border,
-  },
-
-  categoryText: {
-    color: theme.colors.text,
-    fontWeight: '600',
+  featureText: {
+    color: '#fff',
+    fontSize: 18,
+    fontWeight: '900',
   },
 
   sellHint: {
-    marginVertical: 20,
+    marginVertical: 24,
     alignItems: 'center',
   },
 
   sellHintText: {
-    color: theme.colors.muted,
+    color: '#8b8b93',
   },
 });
