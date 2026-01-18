@@ -8,7 +8,6 @@ export default function TradeChatScreen() {
 
   return (
     <View style={styles.page}>
-      {/* HEADER */}
       <View style={styles.header}>
         <Text style={styles.title}>Byteförfrågan</Text>
         <Text style={styles.subtitle}>
@@ -16,7 +15,6 @@ export default function TradeChatScreen() {
         </Text>
       </View>
 
-      {/* CHAT */}
       <ScrollView contentContainerStyle={styles.chat}>
         <View style={[styles.bubble, styles.them]}>
           <Text style={styles.text}>
@@ -37,12 +35,8 @@ export default function TradeChatScreen() {
         </View>
       </ScrollView>
 
-      {/* ACTIONS */}
       <View style={styles.actions}>
-        <Pressable
-          style={styles.secondary}
-          onPress={() => router.back()}
-        >
+        <Pressable style={styles.secondary} onPress={() => router.back()}>
           <Text style={styles.secondaryText}>Avbryt</Text>
         </Pressable>
 
@@ -68,60 +62,49 @@ const styles = StyleSheet.create({
     backgroundColor: theme.colors.bg,
     padding: theme.spacing.lg,
   },
-
   header: {
     marginBottom: theme.spacing.md,
   },
-
   title: {
     fontSize: theme.text.lg,
     fontWeight: '900',
     color: theme.colors.text,
   },
-
   subtitle: {
     fontSize: theme.text.sm,
     color: theme.colors.muted,
     marginTop: 2,
   },
-
   chat: {
     gap: 10,
     paddingVertical: theme.spacing.md,
     flexGrow: 1,
   },
-
   bubble: {
     maxWidth: '75%',
     padding: 12,
     borderRadius: theme.radius.md,
   },
-
   them: {
     backgroundColor: theme.colors.card,
     alignSelf: 'flex-start',
   },
-
   me: {
     backgroundColor: theme.colors.primary,
     alignSelf: 'flex-end',
   },
-
   text: {
     fontSize: theme.text.sm,
     color: theme.colors.text,
   },
-
   meText: {
     color: '#000',
     fontWeight: '700',
   },
-
   actions: {
     flexDirection: 'row',
     gap: 10,
   },
-
   secondary: {
     flex: 1,
     backgroundColor: theme.colors.card,
@@ -129,12 +112,10 @@ const styles = StyleSheet.create({
     paddingVertical: 14,
     alignItems: 'center',
   },
-
   secondaryText: {
     color: theme.colors.text,
     fontWeight: '700',
   },
-
   primary: {
     flex: 1,
     backgroundColor: theme.colors.primary,
@@ -142,7 +123,6 @@ const styles = StyleSheet.create({
     paddingVertical: 14,
     alignItems: 'center',
   },
-
   primaryText: {
     color: '#000',
     fontWeight: '900',
