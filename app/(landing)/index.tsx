@@ -1,49 +1,70 @@
-import { View, Text, StyleSheet, Pressable, ScrollView } from 'react-native';
+import { View, Text, StyleSheet, Pressable, Image, Animated } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { router } from 'expo-router';
+import { useRef, useEffect } from 'react';
 
 export default function Landing() {
+  const fade = useRef(new Animated.Value(0)).current;
+  const slide = useRef(new Animated.Value(40)).current;
+
+  useEffect(() => {
+    Animated.parallel([
+      Animated.timing(fade, { toValue: 1, duration: 800, useNativeDriver: true }),
+      Animated.timing(slide, { toValue: 0, duration: 800, useNativeDriver: true }),
+    ]).start();
+  }, []);
+
   return (
-    <ScrollView style={styles.page}>
-      <LinearGradient colors={['#0b0b0f', '#14141b']} style={styles.hero}>
+    <View style={styles.page}>
+      <LinearGradient colors={['#050508', '#0b0b12']} style={styles.bg} />
+
+      <Animated.View
+        style={[
+          styles.content,
+          { opacity: fade, transform: [{ translateY: slide }] },
+        ]}
+      >
         <Text style={styles.logo}>KARMA</Text>
         <Text style={styles.tagline}>Köp. Sälj. Rädda världen lite.</Text>
+
+        <Image
+          source={require('../assets/preview.png')}
+          style={styles.preview}
+        />
 
         <Pressable
           style={styles.cta}
           onPress={() => router.push('/onboarding')}
         >
-          <Text style={styles.ctaText}>Kom igång</Text>
+          <Text style={styles.ctaText}>Öppna appen</Text>
         </Pressable>
-      </LinearGradient>
-
-      <View style={styles.cards}>
-        <Card title="Sälj smart" text="AI sätter rätt pris direkt" />
-        <Card title="Tjäna karma" text="Varje affär räknas" />
-        <Card title="Handla bättre" text="Second hand, men premium" />
-      </View>
-    </ScrollView>
-  );
-}
-
-function Card({ title, text }: { title: string; text: string }) {
-  return (
-    <LinearGradient colors={['#1b1b28', '#0f0f14']} style={styles.card}>
-      <Text style={styles.cardTitle}>{title}</Text>
-      <Text style={styles.cardText}>{text}</Text>
-    </LinearGradient>
+      </Animated.View>
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
-  page: { flex: 1, backgroundColor: '#0b0b0f' },
-  hero: { paddingTop: 120, paddingBottom: 80, alignItems: 'center' },
-  logo: { fontSize: 42, fontWeight: '900', color: '#fff' },
+  page: { flex: 1, backgroundColor: '#000' },
+  bg: { ...StyleSheet.absoluteFillObject },
+  content: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    padding: 24,
+  },
+  logo: { fontSize: 44, fontWeight: '900', color: '#fff', marginBottom: 8 },
   tagline: { color: '#9a9aa0', marginBottom: 32 },
-  cta: { backgroundColor: '#7CF3C0', padding: 16, borderRadius: 16 },
-  ctaText: { fontWeight: '900', color: '#000' },
-  cards: { padding: 16, gap: 16 },
-  card: { borderRadius: 22, padding: 20, borderWidth: 1, borderColor: '#2a2a36' },
-  cardTitle: { color: '#fff', fontSize: 18, fontWeight: '800' },
-  cardText: { color: '#9a9aa0' },
+  preview: {
+    width: 260,
+    height: 520,
+    borderRadius: 32,
+    marginBottom: 32,
+  },
+  cta: {
+    backgroundColor: '#7CF3C0',
+    paddingVertical: 16,
+    paddingHorizontal: 32,
+    borderRadius: 18,
+  },
+  ctaText: { color: '#000', fontWeight: '900', fontSize: 16 },
 });
