@@ -1,4 +1,3 @@
-// app/(tabs)/index.tsx
 import {
   View,
   Text,
@@ -16,6 +15,14 @@ import Section from '../../components/Section';
 import RichCard from '../../components/RichCard';
 import { getHomeFeed } from '../lib/aiFeed';
 import { track } from '../lib/analytics';
+
+/* ===== ASSETS (MÅSTE LIGGA I app/assets) ===== */
+const images = {
+  arbetsklader: require('../assets/arbetsklader.png'),
+  skor: require('../assets/skor.png'),
+  markesvaskor: require('../assets/markesvaskor.png'),
+  vintagefynd: require('../assets/vintagefynd.png'),
+};
 
 export default function HomeScreen() {
   useEffect(() => {
@@ -55,13 +62,15 @@ export default function HomeScreen() {
         </LinearGradient>
       </View>
 
+      {/* FEATURED */}
       <View style={styles.featured}>
-        <Image source={require('../../assets/arbetsklader.png')} style={styles.featuredImage} />
-        <Image source={require('../../assets/skor.png')} style={styles.featuredImage} />
-        <Image source={require('../../assets/markesvaskor.png')} style={styles.featuredImage} />
-        <Image source={require('../../assets/vintagefynd.png')} style={styles.featuredImage} />
+        <Image source={images.arbetsklader} style={styles.featuredImage} />
+        <Image source={images.skor} style={styles.featuredImage} />
+        <Image source={images.markesvaskor} style={styles.featuredImage} />
+        <Image source={images.vintagefynd} style={styles.featuredImage} />
       </View>
 
+      {/* CATEGORIES */}
       <ScrollView
         horizontal
         showsHorizontalScrollIndicator={false}
@@ -98,20 +107,25 @@ export default function HomeScreen() {
 const styles = StyleSheet.create({
   page: { flex: 1, backgroundColor: theme.colors.bg },
   container: { paddingBottom: theme.spacing.lg },
+
   hero: { padding: theme.spacing.md },
   kicker: { fontSize: theme.text.xs, color: theme.colors.muted },
   title: { fontSize: theme.text.xl, fontWeight: '900', color: theme.colors.text },
   subtitle: { fontSize: theme.text.sm, color: theme.colors.muted, marginBottom: 12 },
+
   karmaCard: {
     borderRadius: theme.radius.xl,
     padding: 18,
     borderWidth: 1,
     borderColor: theme.colors.border,
   },
+
   karmaLabel: { fontSize: theme.text.xs, color: theme.colors.muted },
   karmaValue: { fontSize: 36, fontWeight: '900', color: theme.colors.text },
   karmaMeta: { fontSize: theme.text.sm, color: theme.colors.muted },
+
   karmaActions: { flexDirection: 'row', gap: 10, marginTop: 16 },
+
   primaryBtn: {
     flex: 1,
     backgroundColor: theme.colors.primary,
@@ -119,7 +133,9 @@ const styles = StyleSheet.create({
     paddingVertical: 12,
     alignItems: 'center',
   },
+
   primaryText: { fontWeight: '900', color: '#000' },
+
   secondaryBtn: {
     flex: 1,
     borderRadius: theme.radius.md,
@@ -128,10 +144,23 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: theme.colors.border,
   },
+
   secondaryText: { color: theme.colors.text, fontWeight: '700' },
-  featured: { paddingHorizontal: theme.spacing.md, gap: 12, marginBottom: 20 },
-  featuredImage: { width: '100%', height: 160, borderRadius: theme.radius.lg },
+
+  featured: {
+    paddingHorizontal: theme.spacing.md,
+    gap: 12,
+    marginBottom: 20,
+  },
+
+  featuredImage: {
+    width: '100%',
+    height: 160,
+    borderRadius: theme.radius.lg,
+  },
+
   categories: { paddingHorizontal: theme.spacing.md, gap: 8 },
+
   category: {
     paddingHorizontal: 14,
     paddingVertical: 8,
@@ -140,7 +169,9 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: theme.colors.border,
   },
+
   categoryText: { color: theme.colors.text, fontWeight: '600' },
+
   sellHint: { marginVertical: 20, alignItems: 'center' },
   sellHintText: { color: theme.colors.muted },
 });
