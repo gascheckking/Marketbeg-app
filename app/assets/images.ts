@@ -1,5 +1,3 @@
-// app/assets/images.ts
-
 export const images = {
   arbetsklader: require('./arbetsklader.png'),
   skor: require('./skor.png'),
