@@ -1,131 +1,135 @@
-import { View, Text, StyleSheet, Pressable, ScrollView } from 'react-native';
+import {
+  View,
+  Text,
+  StyleSheet,
+  Pressable,
+  ImageBackground,
+} from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { router } from 'expo-router';
 
-export default function Landing() {
+export default function LandingScreen() {
   return (
-    <ScrollView style={styles.page} contentContainerStyle={styles.container}>
-      <LinearGradient
-        colors={['#05050a', '#0b0b14', '#05050a']}
+    <View style={styles.page}>
+      <ImageBackground
+        source={require('../assets/arbetsklader.png')}
         style={styles.hero}
+        resizeMode="cover"
       >
-        <Text style={styles.logo}>KARMA</Text>
-        <Text style={styles.tagline}>
-          Köp. Sälj. Rädda världen lite.
-        </Text>
+        <LinearGradient
+          colors={['rgba(0,0,0,0.7)', 'rgba(0,0,0,0.95)']}
+          style={styles.overlay}
+        >
+          <Text style={styles.logo}>KARMA</Text>
 
-        <View style={styles.card}>
-          <Text style={styles.cardLabel}>KARMA SCORE</Text>
-          <Text style={styles.cardValue}>1 250</Text>
-          <Text style={styles.cardMeta}>Eco-hjälte</Text>
+          <Text style={styles.title}>
+            Köp. Sälj. Byt.  
+            Med mening.
+          </Text>
 
-          <Pressable
-            style={styles.cta}
-            onPress={() => router.replace('/(tabs)')}
-          >
-            <Text style={styles.ctaText}>Öppna appen</Text>
-          </Pressable>
-        </View>
-      </LinearGradient>
+          <Text style={styles.subtitle}>
+            Second hand, auktioner och byten –  
+            smartare, snabbare och bättre för planeten.
+          </Text>
 
-      <View style={styles.features}>
-        <Feature
-          title="Sälj smart"
-          text="AI sätter rätt pris direkt"
-        />
-        <Feature
-          title="Tjäna karma"
-          text="Varje affär räknas"
-        />
-        <Feature
-          title="Trygg handel"
-          text="Paket, escrow & skydd"
-        />
-      </View>
-    </ScrollView>
-  );
-}
+          <View style={styles.actions}>
+            <Pressable
+              style={styles.primaryBtn}
+              onPress={() => router.replace('/(tabs)')}
+            >
+              <Text style={styles.primaryText}>Kom igång</Text>
+            </Pressable>
 
-function Feature({ title, text }: { title: string; text: string }) {
-  return (
-    <View style={styles.featureCard}>
-      <Text style={styles.featureTitle}>{title}</Text>
-      <Text style={styles.featureText}>{text}</Text>
+            <Pressable
+              style={styles.secondaryBtn}
+              onPress={() => router.replace('/(tabs)/search')}
+            >
+              <Text style={styles.secondaryText}>Utforska</Text>
+            </Pressable>
+          </View>
+
+          <Text style={styles.meta}>
+            1 000+ objekt • AI-prissättning • Direkt byte
+          </Text>
+        </LinearGradient>
+      </ImageBackground>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-  page: { flex: 1, backgroundColor: '#05050a' },
-  container: { paddingBottom: 80 },
+  page: {
+    flex: 1,
+    backgroundColor: '#000',
+  },
 
   hero: {
-    paddingTop: 120,
-    paddingHorizontal: 24,
-    paddingBottom: 60,
+    flex: 1,
+  },
+
+  overlay: {
+    flex: 1,
+    justifyContent: 'flex-end',
+    padding: 24,
   },
 
   logo: {
-    color: '#fff',
-    fontSize: 42,
+    fontSize: 32,
     fontWeight: '900',
-    textAlign: 'center',
-    letterSpacing: 2,
+    color: '#7CF3C0',
+    marginBottom: 16,
   },
 
-  tagline: {
-    color: '#9a9aa0',
-    textAlign: 'center',
-    marginTop: 6,
-    marginBottom: 40,
+  title: {
+    fontSize: 36,
+    fontWeight: '900',
+    color: '#fff',
+    lineHeight: 40,
+    marginBottom: 12,
   },
 
-  card: {
-    backgroundColor: '#101018',
-    borderRadius: 24,
-    padding: 20,
-    borderWidth: 1,
-    borderColor: '#2a2a36',
+  subtitle: {
+    color: '#b5b5bb',
+    fontSize: 16,
+    marginBottom: 24,
   },
 
-  cardLabel: { color: '#8b8b93', fontSize: 12 },
-  cardValue: { color: '#fff', fontSize: 48, fontWeight: '900' },
-  cardMeta: { color: '#8b8b93', marginBottom: 16 },
+  actions: {
+    gap: 12,
+    marginBottom: 16,
+  },
 
-  cta: {
+  primaryBtn: {
     backgroundColor: '#7CF3C0',
-    borderRadius: 16,
-    paddingVertical: 14,
+    borderRadius: 18,
+    paddingVertical: 16,
     alignItems: 'center',
   },
 
-  ctaText: {
+  primaryText: {
     fontWeight: '900',
+    fontSize: 16,
     color: '#000',
+  },
+
+  secondaryBtn: {
+    borderWidth: 1,
+    borderColor: '#2a2a36',
+    borderRadius: 18,
+    paddingVertical: 16,
+    alignItems: 'center',
+  },
+
+  secondaryText: {
+    color: '#fff',
+    fontWeight: '800',
     fontSize: 16,
   },
 
-  features: {
-    padding: 24,
-    gap: 16,
-  },
-
-  featureCard: {
-    backgroundColor: '#101018',
-    borderRadius: 18,
-    padding: 16,
-    borderWidth: 1,
-    borderColor: '#2a2a36',
-  },
-
-  featureTitle: {
-    color: '#fff',
-    fontSize: 18,
-    fontWeight: '800',
-  },
-
-  featureText: {
-    color: '#9a9aa0',
-    marginTop: 4,
+  meta: {
+    marginTop: 12,
+    color: '#8b8b93',
+    textAlign: 'center',
+    fontSize: 13,
   },
 });
