@@ -15,6 +15,7 @@ export default function TabsLayout() {
         tabBarStyle: styles.tabBar,
       }}
     >
+      <Tabs.Screen name="explore" ... />
       <Tabs.Screen name="index" options={{ tabBarIcon: ({ color }) => <Ionicons name="home-outline" size={22} color={color} /> }} />
       <Tabs.Screen name="search" options={{ tabBarIcon: ({ color }) => <Ionicons name="search-outline" size={22} color={color} /> }} />
       <Tabs.Screen name="auction" options={{ tabBarIcon: ({ color }) => <Ionicons name="hammer-outline" size={22} color={color} /> }} />
